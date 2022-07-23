@@ -1,0 +1,30 @@
+.card-body {
+    padding: .5rem;
+    background-color: #262626;
+    height: auto;
+}
+
+.card-img-top {
+    max-width: 100%;
+    max-height: 190px;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+a {
+    background-color: burlywood;
+}
+
+.this-loader {
+    height: 160px;
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    width: 142px;
+}

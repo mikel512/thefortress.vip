@@ -1,0 +1,14 @@
+<div class="card">
+    <a routerLink="/venue-detail/{{venue.venueId}}">
+        <div [hidden]="!imageLoader" class="this-loader">
+            <app-animation-one></app-animation-one>
+        </div>
+        <img [src]="venue.picture" class="card-img-top" (load)="this.imageLoader = false">
+        <div class="card-body text-light">
+            <h5 class="card-title">{{venue.venueName}}</h5>
+            <p class="card-text">{{venue.location}}</p>
+
+        </div>
+    </a>
+
+</div>

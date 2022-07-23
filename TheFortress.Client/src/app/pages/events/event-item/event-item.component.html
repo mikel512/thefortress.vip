@@ -1,0 +1,25 @@
+<div class="event-box tile-view text-light">
+    <a routerLink="/events/{{event.eventConcertId}}" class="stretched-link">
+    </a>
+    <div class="event-image-container">
+        <a routerLink="/events/{{event.eventConcertId}}">
+            <div [hidden]="!imageLoader" class="img-loader img-loader-md img-loader-sm">
+                <app-animation-one></app-animation-one>
+            </div>
+            <div [hidden]="imageLoader" class="image" style="background-image: url({{event.flyer}});"></div>
+            <img src="{{event.flyer}}" hidden (load)="this.imageLoader = false">
+        </a>
+    </div>
+    <div class="caption">
+        <div class="date">
+
+            {{event.eventDate | date: 'fullDate'}}
+        </div>
+        <div class="event-box-headline">
+            <a routerLink="/events/{{event.eventConcertId}}">{{event.eventName}}</a>
+        </div>
+        <div class="venue-link" >
+            {{event.venueFkNavigation.venueName}}
+        </div>
+    </div>
+</div>

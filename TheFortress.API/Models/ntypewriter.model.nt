@@ -1,0 +1,52 @@
+{{- config.AddGeneratedFilesToVSProject = false -}}
+{{- for class in data.Classes
+	if class.Namespace != "TheFortress.API.Models" || String.EndsWith(class.Name ,"Context")
+		continue
+	end
+	capture output
+
+	func convertSnakeCase (baseName)
+		it = baseName | Regex.Split("(?<!^)(?=[A-Z])|[A-Z]([A-Z][a-z])")
+		snakeCase = ""
+
+		for s in it
+			if for.last
+			snakeCase += s | String.Downcase()
+			break
+			end
+		snakeCase += s | String.Downcase() | String.Append("-") 
+		end
+		ret snakeCase
+	end -}}
+
+// NTypescript generated file
+
+{{for property in class.Properties
+	if property.IsVirtual 
+		stringProp = property.Type | Type.Unwrap | String.Remove("?") -}}
+import { {{stringProp}} } from './{{convertSnakeCase stringProp }}'
+{{end 
+	end}}
+
+export interface I{{class.Name}} {
+		{{- for property in class.Properties | Symbols.ThatArePublic }}
+	{{ property.Name | String.ToCamelCase }}: {{ property.Type | Type.ToTypeScriptType }};
+		{{- end }}
+
+}
+
+export class {{ class.Name }} implements I{{class.Name}} {
+	constructor(init: Partial<I{{class.Name}}>) {
+		Object.assign(this, init);
+	}
+	{{}}
+
+		{{- for property in class.Properties | Symbols.ThatArePublic }}
+	{{ property.Name | String.ToCamelCase }}: {{ property.Type | Type.ToTypeScriptType }};
+		{{- end }}
+}
+{{- end 
+	filePath =  convertSnakeCase(class.BareName) | String.Append ".ts" | 
+	String.Prepend "../../TheFortress.Client/src/app/models/"
+	Save output filePath 
+end }}

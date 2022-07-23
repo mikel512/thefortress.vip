@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row pt-2">
+        <div class="col-4">
+
+            <div class="form-group">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" 
+                        class="btn btn-primary" 
+                        [ngClass]="{'active': isEvent}" 
+                        (click)="eventsNav()">Event</button>
+                    <button 
+                        type="button" 
+                        class="btn btn-success" 
+                        [ngClass]="{'active': !isEvent}" 
+                        (click)="venuesNav()">Venue</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-8 pl-4">
+            <div class="form-group">
+                <select class="form-control bg-dark text-light" (change)="navigateTo($event)">
+                    <option [value]="city">{{city}}</option>
+                    <option *ngFor="let place of citiesDropdown" [value]="place">{{place}}</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>

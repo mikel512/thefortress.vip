@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NTypeWriterCli": {
+      "commandName": "Project",
+      "commandLineArgs": "-s C:\\Users\\mikel\\Documents\\repo\\TheFortressWebApp\\TheFortress.API\\TheFortress.API.sln --verbose"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row cities-pad">
+        <div class="col">
+            <h1 class="text-light text-center">Which City?</h1>
+        </div>
+    </div>
+    <div class="row cities-pad">
+        <ng-container *ngFor="let city of cities">
+            <div class="col-sm-6 pb-4">
+
+                <app-city [cityObj]="city"></app-city>
+
+            </div>
+
+        </ng-container>
+    </div>
+</div>
