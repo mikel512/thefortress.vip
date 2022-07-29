@@ -4,43 +4,59 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- main
+  - main
 
+# define the VM image I want to use for my build
 pool:
-  vmImage: 'windows-latest'
+  vmImage: "Ubuntu 20.04"
 
+# define variables to use during the build
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  projectFile: "TheFortress.API/TheFortress.API.csproj"
+  buildConfiguration: "Release"
+  projectFolder: "TheFortress.Client"
+  buildOutputFolder: "src/angular/dist/html"
 
+# define the steps of the build
 steps:
-- task: NuGetToolInstaller@1
+  ## Run the npm install/build
+  - script: |
+      pushd $(projectFolder) && npm install && popd
+      pushd $(projectFolder) && npm run build && popd
+  ## Copy the client to the staging directory
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: "$(buildOutputFolder)"
+      contents: "**/*"
+      targetFolder: "$(Build.ArtifactStagingDirectory)"
+      cleanTargetFolder: true
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+  ## Archive the files into a zip file for publishing
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)
+      archiveType: "zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+      includeRootFolder: false
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  ## Publish the zip file
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  ## Run the dotnet build/publish
+  - script: |
+      dotnet build $(projectFile) --configuration $(buildConfiguration)
+      dotnet publish $(projectFile) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  ## Archive the files into a zip file for publishing
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)
+      archiveType: "zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+      includeRootFolder: false
 
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
-
+  ## Publish the zip file
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
