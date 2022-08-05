@@ -50,7 +50,7 @@ steps:
       dotnet build $(projectFile) --configuration $(buildConfiguration)
       dotnet publish $(projectFile) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)_build
   ## Archive the files into a zip file for publishing
-  - task: ArchiveFiles@4
+  - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: $(Build.ArtifactStagingDirectory)_build
       archiveType: "zip"
@@ -58,6 +58,6 @@ steps:
       includeRootFolder: false
 
   ## Publish the zip file
-  - task: PublishBuildArtifacts@3
+  - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
