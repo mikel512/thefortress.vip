@@ -43,7 +43,7 @@ steps:
   ## Publish the zip file
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_ng.zip"
 
   ## Run the dotnet build/publish
   - script: |
@@ -60,4 +60,4 @@ steps:
   ## Publish the zip file
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_api.zip"
