@@ -16,7 +16,7 @@ variables:
   projectFile: "TheFortress.API/TheFortress.API.csproj"
   buildConfiguration: "Release"
   projectFolder: "TheFortress.Client"
-  buildOutputFolder: "src/angular/dist/html"
+  buildOutputFolder: "/dist/html"
 
 # define the steps of the build
 steps:
@@ -27,7 +27,7 @@ steps:
   ## Copy the client to the staging directory
   - task: CopyFiles@2
     inputs:
-      sourceFolder: "$(Build.SourcesDirectory)"
+      sourceFolder: "$(buildOutputFolder)"
       contents: "**/*"
       targetFolder: "$(Build.ArtifactStagingDirectory)"
       cleanTargetFolder: true
@@ -37,13 +37,13 @@ steps:
     inputs:
       rootFolderOrFile: $(Build.ArtifactStagingDirectory)
       archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_ng.zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
       includeRootFolder: false
 
   ## Publish the zip file
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_ng.zip"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
 
   ## Run the dotnet build/publish
   - script: |
@@ -52,12 +52,12 @@ steps:
   ## Archive the files into a zip file for publishing
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: $(Build.ArtifactStagingDirectory)
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)_build
       archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_api.zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
       includeRootFolder: false
 
   ## Publish the zip file
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_api.zip"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
