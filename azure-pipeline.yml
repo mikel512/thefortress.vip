@@ -61,9 +61,3 @@ steps:
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
-
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Pipeline.Workspace)'
-      artifact: 'server/main'
-      publishLocation: 'pipeline'
