@@ -18,6 +18,7 @@ namespace TheFortress.API.Data
         }
 
         public virtual DbSet<AdminMessage> AdminMessages { get; set; } = null!;
+        public virtual DbSet<AppRole> AppRoles { get; set; } = null!;
         public virtual DbSet<AppUser> AppUsers { get; set; } = null!;
         public virtual DbSet<ApprovalQueue> ApprovalQueues { get; set; } = null!;
         public virtual DbSet<Artist> Artists { get; set; } = null!;
@@ -29,6 +30,13 @@ namespace TheFortress.API.Data
         public virtual DbSet<TrustedCode> TrustedCodes { get; set; } = null!;
         public virtual DbSet<Venue> Venues { get; set; } = null!;
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Name=DbConnection");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +53,18 @@ namespace TheFortress.API.Data
                 entity.Property(e => e.Sender).HasMaxLength(50);
 
                 entity.Property(e => e.Subject).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<AppRole>(entity =>
+            {
+                entity.HasKey(e => e.RoleId)
+                    .HasName("PK__AppRole__8AFACE1ACFB59A73");
+
+                entity.ToTable("AppRole");
+
+                entity.Property(e => e.RoleId).HasDefaultValueSql("(newsequentialid())");
+
+                entity.Property(e => e.RoleName).HasMaxLength(100);
             });
 
             modelBuilder.Entity<AppUser>(entity =>

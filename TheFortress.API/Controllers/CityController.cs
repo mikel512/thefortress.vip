@@ -18,7 +18,7 @@ namespace TheFortress.API.Controllers
     {
         UnitOfWork unitOfWork;
 
-        CityController(TheFortressContext context)
+        public CityController(TheFortressContext context)
         {
             unitOfWork = new UnitOfWork(context);
         }

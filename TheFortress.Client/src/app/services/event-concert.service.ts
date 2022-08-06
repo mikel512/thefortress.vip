@@ -27,14 +27,14 @@ export class EventConcertService {
 				return new EventConcert(<IEventConcert> response)
 			}));
 	}
-	public getByCity(baseUrl, city: string): Observable<EventConcert[]> {
-		return this.http.get<EventConcert[]>(baseUrl + `api/EventConcert/city/${city}`)
+	public getByCity(baseUrl, name: string): Observable<EventConcert[]> {
+		return this.http.get<EventConcert[]>(baseUrl + `api/EventConcert/GetByCity/${name}`)
 			.pipe(map(response => {
 				return (response as EventConcert[]).map(x => new EventConcert(x))
 			}));
 	}
-	public getByVenue(baseUrl, venueId: number, isVenue: boolean): Observable<EventConcert[]> {
-		return this.http.get<EventConcert[]>(baseUrl + `api/EventConcert/${venueId}/${isVenue}`)
+	public getByVenue(baseUrl, id: number): Observable<EventConcert[]> {
+		return this.http.get<EventConcert[]>(baseUrl + `api/EventConcert/GetByVenue/${id}`)
 			.pipe(map(response => {
 				return (response as EventConcert[]).map(x => new EventConcert(x))
 			}));

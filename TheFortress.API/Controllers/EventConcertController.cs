@@ -26,17 +26,16 @@ namespace TheFortress.API.Controllers
         }
 
 
-        [Authorize]
-        [RequiredScope("tasks.read")]
         [HttpGet]
         public async Task<IEnumerable<EventConcert>> Get()
         {
-            return await unitOfWork.EventConcertRepository.Get(includeProperties: "VenueFkNavigation");
+            return await unitOfWork.EventConcertRepository
+                .Get(e => e.EventDate >= DateTime.Today.AddDays(-1),
+                orderBy: e => e.OrderBy(x => x.EventDate),
+                includeProperties: "VenueFkNavigation");
         }
 
         // GET /<ConcertController>/5
-        [Authorize]
-        [RequiredScope("tasks.read")]
         [HttpGet("{id}")]
         public EventConcert GetById(int id)
         {
@@ -46,20 +45,20 @@ namespace TheFortress.API.Controllers
                     includeProperties: "VenueFkNavigation").Result.FirstOrDefault() ?? new EventConcert();
         }
 
-        [HttpGet("city/{city}")]
-        public async Task<IEnumerable<EventConcert>> GetByCity(string city)
+        [HttpGet("[action]/{name}")]
+        public async Task<IEnumerable<EventConcert>> GetByCity(string name)
         {
             return await unitOfWork.EventConcertRepository
-                .Get(e => e.VenueFkNavigation.CityFkNavigation.CityName == city && e.EventDate >= DateTime.Today.AddDays(-1),
+                .Get(e => e.VenueFkNavigation!.CityFkNavigation.CityName == name && e.EventDate >= DateTime.Today.AddDays(-1),
                     orderBy: e => e.OrderBy(x => x.EventDate),
                     includeProperties: "VenueFkNavigation");
         }
 
-        [HttpGet("{venueId}/{isVenue}")]
-        public Task<IEnumerable<EventConcert>> GetByVenue(int venueId, bool isVenue)
+        [HttpGet("[action]/{id}")]
+        public Task<IEnumerable<EventConcert>> GetByVenue(int id)
         {
             return unitOfWork.EventConcertRepository
-                .Get(e => e.VenueFk == venueId && e.EventDate >= DateTime.Today.AddDays(-1),
+                .Get(e => e.VenueFk == id && e.EventDate >= DateTime.Today.AddDays(-1),
                     orderBy: e => e.OrderBy(x => x.EventDate),
                     includeProperties: "VenueFkNavigation");
         }
