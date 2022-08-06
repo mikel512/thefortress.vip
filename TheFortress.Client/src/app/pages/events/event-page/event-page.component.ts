@@ -34,7 +34,7 @@ export class EventPageComponent implements OnInit {
   constructor(private actRouter: ActivatedRoute,
     private router: Router,
     private data: EventConcertService,
-    http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    @Inject('BASE_URL') baseUrl: string) {
 
     this.route = actRouter.snapshot;
     this.currentCity = this.route.params['city'];
