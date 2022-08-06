@@ -40,7 +40,7 @@ export class VenueDetailComponent implements OnInit {
     this.venueId = this.route.params['venueId'];
 
     let venue$ = _venue.getById(baseUrl, this.venueId);
-    let events$ = _event.getByVenue(baseUrl, this.venueId, true);
+    let events$ = _event.getByVenue(baseUrl, this.venueId);
 
     venue$.subscribe(x => {
       this.venue = x;
