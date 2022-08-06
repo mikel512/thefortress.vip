@@ -55,7 +55,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
         // The routing guard configuration. 
         interactionType: InteractionType.Redirect,
         authRequest: {
-          scopes: protectedResources.todoListApi.scopes
+          // scopes: protectedResources.todoListApi.scopes
         }
       },
       {
@@ -63,7 +63,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
         // The protected resource mapping maps your web API with the corresponding app scopes. If your code needs to call another web API, add the URI mapping here.
         interactionType: InteractionType.Redirect,
         protectedResourceMap: new Map([
-          [protectedResources.todoListApi.endpoint, protectedResources.todoListApi.scopes]
+          // [protectedResources.todoListApi.endpoint, protectedResources.todoListApi.scopes]
         ])
       }),
     RouterModule.forRoot([
@@ -76,7 +76,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
       { path: 'venues/:city', loadChildren: () => import('./pages/venues/venues-page/venues-page.module').then(m => m.VenuesPageModule) },
       { path: ':city', loadChildren: () => import('./pages/events/event-page/event-page.module').then(m => m.EventPageModule) },
       { path: 'events/:eventId', loadChildren: () => import('./pages/events/event-detail/event-detail.module').then(m => m.EventDetailModule) },
-      { path: 'venue-detail/:venueId', loadChildren: () => import('./pages/venues/venue-detail/venue-detail.module').then(m => m.VenueDetailModule) },
+      { path: 'venue/:venueId', loadChildren: () => import('./pages/venues/venue-detail/venue-detail.module').then(m => m.VenueDetailModule) },
       { path: 'loading-animations', loadChildren: () => import('./loading-animations/loading-animations.module').then(m => m.LoadingAnimationsModule) },
     ])
   ],
