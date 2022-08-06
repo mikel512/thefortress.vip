@@ -37,13 +37,13 @@ steps:
     inputs:
       rootFolderOrFile: $(Build.ArtifactStagingDirectory)
       archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_ng.zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/bundle_ng.zip"
       includeRootFolder: false
 
   ## Publish the zip file
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_ng.zip"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/bundle_ng.zip"
 
   ## Run the dotnet build/publish
   - script: |
@@ -54,10 +54,10 @@ steps:
     inputs:
       rootFolderOrFile: $(Build.ArtifactStagingDirectory)_build
       archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_api.zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/bundle_api.zip"
       includeRootFolder: false
 
   ## Publish the zip file
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_api.zip"
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/bundle_api.zip"
