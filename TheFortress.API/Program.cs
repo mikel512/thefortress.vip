@@ -18,13 +18,9 @@ else //linux
 {
     builder.Configuration.AddJsonFile(@"/var/www/TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
 
-}
+} 
 
-
-
-
-IdentityModelEventSource.ShowPII = true;
-
+IdentityModelEventSource.ShowPII = true; 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(options =>
@@ -52,11 +48,11 @@ builder.Services.AddDbContext<TheFortressContext>(x => x.UseSqlServer(builder.Co
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 
 app.UseAuthentication();
