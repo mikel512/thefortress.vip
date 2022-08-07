@@ -144,15 +144,18 @@ export class NavMenuComponent {
 
     let list: Claim[] = new Array<Claim>();
 
-    Object.keys(claims).forEach(function (k, v) {
+    if (claims != null) {
+      Object.keys(claims).forEach(function (k, v) {
 
-      let c = new Claim()
-      c.id = v;
-      c.claim = k;
-      c.value = claims ? claims[k] : null;
-      if(c.claim === 'name') this.userName = c.value;
-      list.push(c);
-    }, this);
+        let c = new Claim()
+        c.id = v;
+        c.claim = k;
+        c.value = claims ? claims[k] : null;
+        if (c.claim === 'name') this.userName = c.value;
+        list.push(c);
+      }, this);
+
+    }
     this.dataSource = list;
     console.log(this.dataSource);
 

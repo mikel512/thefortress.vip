@@ -54,8 +54,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseSwagger();
 }
+else
+{
+    app.UseHttpsRedirection();
 
-app.UseHttpsRedirection();
+}
+
 
 //app.UseAuthentication();
 //app.UseAuthorization();
