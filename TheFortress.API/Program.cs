@@ -46,13 +46,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TheFortressContext>(x => x.UseSqlServer(builder.Configuration.GetValue<string>("DbConnection")));
 
 var app = builder.Build();
+app.UseSwagger();
+app.UseDeveloperExceptionPage();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-    app.UseSwagger();
+if (app.Environment.IsDevelopment())
+{
     app.UseSwaggerUI();
-//}
+}
 
 
 app.UseAuthentication();
