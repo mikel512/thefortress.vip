@@ -16,12 +16,13 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 }
 else //linux
 {
-    builder.Configuration.AddJsonFile(@"/var/www/TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
+    var pathParts = Path.GetRelativePath(@"C:\", Path.GetDirectoryName(@"/var/www/TheFortressWebApp.conf.json"))
+    .Split(Path.DirectorySeparatorChar);
 
-}
+    var restoredPath = Path.Combine(pathParts);
+    builder.Configuration.AddJsonFile(restoredPath, optional: false, reloadOnChange: true);
 
-
-
+} 
 
 IdentityModelEventSource.ShowPII = true;
 
