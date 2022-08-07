@@ -44,7 +44,6 @@ export class SearchBarComponent implements OnInit {
 
   navigateTo(e: Event) {
     let value = (<HTMLSelectElement>e.target).value;
-    console.log(value);
     if (this.isEvent) {
       if (value) {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

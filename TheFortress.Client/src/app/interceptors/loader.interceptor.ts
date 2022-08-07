@@ -27,14 +27,13 @@ export class LoaderInterceptor implements HttpInterceptor {
     // const subscription = this.loaderService.spinner$.subscribe();
 
     this.requests.push(request);
-    if (this.requests.length < 1) {
+    if (this.requests.length == 1) {
       this.loaderService.show();
     }
     return new Observable(observer => {
       const subscription = next.handle(request)
         .subscribe(
           event => {
-            console.log(event); // I CAN SEE THE LOADED EVENT HERE
             if (event instanceof HttpResponse) {
               this.removeRequest(request);
             }

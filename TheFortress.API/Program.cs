@@ -2,12 +2,26 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Logging;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using TheFortress.API.Data;
 using TheFortress.API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile(@"C:\\inetpub\\TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    builder.Configuration.AddJsonFile(@"C:\\inetpub\\TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
+
+}
+else //linux
+{
+    builder.Configuration.AddJsonFile(@"/var/www/TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
+
+}
+
+
+
 
 IdentityModelEventSource.ShowPII = true;
 
