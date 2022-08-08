@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using TheFortress.API.Models;
 using TheFortress.API.DAL;
 using TheFortress.API.Data;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,6 +38,7 @@ namespace TheFortress.API.Controllers
             return await unitOfWork.CityRepository.GetByID(id);
         }
 
+        [Authorize]
         [HttpPost]
         public City Post([FromBody] City value)
         {
@@ -49,6 +51,7 @@ namespace TheFortress.API.Controllers
             return item;
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public City Put(int id, [FromBody] City value)
         {
@@ -62,6 +65,7 @@ namespace TheFortress.API.Controllers
             return item;
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

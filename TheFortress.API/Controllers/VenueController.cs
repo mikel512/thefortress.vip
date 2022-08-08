@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace TheFortress.API.Controllers
             return await unitOfWork.VenueRepository.GetByID(id);
         }
 
+        [Authorize]
         [HttpPost]
         public Venue Post([FromBody] Venue value)
         {
@@ -63,6 +65,7 @@ namespace TheFortress.API.Controllers
         }
 
         // PUT api/<VenueController>/5
+        [Authorize]
         [HttpPut("{id}")]
         public Venue Put(int id, [FromBody] Venue value)
         {
@@ -82,7 +85,8 @@ namespace TheFortress.API.Controllers
             return item;
         }
 
-        // DELETE api/<VenueController>/5
+        // DELETE api/<VenueController>/5 
+        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
