@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TheFortress.API.Attributes;
 using TheFortress.API.DAL;
 using TheFortress.API.Data;
 using TheFortress.API.Models;
 
 namespace TheFortress.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [NTypewriterIgnore]
     public class AppUserController : ControllerBase
     {
         private UnitOfWork unitOfWork;

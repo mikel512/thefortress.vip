@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheFortress.API.Attributes;
 using TheFortress.API.DAL;
 using TheFortress.API.Data;
 using TheFortress.API.Models;
@@ -27,26 +28,42 @@ namespace TheFortress.API.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<EventConcert>> Get()
+        public async Task<ActionResult<IEnumerable<EventConcert>>> Get()
         {
-            return await unitOfWork.EventConcertRepository
+            try
+            {
+                var items = await unitOfWork.EventConcertRepository
                 .Get(e => e.EventDate >= DateTime.Today.AddDays(-1),
                 orderBy: e => e.OrderBy(x => x.EventDate),
                 includeProperties: "VenueFkNavigation");
+
+                return new ObjectResult(items);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         // GET /<ConcertController>/5
         [HttpGet("{id}")]
-        public EventConcert GetById(int id)
+        public ActionResult<EventConcert> GetById(int id)
         {
-            //return await unitOfWork.EventConcertRepository.GetByID(id);
-            return unitOfWork.EventConcertRepository
-                .Get(e => e.EventConcertId == id,
-                    includeProperties: "VenueFkNavigation").Result.FirstOrDefault() ?? new EventConcert();
+            try
+            {
+                return unitOfWork.EventConcertRepository
+                    .Get(e => e.EventConcertId == id,
+                        includeProperties: "VenueFkNavigation").Result.FirstOrDefault() ?? new EventConcert();
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("[action]/{name}")]
-        public async Task<IActionResult> GetByCity(string name)
+        public async Task<ActionResult<IEnumerable<EventConcert>>> GetByCity(string name)
         {
             try
             {
@@ -54,21 +71,32 @@ namespace TheFortress.API.Controllers
                     .Get(e => e.VenueFkNavigation!.CityFkNavigation.CityName == name && e.EventDate >= DateTime.Today.AddDays(-1),
                         orderBy: e => e.OrderBy(x => x.EventDate),
                         includeProperties: "VenueFkNavigation");
+
                 return new ObjectResult(items);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return StatusCode(500);
             }
         }
 
         [HttpGet("[action]/{id}")]
-        public Task<IEnumerable<EventConcert>> GetByVenue(int id)
+        public async Task<ActionResult<IEnumerable<EventConcert>>> GetByVenue(int id)
         {
-            return unitOfWork.EventConcertRepository
-                .Get(e => e.VenueFk == id && e.EventDate >= DateTime.Today.AddDays(-1),
-                    orderBy: e => e.OrderBy(x => x.EventDate),
-                    includeProperties: "VenueFkNavigation");
+            try
+            {
+                var items = await unitOfWork.EventConcertRepository
+                    .Get(e => e.VenueFk == id && e.EventDate >= DateTime.Today.AddDays(-1),
+                        orderBy: e => e.OrderBy(x => x.EventDate),
+                        includeProperties: "VenueFkNavigation");
+
+                return new ObjectResult(items);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [Authorize]

@@ -25,24 +25,50 @@ namespace TheFortress.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Venue>> Get()
+        public async Task<ActionResult<IEnumerable<Venue>>> Get()
         {
-            return await unitOfWork.VenueRepository.Get();
+            try
+            {
+                var items =  await unitOfWork.VenueRepository.Get();
+
+                return new ObjectResult(items);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
         }
 
         [HttpGet("city/{city}")]
-        public async Task<IEnumerable<Venue>> GetByCity(string city)
+        public async Task<ActionResult<IEnumerable<Venue>>> GetByCity(string city)
         {
-            var res = await unitOfWork.VenueRepository.Get(v => v.CityFkNavigation.CityName == city);
-            return res;
+            try
+            {
+                var items = await unitOfWork.VenueRepository.Get(v => v.CityFkNavigation.CityName == city);
+
+                return new ObjectResult(items);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
         }
 
         [HttpGet("{id}")]
-        public async Task<Venue> GetById(int id)
+        public async Task<ActionResult<Venue>> GetById(int id)
         {
-            return await unitOfWork.VenueRepository.GetByID(id);
+            try
+            {
+                var items = await unitOfWork.VenueRepository.GetByID(id);
+
+                return new ObjectResult(items);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [Authorize]

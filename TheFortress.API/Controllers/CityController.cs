@@ -26,16 +26,34 @@ namespace TheFortress.API.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<City>> Get()
+        public async Task<ActionResult<IEnumerable<City>>> Get()
         {
-            return await unitOfWork.CityRepository.Get();
+            try
+            {
+                var items = await unitOfWork.CityRepository.Get();
+
+                return new ObjectResult(items);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         // GET <CityController>/5
         [HttpGet("{id}")]
-        public async Task<City> GetById(int id)
+        public async Task<ActionResult<City>> GetById(int id)
         {
-            return await unitOfWork.CityRepository.GetByID(id);
+            try
+            {
+                var item = await unitOfWork.CityRepository.GetByID(id);
+
+                return new ObjectResult(item);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [Authorize]
