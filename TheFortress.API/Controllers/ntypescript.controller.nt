@@ -40,11 +40,7 @@ export class {{ baseName}}Service {
 		end
 		}}    
 	{{-if Array.Size(paramArray) == 0 -}}
-		{{if returnType | String.Contains("IEnumerable")
-			returnType = returnType | 
-			String.Remove("IEnumerable<") | 
-			String.Remove(">") | String.Append("[]")
-			end}}
+	{{}}
 
 	public {{ method.Name | String.ToCamelCase }}(baseUrl): Observable<{{returnType}}> {
 	{{-else}}
