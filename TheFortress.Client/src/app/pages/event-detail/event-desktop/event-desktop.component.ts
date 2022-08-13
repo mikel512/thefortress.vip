@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EventConcert } from '../../../../models/event-concert';
+import { EventConcert } from '../../../models/event-concert';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser'
 
 @Component({

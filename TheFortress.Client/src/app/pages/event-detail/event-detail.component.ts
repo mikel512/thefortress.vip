@@ -3,7 +3,7 @@ import { AfterViewChecked, Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { EventConcertService } from 'src/app/services/event-concert.service';
 import { VenueService } from 'src/app/services/venue.service';
-import { EventConcert } from '../../../models/event-concert';
+import { EventConcert } from '../../models/event-concert';
 
 @Component({
   selector: 'app-event-detail',
@@ -23,14 +23,12 @@ export class EventDetailComponent implements OnInit, AfterViewChecked {
 
     this.route = actRouter.snapshot;
     this.eventId = this.route.params['eventId'];
+    console.log(this.eventId);
 
     _event.getById(baseUrl, this.eventId).subscribe(
       x => {
         this.event = x;
       }, error => console.error(error))
-    // http.get<EventConcert>(apiUrl + 'concert/' + this.eventId).subscribe(result => {
-    //   this.event = result;
-    // }, error => console.error(error))
   }
 
   ngOnInit(): void {

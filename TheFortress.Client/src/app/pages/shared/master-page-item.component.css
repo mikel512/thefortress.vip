@@ -1,8 +1,9 @@
-.event-box {
+
+.event-box { 
     background-color: rgb(28, 30, 31);
     border-color: rgba(161, 149, 132, 0.13);
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 11px;
     /* white-space: nowrap; */
     overflow: hidden;
     line-height: 0;

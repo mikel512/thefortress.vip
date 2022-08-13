@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EventDetailComponent } from './event-detail.component';
 import { EventMobileComponent } from './event-mobile/event-mobile.component';
 import { EventDesktopComponent } from './event-desktop/event-desktop.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -11,10 +12,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [EventDetailComponent, EventMobileComponent, EventDesktopComponent],
+  declarations: [
+    EventDetailComponent, 
+    EventMobileComponent, 
+    EventDesktopComponent
+  ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule,
   ]
 })
 export class EventDetailModule { }

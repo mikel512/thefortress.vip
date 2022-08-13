@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Venue } from '../../../models/venue';
-import { EventConcert } from '../../../models/event-concert';
+import { Venue } from '../../models/venue';
+import { EventConcert } from '../../models/event-concert';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { SpinnerOverlayService } from '../../../services/spinner-overlay.service';
+import { SpinnerOverlayService } from '../../services/spinner-overlay.service';
 import { VenueService } from 'src/app/services/venue.service';
 import { EventConcertService } from 'src/app/services/event-concert.service';
 import { forkJoin } from 'rxjs';
@@ -38,6 +38,7 @@ export class VenueDetailComponent implements OnInit {
 
     this.route = actRouter.snapshot;
     this.venueId = this.route.params['venueId'];
+    console.log(this.venueId);
 
     let venue$ = _venue.getById(baseUrl, this.venueId);
     let events$ = _event.getByVenue(baseUrl, this.venueId);

@@ -73,10 +73,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
         pathMatch: 'full'
       },
       { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
-      { path: 'venues/:city', loadChildren: () => import('./pages/venues/venues-page/venues-page.module').then(m => m.VenuesPageModule) },
-      { path: ':city', loadChildren: () => import('./pages/events/event-page/event-page.module').then(m => m.EventPageModule) },
-      { path: 'events/:eventId', loadChildren: () => import('./pages/events/event-detail/event-detail.module').then(m => m.EventDetailModule) },
-      { path: 'venue/:venueId', loadChildren: () => import('./pages/venues/venue-detail/venue-detail.module').then(m => m.VenueDetailModule) },
+      { path: 'venues', loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesModule) },
+      { path: ':city', loadChildren: () => import('./pages/events/event.module').then(m => m.EventModule) },
+      { path: 'events/:eventId', loadChildren: () => import('./pages/event-detail/event-detail.module').then(m => m.EventDetailModule) },
       { path: 'loading-animations', loadChildren: () => import('./loading-animations/loading-animations.module').then(m => m.LoadingAnimationsModule) },
     ])
   ],

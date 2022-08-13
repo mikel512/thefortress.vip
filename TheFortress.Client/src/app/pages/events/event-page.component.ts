@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { EventConcertService } from 'src/app/services/event-concert.service';
-import { EventConcert } from '../../../models/event-concert';
+import { EventConcert } from '../../models/event-concert';
 
 @Component({
   selector: 'app-event-page',
@@ -38,6 +38,7 @@ export class EventPageComponent implements OnInit {
 
     this.route = actRouter.snapshot;
     this.currentCity = this.route.params['city'];
+    console.log(this.currentCity);
 
     if (this.currentCity === 'All') {
       data.get(baseUrl).subscribe(
