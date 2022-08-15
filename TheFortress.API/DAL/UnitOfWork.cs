@@ -82,20 +82,20 @@ namespace TheFortress.API.DAL
             }
         }
 
-        public async Task Save()
+        public void Save()
         {
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
         private bool disposed = false;
 
-        protected virtual async void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
                 if (disposing)
                 {
-                    await context.DisposeAsync();
+                    context.Dispose();
                 }
             }
             this.disposed = true;

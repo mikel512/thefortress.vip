@@ -27,7 +27,7 @@ namespace TheFortress.API.Controllers
                 a.DateAdded = DateTime.Now;
 
                 unitOfWork.AnalyticRepository.Insert(a);
-                await unitOfWork.Save();
+                unitOfWork.Save();
 
             }
             catch(Exception ex)
