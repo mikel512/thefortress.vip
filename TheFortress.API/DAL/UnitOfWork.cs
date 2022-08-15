@@ -11,10 +11,24 @@ namespace TheFortress.API.DAL
         private GenericRepository<Venue>? venueRepository;
         private GenericRepository<City>? cityRepository;
         private GenericRepository<AppUser>? appUserRepository;
+        private GenericRepository<Analytic>? analyticRepository;
 
         public UnitOfWork(TheFortressContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public GenericRepository<Analytic> AnalyticRepository
+        {
+            get
+            {
+
+                if (this.analyticRepository == null)
+                {
+                    this.analyticRepository = new GenericRepository<Analytic>(context);
+                }
+                return analyticRepository;
+            }
         }
 
         public GenericRepository<AppUser> AppUserRepository
@@ -68,7 +82,7 @@ namespace TheFortress.API.DAL
             }
         }
 
-        public async void Save()
+        public async Task Save()
         {
             await context.SaveChangesAsync();
         }

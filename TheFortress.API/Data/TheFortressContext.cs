@@ -18,6 +18,7 @@ namespace TheFortress.API.Data
         }
 
         public virtual DbSet<AdminMessage> AdminMessages { get; set; } = null!;
+        public virtual DbSet<Analytic> Analytics { get; set; } = null!;
         public virtual DbSet<AppRole> AppRoles { get; set; } = null!;
         public virtual DbSet<AppUser> AppUsers { get; set; } = null!;
         public virtual DbSet<ApprovalQueue> ApprovalQueues { get; set; } = null!;
@@ -53,6 +54,18 @@ namespace TheFortress.API.Data
                 entity.Property(e => e.Sender).HasMaxLength(50);
 
                 entity.Property(e => e.Subject).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Analytic>(entity =>
+            {
+                entity.HasKey(e => e.AnalyticsId)
+                    .HasName("PK__analytic__506974E39436EBE6");
+
+                entity.ToTable("analytics");
+
+                entity.Property(e => e.IpAddress).HasMaxLength(50);
+
+                entity.Property(e => e.Location).HasMaxLength(50);
             });
 
             modelBuilder.Entity<AppRole>(entity =>

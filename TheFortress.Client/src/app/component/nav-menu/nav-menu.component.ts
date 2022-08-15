@@ -3,6 +3,7 @@ import { MsalBroadcastService, MsalGuardConfiguration, MsalService, MSAL_GUARD_C
 import { AuthenticationResult, EventMessage, EventType, InteractionStatus, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { AnalyticService } from 'src/app/services/analytic.service';
 import { AppComponent } from '../../app.component';
 import { b2cPolicies } from '../../auth-config.component';
 
@@ -27,9 +28,13 @@ export class NavMenuComponent {
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
+    private analytic: AnalyticService,
     private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
-  ) { }
+    private msalBroadcastService: MsalBroadcastService,
+    @Inject('BASE_URL') baseUrl:string
+  ) { 
+    analytic.get(baseUrl).subscribe();
+  }
 
   async ngOnInit() {
     this.setLoginDisplay();
