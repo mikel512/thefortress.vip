@@ -94,6 +94,8 @@ namespace TheFortress.API.Data
                 entity.Property(e => e.DisplayName).HasMaxLength(50);
 
                 entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.ObjectId).HasMaxLength(450);
             });
 
             modelBuilder.Entity<ApprovalQueue>(entity =>

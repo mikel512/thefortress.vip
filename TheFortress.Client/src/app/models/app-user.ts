@@ -8,6 +8,7 @@ export interface IAppUser {
 	displayName: string | null;
 	dateAdded: Date | null;
 	dateModified: Date | null;
+	objectId: string | null;
 
 }
 
@@ -21,4 +22,5 @@ export class AppUser implements IAppUser {
 	displayName: string | null;
 	dateAdded: Date | null;
 	dateModified: Date | null;
+	objectId: string | null;
 }

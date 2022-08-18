@@ -10,5 +10,6 @@ namespace TheFortress.API.Models
         public string? DisplayName { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateModified { get; set; }
+        public string? ObjectId { get; set; }
     }
 }

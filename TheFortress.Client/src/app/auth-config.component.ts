@@ -45,8 +45,8 @@ export const MsalConfig: Configuration = {
 };
 export const protectedResources = {
   todoListApi: {
-    endpoint: "https://localhost:4200/api/EventConcert",
-    scopes: ["https://thefortressvip.onmicrosoft.com/93c6bc24-6617-4281-a8ac-e7f4e81dcf78/tasks.read"],
+    endpoint: "https://localhost:4200/api",
+    scopes: ["https://thefortressvip.onmicrosoft.com/93c6bc24-6617-4281-a8ac-e7f4e81dcf78/fortress.user"],
   },
 }
 export const loginRequest = {
