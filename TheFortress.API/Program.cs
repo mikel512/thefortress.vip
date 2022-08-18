@@ -23,17 +23,6 @@ else //linux
 
 IdentityModelEventSource.ShowPII = true;
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(options =>
-    {
-        builder.Configuration.Bind("AzureAdB2C", options);
-
-        options.TokenValidationParameters.NameClaimType = "name";
-    },
-    options =>
-    {
-        builder.Configuration.Bind("AzureAdB2C", options);
-    });
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {

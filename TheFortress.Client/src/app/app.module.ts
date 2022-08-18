@@ -16,21 +16,6 @@ import { SpinnerOverlayComponent } from './component/spinner-overlay/spinner-ove
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { JwtModule } from '@auth0/angular-jwt';
-import { MsalBroadcastService, MsalCustomNavigationClient, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE } from '@azure/msal-angular';
-import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
-import { environment } from 'src/environments/environment';
-import { MsalConfig, protectedResources } from './auth-config.component';
-
-export function MSALInstanceFactory(): IPublicClientApplication {
-  return new PublicClientApplication(MsalConfig);
-}
-
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
-  return {
-    interactionType: InteractionType.Redirect,
-  };
-}
 
 
 @NgModule({
@@ -50,22 +35,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    MsalModule.forRoot(new PublicClientApplication(MsalConfig),
-      {
-        // The routing guard configuration. 
-        interactionType: InteractionType.Redirect,
-        authRequest: {
-          // scopes: protectedResources.todoListApi.scopes
-        }
-      },
-      {
-        // MSAL interceptor configuration.
-        // The protected resource mapping maps your web API with the corresponding app scopes. If your code needs to call another web API, add the URI mapping here.
-        interactionType: InteractionType.Redirect,
-        protectedResourceMap: new Map([
-          // [protectedResources.todoListApi.endpoint, protectedResources.todoListApi.scopes]
-        ])
-      }),
     RouterModule.forRoot([
       {
         path: '',
@@ -80,21 +49,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     ])
   ],
   providers: [
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory,
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory,
-    },
-    MsalService,
-    MsalGuard,
-    MsalBroadcastService,
     SpinnerOverlayService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: MsalInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent, MsalRedirectComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
