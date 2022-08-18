@@ -45,14 +45,16 @@ namespace TheFortress.API.Controllers
             {
                 if (Request.Headers.Authorization.Count == 0)
                 {
-                    return new JsonResult(BlockingResponse("No authorization headers in Request."));
+                    return BadRequest(BlockingResponse("No authorization headers in Request."));
                 }
 
+                Console.WriteLine(Request.Headers.Authorization);
                 string[] b2cVals = Request.Headers.Authorization[0].Split(':');
                 if (b2cVals[0] != _config.GetValue<string>("ApiConnectorUsername") || b2cVals[1] != _config.GetValue<string>("ApiConnectorPassword"))
                 {
-                    return new JsonResult("Invalid authorization values.");
+                    return BadRequest(BlockingResponse("Invalid authorization values."));
                 }
+                Console.WriteLine("Auth valid");
 
                 // B2C request authenticated
                 string json = "";
@@ -74,6 +76,7 @@ namespace TheFortress.API.Controllers
                 unitOfWork.AppUserRepository.Insert(user);
                 unitOfWork.Save();
 
+                Console.WriteLine("OK response");
                 return Ok(ContinueResponse());
             }
             catch (Exception ex)
