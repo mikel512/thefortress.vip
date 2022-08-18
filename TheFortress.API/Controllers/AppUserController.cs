@@ -82,31 +82,35 @@ namespace TheFortress.API.Controllers
             }
         }
 
-        private string BlockingResponse()
+        private Object BlockingResponse()
         {
-            return @"{
-                ""version"": ""1.0.0"",
-                ""action"": ""ShowBlockPage"",
-                ""userMessage"": ""There was a problem with your request. You are not able to sign up at this time."",
-            }";
+            var myData = new
+            {
+                version = "1.0.0",
+                action = "ShowBlockPage",
+                userMessage = "There was a problem with your request. You are not able to sign up at this time."
+            };
+            return myData;
         }
-        private string BlockingResponse(string userMessage)
+        private Object BlockingResponse(string userMessage)
         {
-            string init = @"{
-                ""version"": ""1.0.0"",
-                ""action"": ""ShowBlockPage"",
-                ""userMessage"": ""{0}"",
-            }";
-
-            return String.Format(init, userMessage);
+            var myData = new
+            {
+                version = "1.0.0",
+                action = "ShowBlockPage",
+                userMessage = $"{userMessage}"
+            };
+            return myData;
         }
 
-        private string ContinueResponse()
+        private Object ContinueResponse()
         {
-            return @"{
-                ""version"": ""1.0.0"",
-                ""action"": ""Continue"",
-            }";
+            var myData = new
+            {
+                version = "1.0.0",
+                action = "Continue"
+            };
+            return myData;
         }
     }
 }
