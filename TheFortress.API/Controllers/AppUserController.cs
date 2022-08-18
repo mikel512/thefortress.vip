@@ -74,7 +74,7 @@ namespace TheFortress.API.Controllers
                 unitOfWork.AppUserRepository.Insert(user);
                 unitOfWork.Save();
 
-                return new JsonResult(ContinueResponse());
+                return Ok(ContinueResponse());
             }
             catch (Exception ex)
             {
