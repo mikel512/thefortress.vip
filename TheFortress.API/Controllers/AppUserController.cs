@@ -44,12 +44,14 @@ namespace TheFortress.API.Controllers
         {
             try
             {
-                if (Request.Headers.Authorization.Count == 0)
+                if (Request.Headers.Authorization == 0)
                 {
                     return BadRequest(BlockingResponse("No authorization headers in Request."));
                 }
 
-                byte[] data = Convert.FromBase64String(Request.Headers.Authorization[0]);
+                string base64 = Request.Headers.Authorization[0].Replace("Basic ", "");
+
+                byte[] data = Convert.FromBase64String(base64);
                 string decodedString = Encoding.UTF8.GetString(data);
                 Console.WriteLine(decodedString);
                 string[] b2cVals = decodedString.Split(':');
