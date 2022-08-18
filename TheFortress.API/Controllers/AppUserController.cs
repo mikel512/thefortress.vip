@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 using TheFortress.API.Attributes;
 using TheFortress.API.DAL;
 using TheFortress.API.Data;
@@ -48,8 +49,10 @@ namespace TheFortress.API.Controllers
                     return BadRequest(BlockingResponse("No authorization headers in Request."));
                 }
 
-                Console.WriteLine(Request.Headers.Authorization);
-                string[] b2cVals = Request.Headers.Authorization[0].Split(':');
+                byte[] data = Convert.FromBase64String(Request.Headers.Authorization[0]);
+                string decodedString = Encoding.UTF8.GetString(data);
+                Console.WriteLine(decodedString);
+                string[] b2cVals = decodedString.Split(':');
                 if (b2cVals[0] != _config.GetValue<string>("ApiConnectorUsername") || b2cVals[1] != _config.GetValue<string>("ApiConnectorPassword"))
                 {
                     return BadRequest(BlockingResponse("Invalid authorization values."));
