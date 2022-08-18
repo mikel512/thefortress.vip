@@ -53,7 +53,6 @@ namespace TheFortress.API.Controllers
 
                 byte[] data = Convert.FromBase64String(base64);
                 string decodedString = Encoding.UTF8.GetString(data);
-                Console.WriteLine(decodedString);
                 string[] b2cVals = decodedString.Split(':');
 
                 Console.WriteLine(b2cVals[0]);
@@ -62,7 +61,6 @@ namespace TheFortress.API.Controllers
                 {
                     return BadRequest(BlockingResponse("Invalid authorization values."));
                 }
-                Console.WriteLine("Auth valid");
 
                 // B2C request authenticated
                 string json = "";
@@ -73,6 +71,11 @@ namespace TheFortress.API.Controllers
                 }
 
                 var userClaims = JsonConvert.DeserializeObject<dynamic>(json);
+
+                foreach(var claim in userClaims)
+                {
+                    Console.WriteLine($"{claim}");
+                }
 
                 AppUser user = new AppUser();
                 user.Email = userClaims["email"];
