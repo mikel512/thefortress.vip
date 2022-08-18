@@ -55,6 +55,9 @@ namespace TheFortress.API.Controllers
                 string decodedString = Encoding.UTF8.GetString(data);
                 Console.WriteLine(decodedString);
                 string[] b2cVals = decodedString.Split(':');
+
+                Console.WriteLine(b2cVals[0]);
+                Console.WriteLine(b2cVals[1]);
                 if (b2cVals[0] != _config.GetValue<string>("ApiConnectorUsername") || b2cVals[1] != _config.GetValue<string>("ApiConnectorPassword"))
                 {
                     return BadRequest(BlockingResponse("Invalid authorization values."));
