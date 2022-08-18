@@ -86,6 +86,7 @@ namespace TheFortress.API.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return new JsonResult(BlockingResponse());
             }
         }
