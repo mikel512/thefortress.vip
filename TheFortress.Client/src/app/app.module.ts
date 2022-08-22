@@ -16,42 +16,53 @@ import { SpinnerOverlayComponent } from './component/spinner-overlay/spinner-ove
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthButtonComponent } from './auth/auth-button.component';
+import { UserProfileComponent } from './auth/user-profile.component';
+import { RegisterButtonComponent } from './auth/register-button.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    SplashComponent,
-    CitiesMenuComponent,
-    CityComponent,
-    FooterComponent,
-    SpinnerOverlayComponent,
-  ],
-  imports: [
-    OverlayModule,
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeComponent,
-        pathMatch: 'full'
-      },
-      { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
-      { path: 'venues', loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesModule) },
-      { path: ':city', loadChildren: () => import('./pages/events/event.module').then(m => m.EventModule) },
-      { path: 'events/:eventId', loadChildren: () => import('./pages/event-detail/event-detail.module').then(m => m.EventDetailModule) },
-      { path: 'loading-animations', loadChildren: () => import('./loading-animations/loading-animations.module').then(m => m.LoadingAnimationsModule) },
-    ])
-  ],
-  providers: [
-    SpinnerOverlayService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NavMenuComponent,
+        HomeComponent,
+        SplashComponent,
+        CitiesMenuComponent,
+        CityComponent,
+        FooterComponent,
+        SpinnerOverlayComponent,
+        AuthButtonComponent,
+        UserProfileComponent,
+        RegisterButtonComponent,
+    ],
+    imports: [
+        OverlayModule,
+        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FormsModule,
+        // AuthModule.forRoot({
+        //     domain: 'dev-q8t7-ngq.us.auth0.com',
+        //     clientId: 'VifpYBYumWJpJxJPb5Pw18Oqki2IzbHV'
+        // }),
+        RouterModule.forRoot([
+            {
+                path: '',
+                component: HomeComponent,
+                pathMatch: 'full'
+            },
+            { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
+            { path: 'venues', loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesModule) },
+            { path: ':city', loadChildren: () => import('./pages/events/event.module').then(m => m.EventModule) },
+            { path: 'events/:eventId', loadChildren: () => import('./pages/event-detail/event-detail.module').then(m => m.EventDetailModule) },
+            { path: 'loading-animations', loadChildren: () => import('./loading-animations/loading-animations.module').then(m => m.LoadingAnimationsModule) },
+        ])
+    ],
+    providers: [
+        SpinnerOverlayService,
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,49 @@
+﻿/*h1, h2, h3, h4, h5, p {
+    color: white;
+}
+*/
+.layout-bg {
+    background: url("../bg2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.card .card-header h2 {
+    color: #fff;
+}
+
+.card {
+    border-radius: 20px !important;
+}
+
+.card-header {
+    background-color: darkslategrey;
+    border-bottom: none;
+    border-radius: 20px 20px 0px 0px !important;
+}
+
+.pb-6 {
+    padding-bottom: 100px;
+}
+
+.form-control {
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+    .form-control::placeholder {
+        opacity: 0.6;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 4px 2px -2px rgba(0,123,255,.25);
+    }
+.form-group label {
+    margin-bottom: 0;
+}

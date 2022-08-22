@@ -1,0 +1,96 @@
+<ng-container *ngIf="venue">
+    <div class="dash-img fade-in-image" style="background-image: url({{venue.picture}});">
+        <div class="title-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <header>
+                            <div class="content">
+                                <h1 class="text-light ">{{venue.venueName}}</h1>
+
+                            </div>
+
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="format"></div>
+    </div>
+
+    <br>
+
+    <div class="container-md">
+
+        <div class="row my-3">
+            <div class="col-12"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs nav-justified no-stack d-flex d-lg-none my-3">
+                    <li class="nav-item">
+                        <a class="nav-link" [ngClass]="{'active': onTabChange}" (click)="toggleTab()" [routerLink]=""
+                            data-toggle="tab">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a #infoTab class="nav-link" [ngClass]="{'active': !onTabChange}" (click)="toggleTab()"
+                            [routerLink]="" data-toggle="tab">Info</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row tab-content mb-5 text-light">
+            <div class="col-lg-8 tab-pane d-lg-block" [ngClass]="{'active': onTabChange}">
+                <h2>Upcoming events at {{venue.venueName}}</h2>
+                <div id="list">
+
+                    <div class="row">
+                        <div *ngFor="let event of concerts" class="col-md-6 col-lg-4" @fadeIn>
+                            <app-master-page-item [eventName]="event.eventName"
+                                [venueName]="event.venueFkNavigation.venueName" [link]="'/events/'+event.eventConcertId"
+                                [imgUrl]="event.flyer" [date]="event.eventDate" [isEvent]="true">
+                            </app-master-page-item>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 tab-pane d-lg-block" [ngClass]="{'active': !onTabChange}">
+                <h3 style="overflow: hidden; text-overflow: ellipsis;">{{venue.venueName}} General Info</h3>
+                <p>{{venue.description}}</p>
+
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <h5 class="trim-top trim-bottom" style="line-height: 20px;">Address</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <address class="mb-0">
+                            {{venue.address}}
+                        </address>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-4">
+                        <h5 class="trim-top trim-bottom" style="line-height: 20px;">Additional Links</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="{{venue.ticketsLink}}">{{venue.venueName}} Website</a>
+                            </li>
+                            <li>
+                                <a href="{{venue.menuLink}}">{{venue.venueName}} Food & Drinks Menu</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ng-container>

@@ -1,0 +1,34 @@
+<div class="event-box tile-view text-light">
+    <a [routerLink]="link" class="stretched-link">
+    </a>
+    <div class="event-image-container">
+        <a [routerLink]="link">
+            <div [hidden]="!imageLoader" class="img-loader img-loader-md img-loader-sm">
+                <app-animation-one></app-animation-one>
+            </div>
+            <div [hidden]="imageLoader" class="image" style="background-image: url({{imgUrl}});"></div>
+            <img [src]="imgUrl" hidden (load)="this.imageLoader = false">
+        </a>
+    </div>
+    <div class="caption">
+        <ng-container *ngIf="isEvent; else notEvent">
+            <div *ngIf="date" class="date">
+                {{date | date: 'fullDate'}}
+            </div>
+            <div class="event-box-headline">
+                <a [routerLink]="link">{{eventName}}</a>
+            </div>
+            <div class="venue-link">
+                {{venueName}}
+            </div>
+        </ng-container>
+        <ng-template #notEvent>
+            <div class="event-box-headline">
+                <a [routerLink]="link">{{venueName}}</a>
+            </div>
+            <div class="venue-link">
+                {{location}}
+            </div>
+        </ng-template>
+    </div>
+</div>

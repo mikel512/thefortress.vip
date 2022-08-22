@@ -1,0 +1,115 @@
+
+.event-box { 
+    background-color: rgb(28, 30, 31);
+    border-color: rgba(161, 149, 132, 0.13);
+    margin-top: 10px;
+    margin-bottom: 11px;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    line-height: 0;
+    padding: 0;
+}
+
+.event-box {
+    /* max-width: 320px; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+
+@media (min-width: 1192px) {
+    .img-loader {
+        height: 253px;
+        margin-left: 50px;
+        padding-left: 30px;
+        margin-bottom: 80px;
+        margin-top: 40px;
+        padding-bottom: 30px;
+    }
+}
+
+@media (min-width: 991.99px) {
+    .img-loader-md {
+        height: 108px;
+        margin-left: 35px;
+        margin-bottom: 40px;
+    }
+}
+
+.event-box .image {
+    padding-bottom: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.event-box .event-image-container a {
+    z-index: 2;
+    position: relative;
+}
+
+.caption {
+    margin-top: 5px;
+}
+
+.event-box .caption {
+    vertical-align: top;
+    padding: 5px;
+    line-height: 1.3;
+}
+
+.event-box .caption .event-box-headline {
+    font-weight: 500;
+}
+
+.venue-link {
+    padding-bottom: 0px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+}
+
+.date {
+    padding: 0;
+    font-size: 14px;
+}
+
+.event-box-headline {
+    font-size: 18px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+}
+
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: auto;
+    content: "";
+}
+
+@media (max-width: 991.98px) {
+    .event-box.tile-view {
+        flex-direction: row;
+        /* position: relative; */
+    }
+    .event-box.tile-view .image {
+        width: 100px;
+        height: 100px;
+        padding-right: 10px;
+        padding-bottom: 0;
+    }
+    .event-box.tile-view .img-loader {
+        padding-top: 30px;
+    }
+}
+
+a {
+    color: #337ab7;
+}

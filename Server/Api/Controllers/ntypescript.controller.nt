@@ -1,0 +1,74 @@
+﻿{{- config.AddGeneratedFilesToVSProject = false -}}
+﻿{{ for class in data.Classes | 
+	Symbols.WhereNameEndsWith("Controller") | 
+	Symbols.ThatDoNotHaveAttribute("NTypewriterIgnore")
+	capture output -}}
+{{- baseName = class | String.Remove("Controller")
+	baseKebab = baseName | 
+	Regex.Split("(?<!^)(?=[A-Z])|[A-Z]([A-Z][a-z])")
+	snakeCase = ""
+	for s in baseKebab
+		if for.last
+		snakeCase += s | String.Downcase()
+		break
+		end
+	snakeCase += s | String.Downcase() | String.Append("-") 
+	end -}}
+// NTypescript generated file
+
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { {{baseName}}, I{{baseName}} } from '../models/{{snakeCase}}'
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class {{ baseName}}Service {
+
+	constructor(private http: HttpClient) { } 
+{{  for method in class.Methods | Symbols.ThatArePublic 
+		parameters = method | Action.Parameters | Parameters.ToTypeScript | Array.Join ", "; 
+		bodyParameterName = (method | Action.BodyParameter)?.Name ?? "null" 
+		returnType = method | Action.ReturnType | Type.ToTypeScriptType | String.Strip
+		paramArray = method | Action.Parameters
+		objVar = parameters | String.Remove(":") | String.Remove(baseName)
+		if returnType == "void" || returnType == ""
+			returnType = "any"
+		end
+		}}    
+	{{-if Array.Size(paramArray) == 0 -}}
+	{{}}
+
+	public {{ method.Name | String.ToCamelCase }}(baseUrl): Observable<{{returnType}}> {
+	{{-else}}
+	public {{ method.Name | String.ToCamelCase }}(baseUrl, {{ parameters }}): Observable<{{returnType}}> {
+	{{-end}}
+		{{- if Action.HttpMethod(method) == "post" }}
+		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(baseUrl + `{{method | Action.Url}}`, {{objVar}})
+		{{- else if Action.HttpMethod(method) == "put"
+			thisVar = objVar | String.Remove("id number,")}}
+		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(baseUrl + `{{method | Action.Url}}`, {{-thisVar}})
+		{{-else}}
+		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(baseUrl + `{{method | Action.Url}}`)
+		{{-end}}
+			.pipe(map(response => {
+				{{-if String.EndsWith(returnType, "[]")}}
+				return (response as {{returnType}}).map(x => new {{String.Remove(returnType, "[]")}}(x))
+				{{-else if returnType == "any"}}
+				return response
+				{{-else}}
+				return new {{returnType}}(<I{{returnType}}> response)
+				{{-end}}
+			}));
+	}
+{{- end}}
+}
+    
+{{- end
+	filePath = snakeCase | String.Append(".service.ts") | 
+	String.Prepend "../../../TheFortress.Client/src/app/services/"
+    Save output filePath
+   end }}

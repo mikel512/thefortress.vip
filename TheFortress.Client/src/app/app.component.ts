@@ -1,17 +1,22 @@
 import { Component, Inject } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
+import { tap } from 'rxjs';
+import { SpinnerOverlayService } from './services/spinner-overlay.service';
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  isIframe = false;
+    title = 'app';
+    isIframe = false;
 
-  constructor() { }
+    constructor(public auth: AuthService,
+        private spinner: SpinnerOverlayService) {
+    }
 
-   ngOnInit() {
-  }
+    ngOnInit() {
+    }
 }
