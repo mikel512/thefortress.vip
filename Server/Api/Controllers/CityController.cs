@@ -25,6 +25,7 @@ namespace Api.Controllers
         }
 
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> Get()
         {
@@ -41,6 +42,7 @@ namespace Api.Controllers
         }
 
         // GET <CityController>/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<City>> GetById(int id)
         {
@@ -56,7 +58,6 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public City Post([FromBody] City value)
         {
@@ -69,7 +70,6 @@ namespace Api.Controllers
             return item;
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public City Put(int id, [FromBody] City value)
         {
@@ -83,7 +83,6 @@ namespace Api.Controllers
             return item;
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

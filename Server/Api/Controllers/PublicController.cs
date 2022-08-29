@@ -1,10 +1,12 @@
 ﻿using Api.Attributes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [NTypewriterIgnore]
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class PublicController : ControllerBase

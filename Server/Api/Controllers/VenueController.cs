@@ -24,6 +24,7 @@ namespace Api.Controllers
             unitOfWork = new UnitOfWork(context);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venue>>> Get()
         {
@@ -40,6 +41,7 @@ namespace Api.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet("city/{city}")]
         public async Task<ActionResult<IEnumerable<Venue>>> GetByCity(string city)
         {
@@ -56,6 +58,7 @@ namespace Api.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Venue>> GetById(int id)
         {
@@ -71,7 +74,6 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public Venue Post([FromBody] Venue value)
         {
@@ -91,7 +93,6 @@ namespace Api.Controllers
         }
 
         // PUT api/<VenueController>/5
-        [Authorize]
         [HttpPut("{id}")]
         public Venue Put(int id, [FromBody] Venue value)
         {
@@ -112,14 +113,11 @@ namespace Api.Controllers
         }
 
         // DELETE api/<VenueController>/5 
-        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             //unitOfWork.VenueRepository.Delete(id);
-            //unitOfWork.Save();
-          
-
+            //unitOfWork.Save(); 
         }
     }
 }

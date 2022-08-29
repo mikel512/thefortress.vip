@@ -7,8 +7,6 @@ namespace Api.Controllers
 {
 
     [NTypewriterIgnore]
-    [Authorize]
-    [RequiredScope("tasks.read")]
     [ApiController]
     [Route("api/[controller]")]
     public class HelloController : ControllerBase

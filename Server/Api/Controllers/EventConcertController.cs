@@ -27,6 +27,7 @@ namespace Api.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<EventConcert>>> Get()
         {
             try
@@ -46,6 +47,7 @@ namespace Api.Controllers
 
         // GET /<ConcertController>/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<EventConcert> GetById(int id)
         {
             try
@@ -62,6 +64,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("[action]/{name}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<EventConcert>>> GetByCity(string name)
         {
             try
@@ -80,6 +83,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("[action]/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<EventConcert>>> GetByVenue(int id)
         {
             try
@@ -98,7 +102,6 @@ namespace Api.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public EventConcert Post([FromBody] EventConcert concert)
         {
@@ -116,7 +119,6 @@ namespace Api.Controllers
             return item;
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public EventConcert Put(int id, [FromBody] EventConcert concert)
         {
@@ -135,7 +137,6 @@ namespace Api.Controllers
             return item;
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
