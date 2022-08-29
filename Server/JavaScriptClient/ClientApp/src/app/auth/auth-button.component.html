@@ -1,7 +1,13 @@
-<!-- <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-    <button (click)="auth.logout({ returnTo: document.location.origin })">
-        Log out
-    </button>
-</ng-container> -->
+<div class="d-flex flex-row">
+    <ng-container *ngIf="isLoggedIn; else loggedOut">
+        <a class="nav-link text-light"> Welcome, {{displayName}}</a>
+        <a href="javascript:void(0)" class="nav-link text-light" (click)="_auth.logout()">
+            Log out
+        </a>
+    </ng-container>
 
-<a href="javascript:void(0)" class="nav-link text-light" (click)="login()">Login</a>
+    <ng-template #loggedOut>
+        <a href="javascript:void(0)" class="nav-link text-light" (click)="login()">Login</a>
+        <app-register-button></app-register-button>
+    </ng-template>
+</div>

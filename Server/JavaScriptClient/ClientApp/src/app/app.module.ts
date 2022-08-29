@@ -19,6 +19,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { AuthButtonComponent } from './auth/auth-button.component';
 import { UserProfileComponent } from './auth/user-profile.component';
 import { RegisterButtonComponent } from './auth/register-button.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { RegisterButtonComponent } from './auth/register-button.component';
         ])
     ],
     providers: [
+        AuthService,
         SpinnerOverlayService,
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     ],

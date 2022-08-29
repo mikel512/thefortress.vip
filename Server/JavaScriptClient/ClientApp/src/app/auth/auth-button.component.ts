@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-auth-button',
@@ -7,9 +8,20 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 
 export class AuthButtonComponent implements OnInit {
-    constructor() { }
+    public isLoggedIn = false;
+    public displayName: string = '';
 
-    ngOnInit() { }
+    constructor(public _auth: AuthService) { }
+
+    ngOnInit() {
+        this._auth.getHeader().then(x => {
+            if (x == null) {
+                return;
+            }
+            this.isLoggedIn = true;
+            this.displayName = this._auth.getClaim('name');
+        });
+    }
 
     login() {
         window.location.href = "/bff/login";
