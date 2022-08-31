@@ -603,3 +603,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,dotnetcore,angular,node
+/Server/IdentityServer/keys/is-signing-key-0DCCC3278DC2E08F07B45731EE763624.json
