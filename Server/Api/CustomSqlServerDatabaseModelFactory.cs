@@ -64,7 +64,7 @@ namespace TheFortress.API
 
         private static void RemoveTables(DatabaseModel databaseModel)
         {
-            var tablesToBeRemoved = databaseModel.Tables.Where(x => ExcludedTables.Contains(x.Name)).ToList();
+            var tablesToBeRemoved = databaseModel.Tables.Where(x => x.Name.StartsWith("AspNet")).ToList();
 
             foreach (var tableToRemove in tablesToBeRemoved)
             {
