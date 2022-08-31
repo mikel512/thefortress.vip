@@ -1,7 +1,8 @@
 ﻿{{- config.AddGeneratedFilesToVSProject = false -}}
-﻿{{ for class in data.Classes | 
-	Symbols.WhereNameEndsWith("Controller") | 
-	Symbols.ThatDoNotHaveAttribute("NTypewriterIgnore")
+﻿{{ for class in data.Classes | Symbols.WhereNameEndsWith("Controller") | Symbols.ThatDoNotHaveAttribute("NTypewriterIgnore")
+	if class.Namespace != "Api.Controllers"
+		continue
+	end
 	capture output -}}
 {{- baseName = class | String.Remove("Controller")
 	baseKebab = baseName | 

@@ -1,6 +1,6 @@
 {{- config.AddGeneratedFilesToVSProject = false -}}
 {{- for class in data.Classes
-	if class.Namespace != "Api.Models" || String.EndsWith(class.Name ,"Context")
+	if class.Namespace != "Api.Models"  || String.EndsWith(class.Name ,"Context")
 		continue
 	end
 	capture output
@@ -47,6 +47,6 @@ export class {{ class.Name }} implements I{{class.Name}} {
 }
 {{- end 
 	filePath =  convertSnakeCase(class.BareName) | String.Append ".ts" | 
-	String.Prepend "../../JavaScriptClient/ClientApp/src/app/models/"
+	String.Prepend "../../../TheFortress.Client/src/app/models/"
 	Save output filePath 
 end }}
