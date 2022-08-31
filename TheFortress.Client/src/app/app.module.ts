@@ -55,7 +55,6 @@ import { AuthService } from './services/auth.service';
         ])
     ],
     providers: [
-        AuthService,
         SpinnerOverlayService,
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     ],

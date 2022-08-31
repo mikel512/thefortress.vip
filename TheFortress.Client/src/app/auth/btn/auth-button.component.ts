@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-auth-button',
@@ -7,10 +8,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 
 export class AuthButtonComponent implements OnInit {
-    constructor() { }
+    constructor(public auth: AuthService) { }
 
     ngOnInit() { }
 
-    login() {
-    }
 }
