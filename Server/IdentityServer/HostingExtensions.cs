@@ -45,6 +45,17 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        builder.Services.AddCors(options =>
+        {
+            // this defines a CORS policy called "default"
+            options.AddPolicy("default", policy =>
+            {
+                policy.WithOrigins("https://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -62,6 +73,7 @@ internal static class HostingExtensions
         }
 
         app.UseHttpsRedirection();
+        app.UseCors("default");
 
         app.UseAuthentication();
         app.UseAuthorization();

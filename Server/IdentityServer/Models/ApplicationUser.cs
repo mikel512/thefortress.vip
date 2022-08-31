@@ -2,11 +2,12 @@
 // See LICENSE in the project root for license information.
 
 
+using IdentityServer.Attributes;
 using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer.Models;
 
-// Add profile data for application users by adding properties to the ApplicationUser class
+[NTypewriterIgnore]
 public class ApplicationUser : IdentityUser
 {
 }

@@ -17,15 +17,17 @@ namespace IdentityServer.Controllers
     {
         private IIdentityUnitOfWork _identity;
         private IMapper _mapper;
+        private IConfiguration _configuration;
 
-        public AuthController(IIdentityUnitOfWork unitOfWork, IMapper mapper)
+        public AuthController(IIdentityUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
         {
             _identity = unitOfWork;
             _mapper = mapper;
+            _configuration = configuration;
         } 
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Register([FromBody] RegistrationDTO model)
+        public async Task<IActionResult> Register([FromBody] RegistrationDto model)
         {
             IdentityResult result = await _identity.UserAuth.RegisterUserAsync(model);
             return !result.Succeeded ? new BadRequestObjectResult(result) : StatusCode(201);
@@ -33,11 +35,16 @@ namespace IdentityServer.Controllers
 
         [HttpPost("[action]")]
         //[ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> Login([FromBody] LoginDTO user)
+        public async Task<IActionResult> Login([FromBody] LoginDto user)
         {
+            var jwtConf = _configuration.GetSection("JwtConfig");
             return !await _identity.UserAuth.ValidateUserAsync(user)
                 ? Unauthorized()
-                : Ok(new { Token = await _identity.UserAuth.CreateTokenAsync() });
+                : Ok(new
+                {
+                    Token = await _identity.UserAuth.CreateTokenAsync(),
+                    ExpiresIn = Convert.ToDouble(jwtConf["TimeTilExp"]) * 60
+                });
         }
 
     }

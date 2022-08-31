@@ -28,7 +28,7 @@ namespace IdentityServer.Services
             _roleManager = roleManager;
         }
 
-        public async Task<IdentityResult> RegisterUserAsync(RegistrationDTO InputModel)
+        public async Task<IdentityResult> RegisterUserAsync(RegistrationDto InputModel)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(InputModel);
             IdentityResult result = await _userManager.CreateAsync(user, InputModel.Password);
@@ -36,7 +36,7 @@ namespace IdentityServer.Services
             await _userManager.AddToRoleAsync(user, UserRoles.User);
             return result;
         }
-        public async Task<bool> ValidateUserAsync(LoginDTO loginDto)
+        public async Task<bool> ValidateUserAsync(LoginDto loginDto)
         {
             await EnsureSeedRoles();
             _user = await _userManager.FindByNameAsync(loginDto.Username);

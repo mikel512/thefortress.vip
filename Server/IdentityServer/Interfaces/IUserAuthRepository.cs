@@ -5,8 +5,8 @@ namespace IdentityServer.Interfaces
 {
     public interface IUserAuthRepository
     {
-        Task<IdentityResult> RegisterUserAsync(RegistrationDTO user);
-        Task<bool> ValidateUserAsync(LoginDTO loginDto);
+        Task<IdentityResult> RegisterUserAsync(RegistrationDto user);
+        Task<bool> ValidateUserAsync(LoginDto loginDto);
         Task<string> CreateTokenAsync();
     }
 }
