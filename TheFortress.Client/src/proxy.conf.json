@@ -6,5 +6,15 @@
             "^/api": "/api"
         },
         "logLevel": "debug"
+    },
+    "/authenticate": {
+        "target": "http://localhost:5003",
+        "secure": false,
+        "pathRewrite": {
+            "^/authenticate": "/api"
+        },
+        "logLevel": "debug"
+
     }
+    
 }

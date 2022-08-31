@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { tap } from 'rxjs';
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 
@@ -13,7 +12,7 @@ export class AppComponent {
     title = 'app';
     isIframe = false;
 
-    constructor(public auth: AuthService,
+    constructor(
         private spinner: SpinnerOverlayService) {
     }
 

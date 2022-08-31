@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
     selector: 'app-register-button',
@@ -7,11 +6,11 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 
 export class RegisterButtonComponent implements OnInit {
-    constructor(private auth: AuthService) { }
+    constructor() { }
 
     ngOnInit() { }
 
     loginWithRedirect(): void {
-        this.auth.loginWithRedirect({ screen_hint: 'signup' });
+        // this.auth.loginWithRedirect({ screen_hint: 'signup' });
     }
 }

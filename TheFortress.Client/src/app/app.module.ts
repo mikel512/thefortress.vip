@@ -16,10 +16,9 @@ import { SpinnerOverlayComponent } from './component/spinner-overlay/spinner-ove
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { AuthModule } from '@auth0/auth0-angular';
-import { AuthButtonComponent } from './auth/auth-button.component';
-import { UserProfileComponent } from './auth/user-profile.component';
-import { RegisterButtonComponent } from './auth/register-button.component';
+import { AuthButtonComponent } from './auth/btn/auth-button.component';
+import { RegisterButtonComponent } from './auth/btn/register-button.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -33,19 +32,14 @@ import { RegisterButtonComponent } from './auth/register-button.component';
         FooterComponent,
         SpinnerOverlayComponent,
         AuthButtonComponent,
-        UserProfileComponent,
         RegisterButtonComponent,
     ],
     imports: [
         OverlayModule,
-        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        // BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-        // AuthModule.forRoot({
-        //     domain: 'dev-q8t7-ngq.us.auth0.com',
-        //     clientId: 'VifpYBYumWJpJxJPb5Pw18Oqki2IzbHV'
-        // }),
         RouterModule.forRoot([
             {
                 path: '',
@@ -57,9 +51,11 @@ import { RegisterButtonComponent } from './auth/register-button.component';
             { path: ':city', loadChildren: () => import('./pages/events/event.module').then(m => m.EventModule) },
             { path: 'events/:eventId', loadChildren: () => import('./pages/event-detail/event-detail.module').then(m => m.EventDetailModule) },
             { path: 'loading-animations', loadChildren: () => import('./loading-animations/loading-animations.module').then(m => m.LoadingAnimationsModule) },
+            { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
         ])
     ],
     providers: [
+        AuthService,
         SpinnerOverlayService,
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     ],
