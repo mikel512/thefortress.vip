@@ -1,12 +1,11 @@
-using Duende.IdentityServer;
-using Duende.IdentityServer.EntityFramework.DbContexts;
-using Duende.IdentityServer.EntityFramework.Mappers;
-using Microsoft.Extensions.DependencyInjection;
-using IdentityServerHost;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Runtime.InteropServices;
+using IdentityServer.Data;
+using Microsoft.AspNetCore.Identity;
+using IdentityServer.Models;
+using IdentityServer.DAL;
+using AutoMapper;
 
 namespace IdentityServer;
 
@@ -24,42 +23,32 @@ internal static class HostingExtensions
             builder.Configuration.AddJsonFile(@"/var/www/TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
         }
 
+        var mapperConfig = new MapperConfiguration(map =>
+        {
+            map.AddProfile<UserMappingProfile>();
+        });
+        builder.Services.AddSingleton(mapperConfig.CreateMapper());
+
+
         builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
         var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
         var dbString = builder.Configuration.GetValue<string>("DbConnection");
-        builder.Services.AddIdentityServer()
-            .AddConfigurationStore(o =>
-            {
-                o.ConfigureDbContext = b => b.UseSqlServer(dbString,
-                    sql => sql.MigrationsAssembly(migrationsAssembly));
-            })
-            .AddOperationalStore(o =>
-            {
-                o.ConfigureDbContext = b => b.UseSqlServer(dbString,
-                    sql => sql.MigrationsAssembly(migrationsAssembly));
-            })
-            .AddTestUsers(TestUsers.Users);
+
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(dbString));
+
+        //builder.Services.AddScoped<IUserAuthRepository, UserAuthRepository>();
+        builder.Services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
+
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
 
-        //builder.Services.AddAuthentication()
-        //    .AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
-        //    {
-        //        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-        //        options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-        //        options.SaveTokens = true;
-
-        //        options.Authority = "https://demo.duendesoftware.com";
-        //        options.ClientId = "interactive.confidential";
-        //        options.ClientSecret = "secret";
-        //        options.ResponseType = "code";
-
-        //        options.TokenValidationParameters = new TokenValidationParameters
-        //        {
-        //            NameClaimType = "name",
-        //            RoleClaimType = "role"
-        //        };
-        //    });
+        builder.Services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
 
         return builder.Build();
     }
@@ -72,58 +61,14 @@ internal static class HostingExtensions
             app.UseDeveloperExceptionPage();
         }
 
-        InitializeDatabase(app);
+        app.UseHttpsRedirection();
 
-        app.UseStaticFiles();
-        app.UseRouting();
-        app.UseStaticFiles();
-
-        app.UseIdentityServer();
-
-
+        app.UseAuthentication();
         app.UseAuthorization();
-        app.MapRazorPages().RequireAuthorization();
+
+        app.MapControllers();
 
         return app;
     }
 
-    private static void InitializeDatabase(IApplicationBuilder app)
-    {
-        using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-        {
-            //serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
-
-            var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-            //context.Database.Migrate();
-            if (context.Clients.Any())
-            {
-                foreach (var client in Config.Clients)
-                {
-                    if (!context.Clients.Any(x => x.ClientId == client.ClientId))
-                    {
-                        context.Clients.Add(client.ToEntity()); 
-                    }
-                }
-                context.SaveChanges();
-            }
-
-            if (!context.IdentityResources.Any())
-            {
-                foreach (var resource in Config.IdentityResources)
-                {
-                    context.IdentityResources.Add(resource.ToEntity());
-                }
-                context.SaveChanges();
-            }
-
-            if (!context.ApiScopes.Any())
-            {
-                foreach (var resource in Config.ApiScopes)
-                {
-                    context.ApiScopes.Add(resource.ToEntity());
-                }
-                context.SaveChanges();
-            }
-        }
-    }
 }
