@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IdentityServer.Interfaces;
 using IdentityServer.Models;
 using IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;

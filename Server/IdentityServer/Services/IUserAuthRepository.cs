@@ -1,7 +1,7 @@
 ﻿using IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace IdentityServer.Interfaces
+namespace IdentityServer.Services
 {
     public interface IUserAuthRepository
     {

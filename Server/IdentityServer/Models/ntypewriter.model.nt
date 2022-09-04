@@ -36,7 +36,7 @@ export interface I{{class.Name}} {
 }
 
 export class {{ class.Name }} implements I{{class.Name}} {
-	constructor(init: Partial<I{{class.Name}}>) {
+	constructor(init?: Partial<I{{class.Name}}>) {
 		Object.assign(this, init);
 	}
 	{{}}

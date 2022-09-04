@@ -29,6 +29,10 @@ namespace IdentityServer.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] RegistrationDto model)
         {
+            if (String.IsNullOrEmpty(model.Username))
+            {
+                model.Username = model.Email;
+            }
             IdentityResult result = await _identity.UserAuth.RegisterUserAsync(model);
             return !result.Succeeded ? new BadRequestObjectResult(result) : StatusCode(201);
         }
@@ -39,7 +43,7 @@ namespace IdentityServer.Controllers
         {
             var jwtConf = _configuration.GetSection("JwtConfig");
             return !await _identity.UserAuth.ValidateUserAsync(user)
-                ? Unauthorized()
+                ? Unauthorized(new { errorMessage = "Wrong username or password" } )
                 : Ok(new
                 {
                     Token = await _identity.UserAuth.CreateTokenAsync(),

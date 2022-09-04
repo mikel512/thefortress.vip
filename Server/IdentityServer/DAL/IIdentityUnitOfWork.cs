@@ -1,4 +1,4 @@
-﻿using IdentityServer.Interfaces;
+﻿using IdentityServer.Services;
 
 namespace IdentityServer.DAL
 {

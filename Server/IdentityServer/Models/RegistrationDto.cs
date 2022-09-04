@@ -4,7 +4,6 @@ namespace IdentityServer.Models
 {
     public class RegistrationDto
     {
-        [Required(ErrorMessage = "User Name is required")]
         public string? Username { get; set; }
 
         [EmailAddress]
