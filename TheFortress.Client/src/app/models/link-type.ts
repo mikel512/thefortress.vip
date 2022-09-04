@@ -10,7 +10,7 @@ export interface ILinkType {
 }
 
 export class LinkType implements ILinkType {
-	constructor(init: Partial<ILinkType>) {
+	constructor(init?: Partial<ILinkType>) {
 		Object.assign(this, init);
 	}
 	

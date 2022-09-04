@@ -22,7 +22,7 @@ export interface IVenue {
 }
 
 export class Venue implements IVenue {
-	constructor(init: Partial<IVenue>) {
+	constructor(init?: Partial<IVenue>) {
 		Object.assign(this, init);
 	}
 	

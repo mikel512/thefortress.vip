@@ -11,7 +11,7 @@ export interface ITrustedCode {
 }
 
 export class TrustedCode implements ITrustedCode {
-	constructor(init: Partial<ITrustedCode>) {
+	constructor(init?: Partial<ITrustedCode>) {
 		Object.assign(this, init);
 	}
 	

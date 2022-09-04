@@ -13,7 +13,7 @@ export interface IArtist {
 }
 
 export class Artist implements IArtist {
-	constructor(init: Partial<IArtist>) {
+	constructor(init?: Partial<IArtist>) {
 		Object.assign(this, init);
 	}
 	

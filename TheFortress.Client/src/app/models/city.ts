@@ -12,7 +12,7 @@ export interface ICity {
 }
 
 export class City implements ICity {
-	constructor(init: Partial<ICity>) {
+	constructor(init?: Partial<ICity>) {
 		Object.assign(this, init);
 	}
 	

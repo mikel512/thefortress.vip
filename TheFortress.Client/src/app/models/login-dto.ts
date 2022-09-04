@@ -9,7 +9,7 @@ export interface ILoginDto {
 }
 
 export class LoginDto implements ILoginDto {
-	constructor(init: Partial<ILoginDto>) {
+	constructor(init?: Partial<ILoginDto>) {
 		Object.assign(this, init);
 	}
 	

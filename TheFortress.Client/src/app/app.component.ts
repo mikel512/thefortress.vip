@@ -15,7 +15,7 @@ export class AppComponent {
     constructor(
         private spinner: SpinnerOverlayService) {
     }
-
+    
     ngOnInit() {
     }
 }

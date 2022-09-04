@@ -3,18 +3,18 @@
 
 
 export interface IRegistrationDto {
-	username: string;
+	username: string | null;
 	email: string;
 	password: string;
 
 }
 
 export class RegistrationDto implements IRegistrationDto {
-	constructor(init: Partial<IRegistrationDto>) {
+	constructor(init?: Partial<IRegistrationDto>) {
 		Object.assign(this, init);
 	}
 	
-	username: string;
+	username: string | null;
 	email: string;
 	password: string;
 }

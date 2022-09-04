@@ -9,7 +9,7 @@ export interface ICodeUser {
 }
 
 export class CodeUser implements ICodeUser {
-	constructor(init: Partial<ICodeUser>) {
+	constructor(init?: Partial<ICodeUser>) {
 		Object.assign(this, init);
 	}
 	

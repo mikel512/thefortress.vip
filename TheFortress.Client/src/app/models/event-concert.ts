@@ -20,7 +20,7 @@ export interface IEventConcert {
 }
 
 export class EventConcert implements IEventConcert {
-	constructor(init: Partial<IEventConcert>) {
+	constructor(init?: Partial<IEventConcert>) {
 		Object.assign(this, init);
 	}
 	

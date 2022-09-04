@@ -11,7 +11,7 @@ export interface IAnalytic {
 }
 
 export class Analytic implements IAnalytic {
-	constructor(init: Partial<IAnalytic>) {
+	constructor(init?: Partial<IAnalytic>) {
 		Object.assign(this, init);
 	}
 	

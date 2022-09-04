@@ -17,9 +17,7 @@ import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AuthButtonComponent } from './auth/btn/auth-button.component';
-import { RegisterButtonComponent } from './auth/btn/register-button.component';
 import { AuthService } from './services/auth.service';
-
 
 @NgModule({
     declarations: [
@@ -32,7 +30,6 @@ import { AuthService } from './services/auth.service';
         FooterComponent,
         SpinnerOverlayComponent,
         AuthButtonComponent,
-        RegisterButtonComponent,
     ],
     imports: [
         OverlayModule,

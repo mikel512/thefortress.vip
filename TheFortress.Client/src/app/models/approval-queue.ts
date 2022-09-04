@@ -8,7 +8,7 @@ export interface IApprovalQueue {
 }
 
 export class ApprovalQueue implements IApprovalQueue {
-	constructor(init: Partial<IApprovalQueue>) {
+	constructor(init?: Partial<IApprovalQueue>) {
 		Object.assign(this, init);
 	}
 	

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -7,9 +7,15 @@ import { AuthService } from 'src/app/services/auth.service';
     templateUrl: 'auth-button.component.html'
 })
 
-export class AuthButtonComponent implements OnInit {
-    constructor(public auth: AuthService) { }
+export class AuthButtonComponent implements OnInit, AfterViewInit {
+    constructor(public auth: AuthService,
+        private cdr: ChangeDetectorRef) { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+    }
 
+    ngAfterViewInit(): void {
+        this.auth.isLoggedIn();
+        this.cdr.detectChanges();
+    }
 }

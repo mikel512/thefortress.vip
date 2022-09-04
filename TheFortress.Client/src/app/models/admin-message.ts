@@ -12,7 +12,7 @@ export interface IAdminMessage {
 }
 
 export class AdminMessage implements IAdminMessage {
-	constructor(init: Partial<IAdminMessage>) {
+	constructor(init?: Partial<IAdminMessage>) {
 		Object.assign(this, init);
 	}
 	

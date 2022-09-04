@@ -12,7 +12,7 @@ export interface IComment {
 }
 
 export class Comment implements IComment {
-	constructor(init: Partial<IComment>) {
+	constructor(init?: Partial<IComment>) {
 		Object.assign(this, init);
 	}
 	
