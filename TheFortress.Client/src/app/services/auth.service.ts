@@ -7,19 +7,30 @@ import { _isNumberValue } from '@angular/cdk/coercion';
 import { Router } from '@angular/router';
 import { RegistrationDto } from '../models/registration-dto';
 
+export enum ClaimKey {
+    name = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+    email = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     private _isAuthenticated = new Subject<boolean>();
     public isAuthenticated$ = this._isAuthenticated.asObservable();
+    private _decodedJWT = {};
 
 
     constructor(
         private router: Router,
         private http: HttpClient) {
+        setTimeout(() => {
+            this.isLoggedIn();
+        }, 10000)
+        this.setClaims();
     }
 
     login(login: LoginDto) {
-        return this.http.post<any>('/authenticate/login', login);
+        return this.http.post<any>('/authenticate/login', login)
+            .pipe(tap((x) => this.setSession(x), shareReplay));
     }
 
     register(input: RegistrationDto) {
@@ -28,11 +39,12 @@ export class AuthService {
     }
 
     private setSession(authResult) {
-        console.log(authResult);
         const expiresAt = moment().add(authResult.expiresIn, 'second');
 
         localStorage.setItem('id_token', authResult.token);
         localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
+        this.setClaims();
+
         this._isAuthenticated.next(true);
         this.router.navigate(['/'])
     }
@@ -58,5 +70,17 @@ export class AuthService {
         const expiration = localStorage.getItem("expires_at");
         const expiresAt = JSON.parse(expiration);
         return moment(expiresAt);
+    }
+
+    setClaims() {
+        let token = localStorage.getItem('id_token');
+        if (token != null) {
+            this._decodedJWT = JSON.parse(window.atob(token.split('.')[1]));
+        }
+
+    }
+
+    getName() {
+        return this._decodedJWT[ClaimKey.name];
     }
 }

@@ -6,7 +6,7 @@
         <div class="container py-3">
             <ui-alert [input]="alert"></ui-alert>
             <div class="form-group">
-                <label>Email</label>
+                <label>Username or email</label>
                 <input class="form-control" [(ngModel)]="login.username" [inputIsInvalid]="submitted && login.username === ''" placeholder="your-email@mailbox.com">
                 <span *ngIf="submitted && login.username === ''" class="text-danger">Username is required</span>
             </div>

@@ -38,7 +38,14 @@ namespace IdentityServer.Services
         public async Task<bool> ValidateUserAsync(LoginDto loginDto)
         {
             await EnsureSeedRoles();
+            // first try by username
             _user = await _userManager.FindByNameAsync(loginDto.Username);
+            if(_user == null)
+            {
+                // if username not found try email
+                _user = await _userManager.FindByEmailAsync(loginDto.Username);
+
+            }
             var result = _user != null && await _userManager.CheckPasswordAsync(_user, loginDto.Password);
             return result;
         }
@@ -78,7 +85,8 @@ namespace IdentityServer.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName)
+                new Claim(ClaimTypes.Name, _user.UserName),
+                new Claim(ClaimTypes.Email, _user.Email),
             };
             var roles = await _userManager.GetRolesAsync(_user);
             foreach (var role in roles)

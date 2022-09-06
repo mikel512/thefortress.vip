@@ -18,6 +18,7 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AuthButtonComponent } from './auth/btn/auth-button.component';
 import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
     declarations: [
@@ -52,8 +53,10 @@ import { AuthService } from './services/auth.service';
         ])
     ],
     providers: [
+        AuthService,
         SpinnerOverlayService,
         { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]
 })

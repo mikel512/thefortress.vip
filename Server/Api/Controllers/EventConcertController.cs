@@ -27,6 +27,7 @@ namespace Api.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<EventConcert>>> Get()
         {
             try

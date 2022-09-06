@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         }
         this._auth.login(this.login).subscribe({
             next: (item) => {
-                // console.log(item)
+                console.log(item)
             },
             error: (err) => {
                 this.alert.error = err.error.errorMessage;
