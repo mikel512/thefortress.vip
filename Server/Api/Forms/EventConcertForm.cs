@@ -8,12 +8,17 @@ namespace Api.Forms
     public class EventConcert
     {
         [Required]
-        public string Name { get; set; } = null!;
+        [MaxLength(100)]
+        [MinLength(1)]
+        public string EventName { get; set; } = null!;
         [Required]
-        public string? FlyerUrl { get; set; }
+        public string? Flyer { get; set; }
         [Required]
-        public DateTime Date { get; set; }
-        public string? PriceAmount { get; set; }
-        public string? Time { get; set; }
+        public DateTime EventDate { get; set; }
+        public string? Details { get; set; }
+        public string? Price { get; set; }
+        public string? EventTime { get; set; }
+        public bool IsApproved { get; set; }
+
     }
 }

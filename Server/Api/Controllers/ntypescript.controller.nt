@@ -5,23 +5,15 @@
 	end
 	capture output -}}
 {{- baseName = class | String.Remove("Controller")
-	baseKebab = baseName | 
-	Regex.Split("(?<!^)(?=[A-Z])|[A-Z]([A-Z][a-z])")
-	snakeCase = ""
-	for s in baseKebab
-		if for.last
-		snakeCase += s | String.Downcase()
-		break
-		end
-	snakeCase += s | String.Downcase() | String.Append("-") 
-	end -}}
+	snakeCase = baseName | Custom.ToSnakeCase()
+	 -}}
 // NTypescript generated file
 
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { {{baseName}}, I{{baseName}} } from '../models/{{snakeCase}}'
+import { {{baseName}}, I{{baseName}} } from '@models/{{snakeCase}}'
 
 
 @Injectable({

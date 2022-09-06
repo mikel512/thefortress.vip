@@ -1,0 +1,159 @@
+﻿{{- config.AddGeneratedFilesToVSProject = false -}}
+{{- for class in data.Classes
+	if class.Namespace != "Api.Forms"  
+		continue
+	end
+	capture output
+
+	modelName = class.BareName 
+	snakeCaseName = modelName | Custom.ToSnakeCase()
+-}}
+// NTypewriter generated content
+	
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertModel } from '@models/alert-model';
+import { {{modelName}} } from '@models/{{snakeCaseName}}'
+import { {{modelName}}Service } from '@services/{{snakeCaseName}}.service'
+
+@Component({
+	selector: 'ui-{{snakeCaseName}}-form',
+	templateUrl: './{{snakeCaseName}}-form.component.html',
+})
+export class {{modelName}}FormComponent implements OnInit {
+	public input: {{modelName}} = new {{modelName}}();
+	public inputForm: FormGroup;
+
+	public alert: AlertModel = new AlertModel();
+	
+	@Output() out = new EventEmitter<{{modelName}}>();
+
+	constructor(private data: {{modelName}}Service) { }
+
+	ngOnInit() {    
+		this.inputForm = new FormGroup({
+			{{-for prop in class.Properties -}}
+			{{if prop.Attributes | Array.Size == 0}}
+			{{prop.BareName | String.ToCamelCase}}: new FormControl (''),
+			{{-else}} 
+			{{prop.BareName | String.ToCamelCase}}: new FormControl ('', [
+				{{-for attr in prop.Attributes}}
+				{{-if attr.Name == "Required"}}
+				Validators.required,
+				{{-end}}
+				{{-if attr.Name == "MaxLength"
+					length = attr.Arguments[0].Value
+				}}
+				Validators.maxLength({{length}}),
+				{{-end}}
+				{{-if attr.Name == "MinLength"
+					length = attr.Arguments[0].Value
+				}}
+				Validators.minLength({{length}}),
+				{{-end
+					end}}
+			]),
+			{{-end
+			end}}
+		});
+	} 
+	{{for prop in class.Properties
+		propName = prop.Name | String.ToCamelCase}}
+	get {{propName}}() { return this.inputForm.get('{{propName}}') }
+	{{-end}}
+
+	setModel() {
+	{{-for prop in class.Properties
+		propName = prop.Name | String.ToCamelCase}}
+		this.input.{{propName}} = this.{{propName}}.value;
+	{{-end}}
+	}
+
+	submit() {
+		if(this.inputForm.invalid){
+			return;
+		}
+		this.setModel();
+		this.out.emit(this.input);
+	}
+}
+
+
+{{end
+filePath =  snakeCaseName | String.Append "-form.component.ts" | 
+String.Prepend "../../../TheFortress.Client/src/app/forms/"
+Save output filePath 
+
+capture output
+
+-}}
+<form [formGroup]="inputForm" (ngSubmit)="submit()">
+	<ui-alert [input]="alert"></ui-alert>
+
+	{{-for prop in class.Properties
+		propCamel = prop.Name | String.ToCamelCase
+		inputType = ""
+		hasValidators = false
+		if prop.Type.BareName == "string" || prop.Type.BareName == "int"
+			inputType = "text"
+		else if prop.Type.BareName == "bool"
+			inputType = "checkbox"
+		end
+
+		if prop.Attributes | Array.Size > 0
+			hasValidators = true
+		end
+		splitted = prop | Custom.Split 
+
+	-}}
+	{{-if inputType == "text" }}
+	<div class="form-group">
+		<label>{{splitted}}</label>
+		<input class="form-control" type="{{inputType}}" placeholder="{{splitted}}"
+			{{-if hasValidators}}
+			[inputIsInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			[inputIsValid]="{{propCamel}}.valid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			{{-end}}
+			formControlName="{{propCamel}}" />
+		{{-if hasValidators}}
+		<span *ngIf="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)" class="text-danger">
+			<ul class="px-3">
+				{{-for attr in prop.Attributes }}
+				{{ attr | Custom.GenerateLiFromAttr(propCamel, splitted)}} 
+				{{-end}}
+			</ul>
+		</span>
+		{{end}}
+	</div>
+	{{-end}}
+	{{-if inputType == "checkbox"}}
+	<div class="form-group form-check">
+		<input class="form-check-input" type="{{inputType}}" placeholder="{{splitted}}"
+			{{-if hasValidators}}
+			[inputIsInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			[inputIsValid]="{{propCamel}}.valid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			{{-end}}
+			formControlName="{{propCamel}}" />
+		<label class="form-check-label">{{splitted}}</label>
+		{{-if hasValidators}}
+		<span *ngIf="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)" class="text-danger">
+			<ul class="px-3">
+				{{-for attr in prop.Attributes }}
+				{{ attr | Custom.GenerateLiFromAttr(propCamel, splitted)}} 
+				{{-end}}
+			</ul>
+		</span>
+		{{end}}
+	</div>
+	{{-end}}
+	{{end}}
+	<button type="submit" class="w-100 my-4 btn btn-primary"
+		[disabled]="inputForm.invalid || inputForm.pristine">Submit</button>
+</form>
+
+{{end
+filePath =  snakeCaseName | String.Append "-form.component.html" | 
+String.Prepend "../../../TheFortress.Client/src/app/forms/"
+Save output filePath 
+end}}
