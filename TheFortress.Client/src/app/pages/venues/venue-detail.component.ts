@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Venue } from '../../models/venue';
-import { EventConcert } from '../../models/event-concert';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { SpinnerOverlayService } from '../../services/spinner-overlay.service';
-import { VenueService } from 'src/app/services/venue.service';
-import { EventConcertService } from 'src/app/services/event-concert.service';
-import { forkJoin } from 'rxjs';
+import { Venue } from '@models/venue';
+import { EventConcert } from '@models/event-concert';
+import { SpinnerOverlayService } from '@services/spinner-overlay.service';
+import { VenueService } from '@services/venue.service';
+import { EventConcertService } from '@services/event-concert.service';
 
 @Component({
   selector: 'app-venue-detail',

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Analytic, IAnalytic } from '../models/analytic'
+import { Analytic, IAnalytic } from '@models/analytic'
 
 
 @Injectable({

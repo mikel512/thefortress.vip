@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AppFormsModule } from '@forms/forms.module';
 import { MyDirectivesModule } from '../directives/my-directives.module';
 import { LoadingAnimationsModule } from '../loading-animations/loading-animations.module';
 import { SharedModule } from '../pages/shared/shared.module';
@@ -18,6 +19,7 @@ import { RegisterComponent } from './pages/register.component';
     ],
     imports: [
         MyDirectivesModule,
+        AppFormsModule,
         CommonModule,
         SharedModule,
         FormsModule,

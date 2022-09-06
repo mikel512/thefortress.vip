@@ -1,0 +1,61 @@
+﻿<form [formGroup]="inputForm" (ngSubmit)="submit()">
+	<ui-alert [input]="alert"></ui-alert>
+	<div class="form-group">
+		<label>Event Name</label>
+		<input class="form-control" type="text" placeholder="Event Name"
+			[inputIsInvalid]="eventName.invalid && (eventName.dirty || eventName.touched)"
+			[inputIsValid]="eventName.valid && (eventName.dirty || eventName.touched)"
+			formControlName="eventName" />
+		<span *ngIf="eventName.invalid && (eventName.dirty || eventName.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="eventName.errors?.required">Event Name field is required </li>
+				<li *ngIf="eventName.errors?.maxLength">Field must have a maximum of  </li>
+				<li *ngIf="eventName.errors?.maxLength">Field must have a minimum of</li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<div class="form-group">
+		<label>Flyer</label>
+		<input class="form-control" type="text" placeholder="Flyer"
+			[inputIsInvalid]="flyer.invalid && (flyer.dirty || flyer.touched)"
+			[inputIsValid]="flyer.valid && (flyer.dirty || flyer.touched)"
+			formControlName="flyer" />
+		<span *ngIf="flyer.invalid && (flyer.dirty || flyer.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="flyer.errors?.required">Flyer field is required </li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	
+	<div class="form-group">
+		<label>Details</label>
+		<input class="form-control" type="text" placeholder="Details"
+			formControlName="details" />
+	</div>
+	
+	<div class="form-group">
+		<label>Price</label>
+		<input class="form-control" type="text" placeholder="Price"
+			formControlName="price" />
+	</div>
+	
+	<div class="form-group">
+		<label>Event Time</label>
+		<input class="form-control" type="text" placeholder="Event Time"
+			formControlName="eventTime" />
+	</div>
+	
+	<div class="form-group form-check">
+		<input class="form-check-input" type="checkbox" placeholder="Is Approved"
+			formControlName="isApproved" />
+		<label class="form-check-label">Is Approved</label>
+	</div>
+	
+	<button type="submit" class="w-100 my-4 btn btn-primary"
+		[disabled]="inputForm.invalid || inputForm.pristine">Submit</button>
+</form>
+

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { City, ICity } from '../models/city'
+import { City, ICity } from '@models/city'
 
 
 @Injectable({

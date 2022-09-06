@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RetypeConfirm } from 'src/app/directives/retype-confirm';
-import { AlertModel } from 'src/app/models/alert-model';
-import { RegistrationDto } from 'src/app/models/registration-dto';
-import { AuthService } from 'src/app/services/auth.service';
+import { RetypeConfirm } from '@directives/retype-confirm';
+import { AlertModel } from '@models/alert-model';
+import { RegistrationDto } from '@models/registration-dto';
+import { AuthService } from '@services/auth.service';
 
 @Component({
     selector: 'ui-register',
     templateUrl: './register.component.html',
-    styleUrls: ['../auth.css']
+    styleUrls: ['../auth.css', '../../styles/app-styles.css' ]
 })
 export class RegisterComponent implements OnInit {
     public input: RegistrationDto = new RegistrationDto();

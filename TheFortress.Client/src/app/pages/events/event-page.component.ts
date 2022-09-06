@@ -2,8 +2,8 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { EventConcertService } from 'src/app/services/event-concert.service';
-import { EventConcert } from '../../models/event-concert';
+import { EventConcertService } from '@services/event-concert.service';
+import { EventConcert } from '@models/event-concert';
 
 @Component({
   selector: 'app-event-page',

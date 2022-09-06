@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewChecked, Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { EventConcertService } from 'src/app/services/event-concert.service';
-import { VenueService } from 'src/app/services/venue.service';
-import { EventConcert } from '../../models/event-concert';
+import { EventConcertService } from '@services/event-concert.service';
+import { VenueService } from '@services/venue.service';
+import { EventConcert } from '@models/event-concert';
 
 @Component({
   selector: 'app-event-detail',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Venue } from '../../models/venue';
+import { Venue } from '@models/venue';
 
 @Component({
   selector: 'app-venue-item',
