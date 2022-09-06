@@ -103,6 +103,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public EventConcert Post([FromBody] EventConcert concert)
         {
             EventConcert item = new EventConcert();
@@ -120,6 +121,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public EventConcert Put(int id, [FromBody] EventConcert concert)
         {
             EventConcert item = new EventConcert();
@@ -138,6 +140,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             unitOfWork.EventConcertRepository.Delete(id);

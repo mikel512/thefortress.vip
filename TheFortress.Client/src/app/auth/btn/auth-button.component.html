@@ -1,11 +1,15 @@
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
     <ul class="navbar-nav">
+        <li *ngIf="auth.isAdmin()" class="nav-item">
+            <a href="javascript:void(0)" class="nav-link text-light" [routerLink]="['/admin']">Admin Panel</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link text-light">Hello, {{auth.getName()}}</a>
         </li>
         <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link text-light" (click)="auth.logout()">Logout</a>
         </li>
+
     </ul>
 </ng-container>
 

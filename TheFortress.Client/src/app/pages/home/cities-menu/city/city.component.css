@@ -1,13 +1,14 @@
 .city-container {
     position: relative;
     text-align: center;
-    color: white
+    color: white;
 }
 
 .city-img {
-    width: 100%;
+    width: 95%;
     height: 200px;
     filter: brightness(75%);
+    border-radius: 20px;
 }
 
 .city-title { 

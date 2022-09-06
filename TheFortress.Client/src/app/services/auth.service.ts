@@ -9,7 +9,8 @@ import { RegistrationDto } from '../models/registration-dto';
 
 export enum ClaimKey {
     name = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
-    email = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+    email = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+    role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
 }
 
 @Injectable({ providedIn: 'root' })
@@ -76,11 +77,18 @@ export class AuthService {
         let token = localStorage.getItem('id_token');
         if (token != null) {
             this._decodedJWT = JSON.parse(window.atob(token.split('.')[1]));
+            console.log(this._decodedJWT);
         }
 
     }
 
     getName() {
         return this._decodedJWT[ClaimKey.name];
+    }
+    getRoles() {
+        return this._decodedJWT[ClaimKey.role];
+    }
+    isAdmin() {
+        return this.getRoles().includes("Admin");
     }
 }

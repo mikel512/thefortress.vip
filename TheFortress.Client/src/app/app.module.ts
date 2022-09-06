@@ -44,6 +44,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
                 component: HomeComponent,
                 pathMatch: 'full'
             },
+            { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule) },
             { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
             { path: 'venues', loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesModule) },
             { path: ':city', loadChildren: () => import('./pages/events/event.module').then(m => m.EventModule) },

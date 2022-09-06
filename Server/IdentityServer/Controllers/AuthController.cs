@@ -38,7 +38,6 @@ namespace IdentityServer.Controllers
         }
 
         [HttpPost("[action]")]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Login([FromBody] LoginDto user)
         {
             var jwtConf = _configuration.GetSection("JwtConfig");
