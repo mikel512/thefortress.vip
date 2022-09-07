@@ -59,6 +59,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public City Post([FromBody] City value)
         {
             City item = new City();
@@ -71,6 +72,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public City Put(int id, [FromBody] City value)
         {
             City item = new City();
@@ -84,6 +86,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             unitOfWork.CityRepository.Delete(id);

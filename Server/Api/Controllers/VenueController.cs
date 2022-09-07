@@ -75,6 +75,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public Venue Post([FromBody] Venue value)
         {
             Venue item = new Venue();
@@ -92,8 +93,8 @@ namespace Api.Controllers
             return item;
         }
 
-        // PUT api/<VenueController>/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public Venue Put(int id, [FromBody] Venue value)
         {
             Venue item = new Venue();
@@ -112,8 +113,8 @@ namespace Api.Controllers
             return item;
         }
 
-        // DELETE api/<VenueController>/5 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             //unitOfWork.VenueRepository.Delete(id);

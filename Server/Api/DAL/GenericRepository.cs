@@ -57,9 +57,9 @@ namespace Api.DAL
             await dbSet.AddAsync(entity);
         }
 
-        public virtual async void Delete(object id)
+        public virtual void Delete(object id)
         {
-            TEntity? entityToDelete = await dbSet.FindAsync(id);
+            TEntity? entityToDelete =  dbSet.Find(id);
             if (entityToDelete is not null)
             {
                 Delete(entityToDelete);

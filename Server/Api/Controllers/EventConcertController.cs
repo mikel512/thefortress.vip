@@ -144,6 +144,7 @@ namespace Api.Controllers
         public void Delete(int id)
         {
             unitOfWork.EventConcertRepository.Delete(id);
+            unitOfWork.Save();
         }
     }
 }
