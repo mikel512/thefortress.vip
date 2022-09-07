@@ -12,7 +12,8 @@
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" [(ngModel)]="login.password" [inputIsInvalid]="submitted && login.password === ''" placeholder="Password" autocomplete="off">
+                <input type="password" class="form-control" [(ngModel)]="login.password" (keyup.enter)="submit()"
+                    [inputIsInvalid]="submitted && login.password === ''" placeholder="Password" autocomplete="off">
                 <span *ngIf="submitted && login.password === ''" class="text-danger">Password is required</span>
             </div>
 
@@ -25,7 +26,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary w-100" (click)="submit()">Continue</button>
+            <button class="btn btn-primary w-100" (click)="submit()" >Continue</button>
             <p class="text-muted d-flex justify-content-center">Forgot your password?</p>
 
         </div>

@@ -19,7 +19,7 @@ export class EventDetailComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private _event: EventConcertService,
     private _venue: VenueService,
-    http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    @Inject('BASE_URL') baseUrl: string) {
 
     this.route = actRouter.snapshot;
     this.eventId = this.route.params['eventId'];

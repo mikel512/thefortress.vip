@@ -1,0 +1,50 @@
+<div class="card card-primary">
+    <div class="card-header border-transparent">
+        <h3 class="card-title">Events</h3>
+        <div class="card-tools">
+            <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+            </button> -->
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0" id="localConcertsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Venue</th>
+                        <th>Date</th>
+                        <th>Time Start</th>
+                        <th>Price</th>
+                        <th>URL</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let event of events">
+                        <td>{{event.eventName}}</td>
+                        <td>{{event.venueFkNavigation.venueName}}</td>
+                        <td>{{event.eventDate | date: 'shortDate'}} </td>
+                        <td>{{event.eventTime}} </td>
+                        <td>{{event.price}} </td>
+                        <td><a href="{{event.tickets}}" target="_blank">Click</a> </td>
+                        <td>{{event.status}} </td>
+                        <td><button class="btn btn-danger btn-sm" (click)="delete(event.eventConcertId)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+        <a href="#addConcertModal" data-toggle="modal" class="btn btn-sm btn-info float-left">Add a new date</a>
+    </div>
+    <!-- /.card-footer -->
+</div>

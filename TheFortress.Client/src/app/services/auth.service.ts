@@ -89,6 +89,6 @@ export class AuthService {
         return this._decodedJWT[ClaimKey.role];
     }
     isAdmin() {
-        return this.getRoles().includes("Admin");
+        return this.getRoles()?.includes("Admin");
     }
 }
