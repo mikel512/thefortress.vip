@@ -20,6 +20,7 @@ export class AdminEventsComponent implements OnInit {
     reload() {
         this.data.get(getBaseUrl()).subscribe(
             x => {
+                this.events = [];
                 this.events = x;
             }
         );
