@@ -9,7 +9,6 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser'
 })
 export class EventDesktopComponent implements OnInit {
   @Input() dataDesk!: EventConcert;
-  displayDate: string = '';
   abnormalStatus: boolean = false;
 
   constructor(private domSanitizer: DomSanitizer) { }
