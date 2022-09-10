@@ -13,7 +13,8 @@ pool:
 
 # define variables to use during the build
 variables:
-  projectFile: "TheFortress.API/TheFortress.API.csproj"
+  projectFile: "Server/Api/Api.csproj"
+  idPServerFile: "Server/IdentityServer/IdentityServer.csproj"
   buildConfiguration: "Release"
   projectFolder: "TheFortress.Client"
   buildOutputFolder: "TheFortress.Client/dist/html"
@@ -61,3 +62,20 @@ steps:
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: "$(Build.ArtifactStagingDirectory)/bundle_api.zip"
+
+  ## Build the id server
+  - script: |
+      dotnet build $(idPServerFile) --configuration $(buildConfiguration)
+      dotnet publish $(idPServerFile) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)_build
+  ## Archive the files into a zip file for publishing
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)_build
+      archiveType: "zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/bundle_idp.zip"
+      includeRootFolder: false
+
+  ## Publish the zip file
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/bundle_idp.zip"
