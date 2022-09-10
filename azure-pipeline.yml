@@ -66,11 +66,11 @@ steps:
   ## Build the id server
   - script: |
       dotnet build $(idPServerFile) --configuration $(buildConfiguration)
-      dotnet publish $(idPServerFile) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)_build
+      dotnet publish $(idPServerFile) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)_build2
   ## Archive the files into a zip file for publishing
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: $(Build.ArtifactStagingDirectory)_build
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)_build2
       archiveType: "zip"
       archiveFile: "$(Build.ArtifactStagingDirectory)/bundle_idp.zip"
       includeRootFolder: false
