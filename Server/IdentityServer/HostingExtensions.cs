@@ -30,8 +30,6 @@ internal static class HostingExtensions
         builder.Services.AddSingleton(mapperConfig.CreateMapper());
 
 
-        builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-
         var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
         var dbString = builder.Configuration.GetValue<string>("DbConnection");
 
