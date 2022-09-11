@@ -42,7 +42,7 @@ steps:
       includeRootFolder: false
 
   ## Publish the zip file
-  - task: PublishAPIArtifacts@1
+  - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: "$(Build.ArtifactStagingDirectory)/bundle_ng.zip"
 
@@ -59,7 +59,7 @@ steps:
       includeRootFolder: false
 
   ## Publish the zip file
-  - task: PublishIDPArtifacts@1
+  - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: "$(Build.ArtifactStagingDirectory)/bundle_api.zip"
 
