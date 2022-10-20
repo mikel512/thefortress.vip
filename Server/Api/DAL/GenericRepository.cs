@@ -52,9 +52,9 @@ namespace Api.DAL
             return await dbSet.FindAsync(id);
         }
 
-        public virtual async void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
-            await dbSet.AddAsync(entity);
+            dbSet.AddAsync(entity);
         }
 
         public virtual void Delete(object id)

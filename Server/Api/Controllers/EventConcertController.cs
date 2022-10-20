@@ -4,6 +4,7 @@ using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
 using Microsoft.Identity.Web.Resource;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,12 @@ namespace Api.Controllers
     public class EventConcertController : ControllerBase
     {
         private UnitOfWork unitOfWork;
+        private IConfiguration _configuration;
 
-        public EventConcertController(TheFortressContext context)
+        public EventConcertController(TheFortressContext context, IConfiguration configuration)
         {
             unitOfWork = new UnitOfWork(context);
+            _configuration = configuration;
         }
 
 
@@ -119,6 +122,8 @@ namespace Api.Controllers
             unitOfWork.Save();
             return item;
         }
+
+
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
