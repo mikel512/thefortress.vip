@@ -44,7 +44,7 @@ namespace Api.Controllers
             EventConcertEqualityComparer eq = new EventConcertEqualityComparer();
             
             // Events to update are the intersection of the two lists
-            List<EventConcert> toUpdate = existing.Intersect(concerts, eq).ToList();
+            List<EventConcert> toUpdate = concerts.Intersect(existing, eq).ToList();
 
             // New events are the incoming events minute the intersection
             List<EventConcert> newEvents = concerts.Except(toUpdate, eq).ToList();

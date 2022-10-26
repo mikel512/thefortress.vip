@@ -11,8 +11,18 @@ namespace Api.Extensions
                 return true;
             else if (x == null || y == null)
                 return false;
-            else if (x.EventName == y.EventName && x.EventDate == y.EventDate  && x.VenueFk == y.VenueFk)
-                return true;
+            else if (x.EventName == y.EventName && x.EventDate == y.EventDate && x.VenueFk == y.VenueFk)
+            {
+                if (y.EventConcertId == 0)
+                {
+                    y.EventConcertId = x.EventConcertId;
+                }
+                else
+                {
+                    x.EventConcertId = y.EventConcertId; 
+                }
+                return true; 
+            }
             else
                 return false;
         }
