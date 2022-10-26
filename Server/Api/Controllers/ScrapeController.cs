@@ -3,6 +3,7 @@ using Api.Extensions;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 
 namespace Api.Controllers
@@ -40,7 +41,9 @@ namespace Api.Controllers
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
 
-            List<EventConcert> existing = _context.EventConcerts.Where(x => x.EventDate >= DateTime.Today).ToList();
+            List<EventConcert> existing = _context.EventConcerts.AsNoTracking()
+                .Where(x => x.EventDate >= DateTime.Today)
+                .ToList();
             EventConcertEqualityComparer eq = new EventConcertEqualityComparer();
             
             // Events to update are the intersection of the two lists
