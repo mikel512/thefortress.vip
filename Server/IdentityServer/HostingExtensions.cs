@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using IdentityServer.Models;
 using IdentityServer.DAL;
 using AutoMapper;
+using IdentityServer.Services;
 
 namespace IdentityServer;
 
@@ -16,11 +17,15 @@ internal static class HostingExtensions
         // Add configuration file
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            builder.Configuration.AddJsonFile(@"C:\\inetpub\\TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
+            builder.Configuration
+                .AddJsonFile(@"C:\\inetpub\\TheFortressWebApp.conf.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
         }
         else //linux
         {
-            builder.Configuration.AddJsonFile(@"/var/www/TheFortressWebApp.conf.json", optional: false, reloadOnChange: true);
+            builder.Configuration
+                .AddJsonFile(@"/var/www/TheFortressWebApp.conf.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
         }
 
         var mapperConfig = new MapperConfiguration(map =>
@@ -38,8 +43,9 @@ internal static class HostingExtensions
 
         //builder.Services.AddScoped<IUserAuthRepository, UserAuthRepository>();
         builder.Services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
+        builder.Services.AddSingleton<IEmailService, EmailService>();
 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(o => o.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IdentityServer.DAL;
 using IdentityServer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,9 @@ namespace IdentityServer.Controllers
         private IMapper _mapper;
         private IConfiguration _configuration;
 
-        public AuthController(IIdentityUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
+        public AuthController(IIdentityUnitOfWork unitOfWork, 
+            IMapper mapper, 
+            IConfiguration configuration)
         {
             _identity = unitOfWork;
             _mapper = mapper;
@@ -49,6 +52,19 @@ namespace IdentityServer.Controllers
                     ExpiresIn = Convert.ToDouble(jwtConf["TimeTilExp"]) * 60
                 });
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return new StatusCodeResult(StatusCodes.Status401Unauthorized);
+            }
+
+            return await _identity.UserAuth.ConfirmEmailAsync(userId, code);
+
+        }
+
 
     }
 }

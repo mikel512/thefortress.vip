@@ -12,9 +12,15 @@ namespace IdentityServer.DAL
         private RoleManager<IdentityRole> _roleManager;
         private IMapper _mapper;
         private IConfiguration _configuration;
+        private IEmailService _emailService;
 
-        public IdentityUnitOfWork(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IConfiguration configuration)
+        public IdentityUnitOfWork(UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, 
+            IMapper mapper, 
+            IEmailService emailService,
+            IConfiguration configuration)
         {
+            _emailService = emailService;
             _userManager = userManager;
             _mapper = mapper;
             _configuration = configuration;
@@ -27,7 +33,7 @@ namespace IdentityServer.DAL
             {
                 if(_userAuthRepository is null)
                 {
-                    _userAuthRepository = new UserAuthRepository(_userManager, _roleManager, _configuration, _mapper);
+                    _userAuthRepository = new UserAuthRepository(_userManager, _roleManager, _emailService, _configuration, _mapper);
                 }
                 return _userAuthRepository;
             }
