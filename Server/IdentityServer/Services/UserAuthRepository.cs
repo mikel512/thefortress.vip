@@ -1,30 +1,38 @@
 ﻿using AutoMapper;
 using IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Encodings.Web;
 
 namespace IdentityServer.Services
 {
     internal sealed class UserAuthRepository : IUserAuthRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private IEmailService _emailService;
         private ApplicationUser _user;
+        private readonly string _env;
 
         public UserAuthRepository(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
+            IEmailService mailService,
             IConfiguration config,
             IMapper mapper)
         {
+            _emailService = mailService;
             _userManager = userManager;
             _mapper = mapper;
             _config = config;
             _roleManager = roleManager;
+            _env = _config.GetValue<string>("ASPNETCORE_ENVIRONMENT");
         }
 
         public async Task<IdentityResult> RegisterUserAsync(RegistrationDto InputModel)
@@ -33,6 +41,23 @@ namespace IdentityServer.Services
             IdentityResult result = await _userManager.CreateAsync(user, InputModel.Password);
             // add to roles
             await _userManager.AddToRoleAsync(user, UserRoles.User);
+
+            // send confirmation email
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+            String callbackUrl = null;
+            if(_env == "Development")
+            {
+                callbackUrl = $"https://localhost:5000/confirm-email/{user.Id}/{code}";
+            }
+            else
+            {
+                callbackUrl = $"https://thefortress.vip/confirm-email/{user.Id}/{code}"; 
+            }
+            await _emailService.SendMailAsync("admin@thefortress.vip", "Admin", InputModel.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode( callbackUrl)}'>clicking here</a>.");
+
             return result;
         }
         public async Task<bool> ValidateUserAsync(LoginDto loginDto)
@@ -48,6 +73,21 @@ namespace IdentityServer.Services
             }
             var result = _user != null && await _userManager.CheckPasswordAsync(_user, loginDto.Password);
             return result;
+        }
+
+        public async Task<IActionResult> ConfirmEmailAsync(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                //_logger.LogInformation("User not found");
+                return new StatusCodeResult(StatusCodes.Status404NotFound);
+            }
+
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            return new StatusCodeResult(StatusCodes.Status200OK);
+
         }
 
         public async Task<string> CreateTokenAsync()
