@@ -7,6 +7,7 @@ import { MyDirectivesModule } from '../directives/my-directives.module';
 import { LoadingAnimationsModule } from '../loading-animations/loading-animations.module';
 import { SharedModule } from '../pages/shared/shared.module';
 import { AuthComponent } from './auth.component';
+import { ConfirmationComponent } from './pages/confirmation.component';
 import { LoginComponent } from './pages/login.component';
 import { RegisterComponent } from './pages/register.component';
 
@@ -30,7 +31,8 @@ import { RegisterComponent } from './pages/register.component';
                 component: AuthComponent,
                 children: [
                     { path: 'login', component: LoginComponent },
-                    { path: 'register', component: RegisterComponent}
+                    { path: 'register', component: RegisterComponent },
+                    { path: 'confirm-email/:hash', component: ConfirmationComponent }
                 ]
             },
         ]),

@@ -1,4 +1,4 @@
-﻿import { HttpClient } from '@angular/common/http';
+﻿import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { shareReplay, Subject, tap } from 'rxjs'
 import { LoginDto } from '../models/login-dto';
@@ -61,6 +61,18 @@ export class AuthService {
         let status = moment().isBefore(this.getExpiration());
         console.log(status);
         this._isAuthenticated.next(status);
+    }
+
+    confirmEmail(userId: string, code: string) {
+        userId = userId.trim();
+        code = code.trim();
+
+        const options = 
+        {
+            params: new HttpParams().set('userId', userId).set('code', code)
+            
+        };
+        return this.http.get<any>('/authenticate/ConfirmEmail', options);
     }
 
     // isLoggedOut() {
