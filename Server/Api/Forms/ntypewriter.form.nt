@@ -20,6 +20,7 @@ import { {{modelName}}Service } from '@services/{{snakeCaseName}}.service'
 @Component({
 	selector: 'ui-{{snakeCaseName}}-form',
 	templateUrl: './{{snakeCaseName}}-form.component.html',
+	styleUrls: ['../styles/app-styles.css']
 })
 export class {{modelName}}FormComponent implements OnInit {
 	public input: {{modelName}} = new {{modelName}}();
@@ -95,10 +96,13 @@ capture output
 		propCamel = prop.Name | String.ToCamelCase
 		inputType = ""
 		hasValidators = false
+		
 		if prop.Type.BareName == "string" || prop.Type.BareName == "int"
 			inputType = "text"
 		else if prop.Type.BareName == "bool"
 			inputType = "checkbox"
+		else if prop.Type.BareName == "DateTime"
+			inputType = "date"
 		end
 
 		if prop.Attributes | Array.Size > 0
@@ -127,6 +131,30 @@ capture output
 		{{end}}
 	</div>
 	{{-end}}
+
+
+	{{-if inputType == "date" }}
+	<div class="form-group">
+		<label>{{splitted}}</label>
+		<input class="form-control" type="{{inputType}}" placeholder="{{splitted}}"
+			{{-if hasValidators}}
+			[inputIsInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			[inputIsValid]="{{propCamel}}.valid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			{{-end}}
+			formControlName="{{propCamel}}" />
+		{{-if hasValidators}}
+		<span *ngIf="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)" class="text-danger">
+			<ul class="px-3">
+				{{-for attr in prop.Attributes }}
+				{{ attr | Custom.GenerateLiFromAttr(propCamel, splitted)}} 
+				{{-end}}
+			</ul>
+		</span>
+		{{end}}
+	</div>
+	{{-end}}
+
+
 	{{-if inputType == "checkbox"}}
 	<div class="form-group form-check">
 		<input class="form-check-input" type="{{inputType}}" placeholder="{{splitted}}"
