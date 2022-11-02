@@ -78,6 +78,10 @@ export class {{modelName}}FormComponent implements OnInit {
 		this.setModel();
 		this.out.emit(this.input);
 	}
+
+	reset(){
+		this.inputForm.reset();
+	}
 }
 
 
