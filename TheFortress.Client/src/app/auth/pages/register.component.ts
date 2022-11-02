@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RetypeConfirm } from '@directives/retype-confirm';
 import { AlertModel } from '@models/alert-model';
@@ -13,7 +13,7 @@ import { AuthService } from '@services/auth.service';
 })
 export class RegisterComponent implements OnInit {
     public input: RegistrationDto = new RegistrationDto();
-    public inputForm: FormGroup;
+    public inputForm: UntypedFormGroup;
     public confirmPass: string = '';
 
     public error: string;
@@ -23,16 +23,16 @@ export class RegisterComponent implements OnInit {
         private auth: AuthService) { }
 
     ngOnInit() {
-        this.inputForm = new FormGroup({
-            email: new FormControl(this.input.email, [
+        this.inputForm = new UntypedFormGroup({
+            email: new UntypedFormControl(this.input.email, [
                 Validators.required,
                 Validators.email
             ]),
-            username: new FormControl(this.input.username),
-            password: new FormControl(this.input.password, [
+            username: new UntypedFormControl(this.input.username),
+            password: new UntypedFormControl(this.input.password, [
                 Validators.required,
             ]),
-            confirm: new FormControl(this.confirmPass, [
+            confirm: new UntypedFormControl(this.confirmPass, [
                 Validators.required,
                 RetypeConfirm('password')
             ])

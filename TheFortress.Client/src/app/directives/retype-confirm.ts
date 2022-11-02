@@ -1,7 +1,7 @@
-import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, UntypedFormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export function RetypeConfirm(controlName: string): ValidatorFn{
-    return (control: FormControl): ValidationErrors | null => {
+    return (control: UntypedFormControl): ValidationErrors | null => {
         if (!control || !control.parent) {
             return null;
         }
