@@ -34,14 +34,14 @@ export class EventPageComponent implements OnInit {
   constructor(private actRouter: ActivatedRoute,
     private router: Router,
     private data: EventConcertService,
-    @Inject('BASE_URL') baseUrl: string) {
+   ) {
 
     this.route = actRouter.snapshot;
     this.currentCity = this.route.params['city'];
     console.log(this.currentCity);
 
     if (this.currentCity === 'All') {
-      data.get(baseUrl).subscribe(
+      data.get().subscribe(
         x => {
           this.events = x;
           this.doNext();
@@ -50,7 +50,7 @@ export class EventPageComponent implements OnInit {
       );
 
     } else {
-      data.getByCity(baseUrl, this.currentCity).subscribe(
+      data.getByCity(this.currentCity).subscribe(
         x => {
           this.events = x;
           this.doNext();

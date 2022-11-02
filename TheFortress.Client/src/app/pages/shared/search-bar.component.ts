@@ -16,9 +16,9 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private router: Router,
     private _cities: CityService,
-    @Inject('BASE_URL') baseUrl: string,) {
+    ) {
 
-    _cities.get(baseUrl).subscribe(
+    _cities.get().subscribe(
       items => {
         let all: City = {cityName: 'All', cityId: 0, image: '', venues: []};
         items.push(all);

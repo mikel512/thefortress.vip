@@ -15,18 +15,17 @@ export class VenuesPageComponent implements OnInit {
     currentCity: string = '';
 
     constructor(private actRouter: ActivatedRoute,
-        private data: VenueService,
-        @Inject('BASE_URL') baseUrl: string) {
+        private data: VenueService,) {
 
         this.route = actRouter.snapshot;
         this.currentCity = this.route.params['city'];
 
         let observable;
         if (this.currentCity === 'All') {
-            observable = data.get(baseUrl);
+            observable = data.get();
         }
         else {
-            observable = data.getByCity(baseUrl, this.currentCity);
+            observable = data.getByCity(this.currentCity);
         }
         observable.subscribe({
             next: (x) => {

@@ -1,5 +1,6 @@
-// NTypescript generated file
+﻿// NTypescript generated file
 
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,38 +16,38 @@ export class VenueService {
 	constructor(private http: HttpClient) { } 
 
 
-	public get(baseUrl): Observable<Venue[]> {
-		return this.http.get<Venue[]>(baseUrl + `api/Venue`)
+	public get(): Observable<Venue[]> {
+		return this.http.get<Venue[]>(`${environment.baseUrl}api/Venue`)
 			.pipe(map(response => {
 				return (response as Venue[]).map(x => new Venue(x))
 			}));
 	}
-	public getByCity(baseUrl, city: string): Observable<Venue[]> {
-		return this.http.get<Venue[]>(baseUrl + `api/Venue/city/${city}`)
+	public getByCity(city: string): Observable<Venue[]> {
+		return this.http.get<Venue[]>(`${environment.baseUrl}api/Venue/city/${city}`)
 			.pipe(map(response => {
 				return (response as Venue[]).map(x => new Venue(x))
 			}));
 	}
-	public getById(baseUrl, id: number): Observable<Venue> {
-		return this.http.get<Venue>(baseUrl + `api/Venue/${id}`)
+	public getById(id: number): Observable<Venue> {
+		return this.http.get<Venue>(`${environment.baseUrl}api/Venue/${id}`)
 			.pipe(map(response => {
 				return new Venue(<IVenue> response)
 			}));
 	}
-	public post(baseUrl, value: Venue): Observable<Venue> {
-		return this.http.post<Venue>(baseUrl + `api/Venue`, value )
+	public post(value: Venue): Observable<Venue> {
+		return this.http.post<Venue>(`${environment.baseUrl}api/Venue`, value )
 			.pipe(map(response => {
 				return new Venue(<IVenue> response)
 			}));
 	}
-	public put(baseUrl, id: number, value: Venue): Observable<Venue> {
-		return this.http.put<Venue>(baseUrl + `api/Venue/${id}`, value )
+	public put(id: number, value: Venue): Observable<Venue> {
+		return this.http.put<Venue>(`${environment.baseUrl}api/Venue/${id}`, value )
 			.pipe(map(response => {
 				return new Venue(<IVenue> response)
 			}));
 	}
-	public delete(baseUrl, id: number): Observable<any> {
-		return this.http.delete<any>(baseUrl + `api/Venue/${id}`)
+	public delete(id: number): Observable<any> {
+		return this.http.delete<any>(`${environment.baseUrl}api/Venue/${id}`)
 			.pipe(map(response => {
 				return response
 			}));

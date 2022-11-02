@@ -18,7 +18,7 @@ export class AdminEventsComponent implements OnInit {
     }
 
     reload() {
-        this.data.get(getBaseUrl()).subscribe(
+        this.data.get().subscribe(
             x => {
                 this.events = [];
                 this.events = x;
@@ -27,7 +27,7 @@ export class AdminEventsComponent implements OnInit {
     }
 
     delete(id:number) {
-        this.data.delete(getBaseUrl(),id).subscribe(
+        this.data.delete(id).subscribe(
             next => {
                 this.reload();
             }

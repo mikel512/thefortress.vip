@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { EventConcert } from '@models/event-concert';
+import { Venue } from '@models/venue';
+import { EventConcertService } from '@services/event-concert.service';
+import { VenueService } from '@services/venue.service';
 
 @Component({
     selector: 'app-add-event',
@@ -8,9 +11,13 @@ import { EventConcert } from '@models/event-concert';
 
 export class AddEventComponent implements OnInit {
     public event: EventConcert;
+    public venues: Venue[] = [];
 
 
-    constructor() { }
+    constructor(private _venues: VenueService,
+        private _event: EventConcertService,) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        // this._venues.get()
+    }
 }

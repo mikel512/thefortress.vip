@@ -1,4 +1,3 @@
- import {MatTableModule} from '@angular/material/table'; 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -8,6 +7,7 @@ import { AdminEventsComponent } from './events.component';
 import { AdminGuard } from 'src/app/auth/guards/admin.guard';
 import { AddEventComponent } from './add-event.component';
 import { AppFormsModule } from '@forms/forms.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { AppFormsModule } from '@forms/forms.module';
     imports: [
         CommonModule,
         AppFormsModule,
+        NgSelectModule,
         RouterModule.forChild([
             {path: '', component: AdminComponent,
                 children: [

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Primitives;
 namespace Api.Controllers
 {
 
+    [Attributes.NTypewriterIgnore]
     [Route("api/[controller]")]
     [ApiController]
     public class ScrapeController : ControllerBase

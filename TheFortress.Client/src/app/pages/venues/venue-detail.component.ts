@@ -32,15 +32,14 @@ export class VenueDetailComponent implements OnInit {
     private overlay: SpinnerOverlayService,
     private router: Router,
     private _venue: VenueService,
-    private _event: EventConcertService,
-    @Inject('BASE_URL') baseUrl: string) {
+    private _event: EventConcertService,) {
 
     this.route = actRouter.snapshot;
     this.venueId = this.route.params['venueId'];
     console.log(this.venueId);
 
-    let venue$ = _venue.getById(baseUrl, this.venueId);
-    let events$ = _event.getByVenue(baseUrl, this.venueId);
+    let venue$ = _venue.getById(this.venueId);
+    let events$ = _event.getByVenue(this.venueId);
 
     venue$.subscribe(x => {
       this.venue = x;
