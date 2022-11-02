@@ -6,20 +6,25 @@ import { AdminSidebarComponent } from './admin-sidebar.component';
 import { AdminComponent } from './admin.component';
 import { AdminEventsComponent } from './events.component';
 import { AdminGuard } from 'src/app/auth/guards/admin.guard';
+import { AddEventComponent } from './add-event.component';
+import { AppFormsModule } from '@forms/forms.module';
 
 
 @NgModule({
     declarations: [
         AdminComponent,
         AdminSidebarComponent,
-        AdminEventsComponent
+        AdminEventsComponent,
+        AddEventComponent,
     ],
     imports: [
         CommonModule,
+        AppFormsModule,
         RouterModule.forChild([
             {path: '', component: AdminComponent,
                 children: [
-                    {path: 'events', component: AdminEventsComponent}
+                    {path: 'events', component: AdminEventsComponent},
+                    {path: 'add-event', component: AddEventComponent}
                 ]}
         ])
     ],
