@@ -49,11 +49,11 @@ namespace IdentityServer.Services
             String callbackUrl = null;
             if(_env == "Development")
             {
-                callbackUrl = $"https://localhost:5000/confirm-email/{user.Id}/{code}";
+                callbackUrl = $"https://localhost:4200/auth/confirm-email/{user.Id}/{code}";
             }
             else
             {
-                callbackUrl = $"https://thefortress.vip/confirm-email/{user.Id}/{code}"; 
+                callbackUrl = $"https://thefortress.vip/auth/confirm-email/{user.Id}/{code}"; 
             }
             await _emailService.SendMailAsync("admin@thefortress.vip", "Admin", InputModel.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode( callbackUrl)}'>clicking here</a>.");
@@ -74,6 +74,7 @@ namespace IdentityServer.Services
             var result = _user != null && await _userManager.CheckPasswordAsync(_user, loginDto.Password);
             return result;
         }
+
 
         public async Task<IActionResult> ConfirmEmailAsync(string userId, string code)
         {
