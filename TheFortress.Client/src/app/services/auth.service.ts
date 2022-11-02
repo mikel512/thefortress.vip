@@ -72,6 +72,7 @@ export class AuthService {
             params: new HttpParams().set('userId', userId).set('code', code)
             
         };
+        console.log(options);
         return this.http.get<any>('/authenticate/ConfirmEmail', options);
     }
 

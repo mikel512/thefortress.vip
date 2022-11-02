@@ -59,11 +59,11 @@ export class RegisterComponent implements OnInit {
         this.setModel();
         this.auth.register(this.input).subscribe({
             next: (item) => {
-                this.alert.success = "Successful registration. Redirecting to login...";
-                setTimeout(() => {
-                    this.router.navigate(['/auth/login']);
+                this.alert.success = "Successful registration. Please check your email for confirmation." 
+                // setTimeout(() => {
+                //     this.router.navigate(['/auth/login']);
 
-                }, 3000);
+                // }, 3000);
             }
         });
 

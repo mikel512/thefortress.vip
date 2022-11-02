@@ -17,6 +17,7 @@ import { RegisterComponent } from './pages/register.component';
         AuthComponent,
         LoginComponent,
         RegisterComponent,
+        ConfirmationComponent,
     ],
     imports: [
         MyDirectivesModule,
@@ -32,7 +33,7 @@ import { RegisterComponent } from './pages/register.component';
                 children: [
                     { path: 'login', component: LoginComponent },
                     { path: 'register', component: RegisterComponent },
-                    { path: 'confirm-email/:hash', component: ConfirmationComponent }
+                    { path: 'confirm-email/:userId/:hash', component: ConfirmationComponent }
                 ]
             },
         ]),
