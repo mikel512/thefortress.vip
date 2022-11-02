@@ -8,6 +8,7 @@ import { AdminGuard } from 'src/app/auth/guards/admin.guard';
 import { AddEventComponent } from './add-event.component';
 import { AppFormsModule } from '@forms/forms.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         AddEventComponent,
     ],
     imports: [
+        FormsModule,
         CommonModule,
         AppFormsModule,
         NgSelectModule,

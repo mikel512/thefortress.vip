@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { NgSelectConfig } from '@ng-select/ng-select';
 import { tap } from 'rxjs';
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 
@@ -13,7 +14,10 @@ export class AppComponent {
     isIframe = false;
 
     constructor(
+        private selectConfig: NgSelectConfig,
         private spinner: SpinnerOverlayService) {
+        selectConfig.appendTo = 'body'
+
     }
     
     ngOnInit() {

@@ -4,8 +4,8 @@
 
         <div class="form-group">
             <label>Venue</label>
-            <ng-select>
-                <ng-option></ng-option>
+            <ng-select [(ngModel)]="venueFK">
+                <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
             </ng-select>
         </div>
         <ui-event-concert-form (out)="event"></ui-event-concert-form>

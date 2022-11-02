@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDirectivesModule } from '@directives/my-directives.module';
@@ -14,6 +15,7 @@ import { EventConcertFormComponent } from './event-concert-form.component';
         FormsModule, 
         MyDirectivesModule,
         SharedModule,
+        CommonModule,
     ],
     exports: [
         EventConcertFormComponent,

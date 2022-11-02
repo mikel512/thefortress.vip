@@ -1,7 +1,7 @@
 ﻿// NTypewriter generated content
 	
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
 import { EventConcert } from '@models/event-concert'
@@ -14,7 +14,7 @@ import { EventConcertService } from '@services/event-concert.service'
 })
 export class EventConcertFormComponent implements OnInit {
 	public input: EventConcert = new EventConcert();
-	public inputForm: UntypedFormGroup;
+	public inputForm: FormGroup;
 
 	public alert: AlertModel = new AlertModel();
 	
@@ -23,22 +23,22 @@ export class EventConcertFormComponent implements OnInit {
 	constructor(private data: EventConcertService) { }
 
 	ngOnInit() {    
-		this.inputForm = new UntypedFormGroup({ 
-			eventName: new UntypedFormControl ('', [
+		this.inputForm = new FormGroup({ 
+			eventName: new FormControl ('', [
 				Validators.required,
 				Validators.maxLength(100),
 				Validators.minLength(1),
 			]), 
-			flyer: new UntypedFormControl ('', [
+			flyer: new FormControl ('', [
 				Validators.required,
 			]), 
-			eventDate: new UntypedFormControl ('', [
+			eventDate: new FormControl ('', [
 				Validators.required,
 			]),
-			details: new UntypedFormControl (''),
-			price: new UntypedFormControl (''),
-			eventTime: new UntypedFormControl (''),
-			isApproved: new UntypedFormControl (''),
+			details: new FormControl (''),
+			price: new FormControl (''),
+			eventTime: new FormControl (''),
+			isApproved: new FormControl (''),
 		});
 	} 
 	
@@ -66,6 +66,10 @@ export class EventConcertFormComponent implements OnInit {
 		}
 		this.setModel();
 		this.out.emit(this.input);
+	}
+
+	reset(){
+		this.inputForm.reset();
 	}
 }
 
