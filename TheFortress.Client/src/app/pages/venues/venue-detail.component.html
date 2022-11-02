@@ -30,12 +30,12 @@
             <div class="col-12">
                 <ul class="nav nav-tabs nav-justified no-stack d-flex d-lg-none my-3">
                     <li class="nav-item">
-                        <a class="nav-link" [ngClass]="{'active': onTabChange}" (click)="toggleTab()" [routerLink]=""
+                        <a class="nav-link" [ngClass]="{'active': onTabChange}" (click)="toggleTab()" [routerLink]="[]"
                             data-toggle="tab">Events</a>
                     </li>
                     <li class="nav-item">
                         <a #infoTab class="nav-link" [ngClass]="{'active': !onTabChange}" (click)="toggleTab()"
-                            [routerLink]="" data-toggle="tab">Info</a>
+                            [routerLink]="[]" data-toggle="tab">Info</a>
                     </li>
                 </ul>
             </div>

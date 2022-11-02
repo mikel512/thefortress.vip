@@ -1,4 +1,3 @@
-import { DirectiveResolver } from '@angular/compiler';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDirectivesModule } from '@directives/my-directives.module';
