@@ -87,7 +87,7 @@ export class {{modelName}}FormComponent implements OnInit {
 
 {{end
 filePath =  snakeCaseName | String.Append "-form.component.ts" | 
-String.Prepend "../../../TheFortress.Client/src/app/forms/"
+String.Prepend "../../../TheFortress.Client/src/app/component/forms/"
 Save output filePath 
 
 capture output
@@ -186,6 +186,6 @@ capture output
 
 {{end
 filePath =  snakeCaseName | String.Append "-form.component.html" | 
-String.Prepend "../../../TheFortress.Client/src/app/forms/"
+String.Prepend "../../../TheFortress.Client/src/app/component/forms/"
 Save output filePath 
 end}}
