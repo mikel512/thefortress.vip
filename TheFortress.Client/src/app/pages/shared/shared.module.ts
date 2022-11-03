@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { LoadingAnimationsModule } from 'src/app/loading-animations/loading-animations.module';
 import { AlertComponent } from './alert.component';
 import { MasterPageItemComponent } from './master-page-item.component';
+import { AppModalComponent } from './modal.component';
 import { SearchBarComponent } from './search-bar.component';
 
 
@@ -12,6 +13,7 @@ import { SearchBarComponent } from './search-bar.component';
         SearchBarComponent,
         MasterPageItemComponent,
         AlertComponent,
+        AppModalComponent,
     ],
     imports: [
         CommonModule,
@@ -22,6 +24,7 @@ import { SearchBarComponent } from './search-bar.component';
         SearchBarComponent,
         MasterPageItemComponent,
         AlertComponent,
+        AppModalComponent,
     ],
     providers: [],
 })
