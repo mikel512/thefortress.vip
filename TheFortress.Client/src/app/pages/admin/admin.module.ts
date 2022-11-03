@@ -6,9 +6,10 @@ import { AdminComponent } from './admin.component';
 import { AdminEventsComponent } from './events.component';
 import { AdminGuard } from 'src/app/auth/guards/admin.guard';
 import { AddEventComponent } from './add-event.component';
-import { AppFormsModule } from '@forms/forms.module';
+import { AppFormsModule } from 'src/app/component/forms/forms.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
         CommonModule,
         AppFormsModule,
         NgSelectModule,
+        SharedModule,
         RouterModule.forChild([
             {path: '', component: AdminComponent,
                 children: [

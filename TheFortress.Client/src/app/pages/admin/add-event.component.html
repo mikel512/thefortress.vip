@@ -8,7 +8,19 @@
                 <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
             </ng-select>
         </div>
-        <ui-event-concert-form (out)="event"></ui-event-concert-form>
+        <ui-event-concert-form (out)="showPreviewModal($event)"></ui-event-concert-form>
 
     </div>
 </div>
+
+<app-modal #previewModal (onSubmit)="postNewEvent()">
+    <div header>Event Preview</div>
+    <div body>
+        <ng-container *ngIf="event">
+            <app-master-page-item [eventName]="event.eventName" [date]="event.eventDate" [imgUrl]="event.flyer"
+                [isEvent]="true"></app-master-page-item>
+
+        </ng-container>
+    </div>
+
+</app-modal>
