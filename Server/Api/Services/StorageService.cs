@@ -49,7 +49,7 @@ namespace DataAccessLibrary.Services
             var list = new List<string>();
             var url = _configuration["Storage:account1:Base"];
             var containerName = _configuration["Storage:account1:Containers:Flyers"];
-            
+
             // Get blob data
             //var blobClient = new CloudBlobClient(new Uri(url), Credentials);
             //CloudBlobContainer container = blobClient.GetContainerReference(containerName);
@@ -60,8 +60,8 @@ namespace DataAccessLibrary.Services
             //    var blob = (CloudBlob) item;
             //    list.Add(blob.Uri.ToString());               
             //}
-            
-            //return list;
+
+            return list;
         }
 
         private async void AddQueueMessage(string jsonReport)
