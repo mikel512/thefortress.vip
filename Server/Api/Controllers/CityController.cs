@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
-using Api.DAL;
 using Api.Data;
 using Api.Models;
 

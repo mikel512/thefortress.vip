@@ -4,9 +4,8 @@ using System.Linq;
 using System.Data;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Api.Data;
 
-namespace Api.DAL
+namespace Api.Data
 {
     public class GenericRepository<TEntity> where TEntity : class
     {

@@ -139,7 +139,7 @@ namespace Api.Data
                 entity.Property(e => e.IsApproved).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Price)
-                    .HasMaxLength(25)
+                    .HasMaxLength(100)
                     .HasColumnName("price");
 
                 entity.Property(e => e.Status).HasMaxLength(75);

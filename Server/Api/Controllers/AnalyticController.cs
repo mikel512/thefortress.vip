@@ -1,5 +1,4 @@
-﻿using Api.DAL;
-using Api.Data;
+﻿using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

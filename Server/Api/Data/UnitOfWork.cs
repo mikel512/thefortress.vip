@@ -1,8 +1,7 @@
 ﻿using System;
-using Api.Data;
 using Api.Models;
 
-namespace Api.DAL
+namespace Api.Data
 {
     public class UnitOfWork : IDisposable
     {
