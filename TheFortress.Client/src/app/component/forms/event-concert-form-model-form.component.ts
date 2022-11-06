@@ -5,23 +5,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
 import { fileTypeValidator } from './file-type-validator'; 
-import { EventConcert } from '@models/event-concert'
-import { EventConcertService } from '@services/event-concert.service'
+import { EventConcertFormModel } from '@models/event-concert-form-model'
 
 @Component({
-	selector: 'ui-event-concert-form',
-	templateUrl: './event-concert-form.component.html',
+	selector: 'ui-event-concert-form-model-form',
+	templateUrl: './event-concert-form-model-form.component.html',
 	styleUrls: ['../../styles/app-styles.css']
 })
-export class EventConcertFormComponent implements OnInit {
-	public input: EventConcert = new EventConcert();
+export class EventConcertFormModelFormComponent implements OnInit {
+	public input: EventConcertFormModel = new EventConcertFormModel();
 	public inputForm: FormGroup;
 
 	public alert: AlertModel = new AlertModel();
 	
-	@Output() out = new EventEmitter<EventConcert>();
+	@Output() out = new EventEmitter<EventConcertFormModel>();
 
-	constructor(private data: EventConcertService) { }
+	constructor() { }
 
 	ngOnInit() {    
 		this.inputForm = new FormGroup({ 

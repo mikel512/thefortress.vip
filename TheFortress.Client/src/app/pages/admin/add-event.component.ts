@@ -32,6 +32,7 @@ export class AddEventComponent implements OnInit {
     }
 
     showPreviewModal(event: EventConcert) {
+        console.log(event);
         this.event = event;
         event.venueFk = this.venueFK;
         this.preview.show();
