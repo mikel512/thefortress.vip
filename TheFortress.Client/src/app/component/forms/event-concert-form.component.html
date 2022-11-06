@@ -17,13 +17,13 @@
 	</div>
 	
 	<div class="form-group">
-		<label>Flyer</label>
-		<input class="form-control" type="text" placeholder="Flyer"
-			[inputIsInvalid]="flyer.invalid && (flyer.dirty || flyer.touched)"
-			[inputIsValid]="flyer.valid && (flyer.dirty || flyer.touched)"
-			formControlName="flyer" />
+		<app-file-upload formControlName="flyer" [label]="'Flyer'"
+			[isInvalid]="flyer.invalid && (flyer.dirty || flyer.touched)"
+			[isValid]="flyer.valid && (flyer.dirty || flyer.touched)">
+		</app-file-upload>
 		<span *ngIf="flyer.invalid && (flyer.dirty || flyer.touched)" class="text-danger">
 			<ul class="px-3">
+				<li *ngIf="flyer.errors?.fileTypeValidator">File type is not accepted</li>
 				<li *ngIf="flyer.errors?.required">Flyer field is required </li>
 			</ul>
 		</span>

@@ -1,15 +1,19 @@
-<div class="card">
-    <div class="card-header">Add a new event</div>
-    <div class="card-body">
+<div class="d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">Add a new event</div>
+            <div class="card-body">
 
-        <div class="form-group">
-            <label>Venue</label>
-            <ng-select [(ngModel)]="venueFK">
-                <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
-            </ng-select>
+                <div class="form-group">
+                    <label>Venue</label>
+                    <ng-select [(ngModel)]="venueFK">
+                        <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
+                    </ng-select>
+                </div>
+                <ui-event-concert-form (out)="showPreviewModal($event)"></ui-event-concert-form>
+
+            </div>
         </div>
-        <ui-event-concert-form (out)="showPreviewModal($event)"></ui-event-concert-form>
-
     </div>
 </div>
 

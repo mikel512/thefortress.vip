@@ -4,13 +4,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
+import { fileTypeValidator } from './file-type-validator'; 
 import { EventConcert } from '@models/event-concert'
 import { EventConcertService } from '@services/event-concert.service'
 
 @Component({
 	selector: 'ui-event-concert-form',
 	templateUrl: './event-concert-form.component.html',
-	styleUrls: ['../styles/app-styles.css']
+	styleUrls: ['../../styles/app-styles.css']
 })
 export class EventConcertFormComponent implements OnInit {
 	public input: EventConcert = new EventConcert();
@@ -29,7 +30,8 @@ export class EventConcertFormComponent implements OnInit {
 				Validators.maxLength(100),
 				Validators.minLength(1),
 			]), 
-			flyer: new FormControl ('', [
+			flyer: new FormControl ('', [ 
+				fileTypeValidator([" jpg", " jpeg", " png"]),
 				Validators.required,
 			]), 
 			eventDate: new FormControl ('', [
@@ -42,13 +44,13 @@ export class EventConcertFormComponent implements OnInit {
 		});
 	} 
 	
-		get eventName() { return this.inputForm.get('eventName') }
-		get flyer() { return this.inputForm.get('flyer') }
-		get eventDate() { return this.inputForm.get('eventDate') }
-		get details() { return this.inputForm.get('details') }
-		get price() { return this.inputForm.get('price') }
-		get eventTime() { return this.inputForm.get('eventTime') }
-		get isApproved() { return this.inputForm.get('isApproved') }
+	get eventName() { return this.inputForm.get('eventName') }
+	get flyer() { return this.inputForm.get('flyer') }
+	get eventDate() { return this.inputForm.get('eventDate') }
+	get details() { return this.inputForm.get('details') }
+	get price() { return this.inputForm.get('price') }
+	get eventTime() { return this.inputForm.get('eventTime') }
+	get isApproved() { return this.inputForm.get('isApproved') }
 
 	setModel() {
 		this.input.eventName = this.eventName.value;
