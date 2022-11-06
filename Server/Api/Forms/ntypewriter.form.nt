@@ -7,6 +7,8 @@
 
 	modelName = class.BareName 
 	snakeCaseName = modelName | Custom.ToSnakeCase()
+	serviceName = modelName | String.Replace("FormModel", "")
+	serviceNameSnake = serviceName | Custom.ToSnakeCase()
 -}}
 // NTypewriter generated content
 	
@@ -16,7 +18,6 @@ import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
 import { fileTypeValidator } from './file-type-validator'; 
 import { {{modelName}} } from '@models/{{snakeCaseName}}'
-import { {{modelName}}Service } from '@services/{{snakeCaseName}}.service'
 
 @Component({
 	selector: 'ui-{{snakeCaseName}}-form',
@@ -31,7 +32,7 @@ export class {{modelName}}FormComponent implements OnInit {
 	
 	@Output() out = new EventEmitter<{{modelName}}>();
 
-	constructor(private data: {{modelName}}Service) { }
+	constructor() { }
 
 	ngOnInit() {    
 		this.inputForm = new FormGroup({

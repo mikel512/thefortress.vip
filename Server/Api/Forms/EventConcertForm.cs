@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations;
 namespace Api.Forms
 {
     [FormGenerate]
-    public class EventConcert
+    public class EventConcertFormModel
     {
         [Required]
         [MaxLength(100)]
         [MinLength(1)]
         public string EventName { get; set; } = null!;
 
-        [FileExtensions(Extensions ="jpg, jpeg, png")]
+        [FileExtensions(Extensions ="jpg,jpeg,png")]
         [Required]
         public IFormFile? Flyer { get; set; }
         [Required]

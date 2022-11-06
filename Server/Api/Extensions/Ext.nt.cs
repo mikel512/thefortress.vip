@@ -43,7 +43,7 @@ namespace Api.Extensions
             }
             else if (attr.Name == "FileExtensions")
             {
-                return $@"<li *ngIf=""{propCamel}.errors?.fileTypeValidator"">File type is not accepted</li>";
+                return $@"<li *ngIf=""{propCamel}.errors?.requiredFileType"">File type is not accepted</li>";
             }
 
             return "";

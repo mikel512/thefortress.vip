@@ -1,6 +1,7 @@
 {{- config.AddGeneratedFilesToVSProject = false -}}
 {{- for class in data.Classes
-	if class.Namespace != "Api.Models"  || String.EndsWith(class.Name ,"Context")
+	validNamespace = class.Namespace == "Api.Models" || class.Namespace == "Api.Forms"
+	if !validNamespace  || String.EndsWith(class.Name ,"Context")
 		continue
 	end
 	capture output
@@ -29,9 +30,13 @@ import { {{stringProp}} } from './{{convertSnakeCase stringProp }}'
 	end}}
 
 export interface I{{class.Name}} {
-		{{- for property in class.Properties | Symbols.ThatArePublic }}
+{{- for property in class.Properties | Symbols.ThatArePublic }}
+	{{-if property.Type == "IFormFile?"}}
+	{{property.Name | String.ToCamelCase}}: File;
+	{{-else}}
 	{{ property.Name | String.ToCamelCase }}: {{ property.Type | Type.ToTypeScriptType }};
-		{{- end }}
+	{{-end}}
+{{- end }}
 
 }
 
@@ -41,9 +46,13 @@ export class {{ class.Name }} implements I{{class.Name}} {
 	}
 	{{}}
 
-		{{- for property in class.Properties | Symbols.ThatArePublic }}
+{{- for property in class.Properties | Symbols.ThatArePublic }}
+	{{-if property.Type == "IFormFile?"}}
+	{{property.Name | String.ToCamelCase}}: File;
+	{{-else}}
 	{{ property.Name | String.ToCamelCase }}: {{ property.Type | Type.ToTypeScriptType }};
-		{{- end }}
+	{{-end}}
+{{- end }}
 }
 {{- end 
 	filePath =  convertSnakeCase(class.BareName) | String.Append ".ts" | 
