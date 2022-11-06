@@ -108,7 +108,7 @@ namespace IdentityServer.Services
             issuer: jwtSettings["ValidIssuerDEV"],
             audience: jwtSettings["ValidAudienceDEV"],
             claims: claims,
-            expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["TimeTilExp"])),
+            expires: DateTime.Now.AddHours(Convert.ToDouble(jwtSettings["TimeTilExp"])),
             signingCredentials: signingCredentials
             );
             return tokenOptions;
