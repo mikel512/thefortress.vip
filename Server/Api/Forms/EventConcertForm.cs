@@ -11,8 +11,10 @@ namespace Api.Forms
         [MaxLength(100)]
         [MinLength(1)]
         public string EventName { get; set; } = null!;
+
+        [FileExtensions(Extensions ="jpg, jpeg, png")]
         [Required]
-        public string? Flyer { get; set; }
+        public IFormFile? Flyer { get; set; }
         [Required]
         public DateTime EventDate { get; set; }
         public string? Details { get; set; }

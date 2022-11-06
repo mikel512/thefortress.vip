@@ -21,15 +21,17 @@ namespace DataAccessLibrary.Services
         public async Task<string> StoreImageFile(IFormFile file)
         {
             
-            var filenameonly = Path.GetFileName(Path.GetRandomFileName()+".jpg");
-            var url = _configuration["Storage:account1:Base"];
-            var containerName = _configuration["Storage:account1:Containers:Flyers"];
+            var fileName = Path.GetFileName(Path.GetRandomFileName()+".jpg");
+            var url = _configuration["Storage:Base"];
+            var containerName = _configuration["Storage:ImgContainer"];
 
             // get connection string from conif
-            var connectionString = "";
+            var connectionString = _configuration["Storage:ConnectionString"];
 
             // Get blob data
             BlobContainerClient container = new BlobContainerClient(connectionString, containerName);
+
+            await container.UploadBlobAsync(fileName, file.OpenReadStream());
 
             // set final file destination
             //var picBlob = container.GetBlockBlobReference(filenameonly);
@@ -42,7 +44,7 @@ namespace DataAccessLibrary.Services
             //AddQueueMessage(report);
             
             // the url image is saved to
-            return url + "/" + containerName + "/" + filenameonly;
+            return url + "/" + containerName + "/" + fileName;
         }
         public async Task<List<string>> GetAllImgsFromBlob()
         {
