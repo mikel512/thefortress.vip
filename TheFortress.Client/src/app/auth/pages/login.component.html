@@ -7,7 +7,7 @@
             <ui-alert [input]="alert"></ui-alert>
             <div class="form-group">
                 <label>Username or email</label>
-                <input class="form-control" autocomplete="email" [(ngModel)]="login.username" [inputIsInvalid]="submitted && login.username === ''" placeholder="your-email@mailbox.com">
+                <input class="form-control" autocomplete="on" [(ngModel)]="login.username" [inputIsInvalid]="submitted && login.username === ''" placeholder="your-email@mailbox.com">
                 <span *ngIf="submitted && login.username === ''" class="text-danger">Username is required</span>
             </div>
             <div class="form-group">

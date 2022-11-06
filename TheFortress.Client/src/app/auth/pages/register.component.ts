@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RetypeConfirm } from '@directives/retype-confirm';
+import { RetypeConfirm } from 'src/app/util/directives/retype-confirm';
 import { AlertModel } from '@models/alert-model';
 import { RegistrationDto } from '@models/registration-dto';
 import { AuthService } from '@services/auth.service';
