@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MyDirectivesModule } from '@directives/my-directives.module';
+import { MyDirectivesModule } from 'src/app/util/directives/my-directives.module';
 import { SharedModule } from '../../pages/shared/shared.module';
-import { EventConcertFormComponent } from './event-concert-form.component';
+import { EventConcertFormModelFormComponent } from './event-concert-form-model-form.component';
 import { FileUploadComponent } from './file-upload.component';
 
 
 @NgModule({
     declarations: [
-        EventConcertFormComponent,
         FileUploadComponent,
+        EventConcertFormModelFormComponent
     ],
     imports: [
         ReactiveFormsModule, 
@@ -20,7 +20,7 @@ import { FileUploadComponent } from './file-upload.component';
         CommonModule,
     ],
     exports: [
-        EventConcertFormComponent,
+        EventConcertFormModelFormComponent
     ],
     providers: [],
 })

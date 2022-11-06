@@ -10,6 +10,7 @@ export interface IEventConcertFormModel {
 	price: string | null;
 	eventTime: string | null;
 	isApproved: boolean;
+	venueFk: number;
 
 }
 
@@ -25,4 +26,5 @@ export class EventConcertFormModel implements IEventConcertFormModel {
 	price: string | null;
 	eventTime: string | null;
 	isApproved: boolean;
+	venueFk: number;
 }

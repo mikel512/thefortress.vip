@@ -1,7 +1,6 @@
-import { TemplateBindingParseResult } from '@angular/compiler';
 import { Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AlertModel } from '@models/alert-model';
-import { EventConcert } from '@models/event-concert';
+import { EventConcertFormModel } from '@models/event-concert-form-model';
 import { Venue } from '@models/venue';
 import { EventConcertService } from '@services/event-concert.service';
 import { VenueService } from '@services/venue.service';
@@ -13,7 +12,7 @@ import { AppModalComponent } from '../shared/modal.component';
 })
 
 export class AddEventComponent implements OnInit {
-    public event: EventConcert;
+    public event: EventConcertFormModel;
     public venues: Venue[] = [];
     public venueFK: number;
     public alert = new AlertModel();
@@ -31,13 +30,13 @@ export class AddEventComponent implements OnInit {
         })
     }
 
-    showPreviewModal(event: EventConcert) {
+
+    showPreviewModal(event: EventConcertFormModel) {
         console.log(event);
         this.event = event;
         event.venueFk = this.venueFK;
         this.preview.show();
     }
-
     closeModal(){
         this.preview.hide();
     }
@@ -45,11 +44,5 @@ export class AddEventComponent implements OnInit {
     postNewEvent() {
         if(!this.venueFK) return;
 
-        this._event.post(this.event).subscribe({
-            next: (val) => {
-                this.preview.hide();
-
-            }
-        })
     }
 }

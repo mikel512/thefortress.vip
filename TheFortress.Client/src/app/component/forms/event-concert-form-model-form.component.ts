@@ -18,7 +18,7 @@ export class EventConcertFormModelFormComponent implements OnInit {
 
 	public alert: AlertModel = new AlertModel();
 	
-	@Output() out = new EventEmitter<EventConcertFormModel>();
+	@Output() outputModel = new EventEmitter<EventConcertFormModel>();
 
 	constructor() { }
 
@@ -40,6 +40,7 @@ export class EventConcertFormModelFormComponent implements OnInit {
 			price: new FormControl (''),
 			eventTime: new FormControl (''),
 			isApproved: new FormControl (''),
+			venueFk: new FormControl (''),
 		});
 	} 
 	
@@ -50,6 +51,7 @@ export class EventConcertFormModelFormComponent implements OnInit {
 	get price() { return this.inputForm.get('price') }
 	get eventTime() { return this.inputForm.get('eventTime') }
 	get isApproved() { return this.inputForm.get('isApproved') }
+	get venueFk() { return this.inputForm.get('venueFk') }
 
 	setModel() {
 		this.input.eventName = this.eventName.value;
@@ -59,6 +61,7 @@ export class EventConcertFormModelFormComponent implements OnInit {
 		this.input.price = this.price.value;
 		this.input.eventTime = this.eventTime.value;
 		this.input.isApproved = this.isApproved.value;
+		this.input.venueFk = this.venueFk.value;
 	}
 
 	submit() {
@@ -66,7 +69,7 @@ export class EventConcertFormModelFormComponent implements OnInit {
 			return;
 		}
 		this.setModel();
-		this.out.emit(this.input);
+		this.outputModel.emit(this.input);
 	}
 
 	reset(){

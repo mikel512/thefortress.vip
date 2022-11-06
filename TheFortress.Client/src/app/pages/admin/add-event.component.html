@@ -6,11 +6,11 @@
 
                 <div class="form-group">
                     <label>Venue</label>
-                    <ng-select [(ngModel)]="venueFK">
+                    <ng-select [(ngModel)]="venueFK" placeholder="Choose a venue">
                         <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
                     </ng-select>
                 </div>
-                <ui-event-concert-form (out)="showPreviewModal($event)"></ui-event-concert-form>
+                <ui-event-concert-form-model-form (outputModel)="showPreviewModal($event)"></ui-event-concert-form-model-form>
 
             </div>
         </div>
@@ -21,7 +21,7 @@
     <div header>Event Preview</div>
     <div body>
         <ng-container *ngIf="event">
-            <app-master-page-item [eventName]="event.eventName" [date]="event.eventDate" [imgUrl]="event.flyer"
+            <app-master-page-item [eventName]="event.eventName" [date]="event.eventDate"
                 [isEvent]="true"></app-master-page-item>
 
         </ng-container>

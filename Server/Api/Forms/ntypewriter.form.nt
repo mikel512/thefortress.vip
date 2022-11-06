@@ -30,13 +30,17 @@ export class {{modelName}}FormComponent implements OnInit {
 
 	public alert: AlertModel = new AlertModel();
 	
-	@Output() out = new EventEmitter<{{modelName}}>();
+	@Output() outputModel = new EventEmitter<{{modelName}}>();
 
 	constructor() { }
 
 	ngOnInit() {    
 		this.inputForm = new FormGroup({
 			{{-for prop in class.Properties -}}
+			{{- if prop | Symbol.HasAttribute("FieldIgnore")
+				continue
+				end
+			-}}
 			{{if prop.Attributes | Array.Size == 0}}
 			{{prop.BareName | String.ToCamelCase}}: new FormControl (''),
 			{{-else}} 
@@ -66,12 +70,18 @@ export class {{modelName}}FormComponent implements OnInit {
 		});
 	} 
 	{{for prop in class.Properties
+		 if prop | Symbol.HasAttribute("FieldIgnore")
+			continue
+		end 
 		propName = prop.Name | String.ToCamelCase}}
 get {{propName}}() { return this.inputForm.get('{{propName}}') }
 	{{-end}}
 
 	setModel() {
 	{{-for prop in class.Properties
+		 if prop | Symbol.HasAttribute("FieldIgnore")
+			continue
+		end 
 		propName = prop.Name | String.ToCamelCase}}
 		this.input.{{propName}} = this.{{propName}}.value;
 	{{-end}}
@@ -82,7 +92,7 @@ get {{propName}}() { return this.inputForm.get('{{propName}}') }
 			return;
 		}
 		this.setModel();
-		this.out.emit(this.input);
+		this.outputModel.emit(this.input);
 	}
 
 	reset(){
@@ -123,6 +133,10 @@ capture output
 		splitted = prop | Custom.Split 
 
 	-}}
+	{{- if prop | Symbol.HasAttribute("FieldIgnore")
+		continue
+		end
+	}}
 	{{-if inputType == "text" }}
 	<div class="form-group">
 		<label>{{splitted}}</label>
