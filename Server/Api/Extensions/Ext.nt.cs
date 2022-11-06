@@ -41,6 +41,10 @@ namespace Api.Extensions
             {
                 return $@"<li *ngIf=""{propCamel}.errors?.maxLength"">Field must have a minimum of</li>";
             }
+            else if (attr.Name == "FileExtensions")
+            {
+                return $@"<li *ngIf=""{propCamel}.errors?.fileTypeValidator"">File type is not accepted</li>";
+            }
 
             return "";
         }

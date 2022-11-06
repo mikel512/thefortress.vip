@@ -14,13 +14,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
+import { fileTypeValidator } from './file-type-validator'; 
 import { {{modelName}} } from '@models/{{snakeCaseName}}'
 import { {{modelName}}Service } from '@services/{{snakeCaseName}}.service'
 
 @Component({
 	selector: 'ui-{{snakeCaseName}}-form',
 	templateUrl: './{{snakeCaseName}}-form.component.html',
-	styleUrls: ['../styles/app-styles.css']
+	styleUrls: ['../../styles/app-styles.css']
 })
 export class {{modelName}}FormComponent implements OnInit {
 	public input: {{modelName}} = new {{modelName}}();
@@ -43,6 +44,10 @@ export class {{modelName}}FormComponent implements OnInit {
 				{{-if attr.Name == "Required"}}
 				Validators.required,
 				{{-end}}
+				{{-if attr.Name == "FileExtensions"-}}
+				{{extensions = attr.Arguments | String.Replace("[Extensions :", "") | String.Replace("]", "") | String.Split(",") }} 
+				fileTypeValidator({{extensions}}),
+				{{-end}}
 				{{-if attr.Name == "MaxLength"
 					length = attr.Arguments[0].Value
 				}}
@@ -61,7 +66,7 @@ export class {{modelName}}FormComponent implements OnInit {
 	} 
 	{{for prop in class.Properties
 		propName = prop.Name | String.ToCamelCase}}
-	get {{propName}}() { return this.inputForm.get('{{propName}}') }
+get {{propName}}() { return this.inputForm.get('{{propName}}') }
 	{{-end}}
 
 	setModel() {
@@ -107,6 +112,8 @@ capture output
 			inputType = "checkbox"
 		else if prop.Type.BareName == "DateTime"
 			inputType = "date"
+		else if prop.Type.BareName == "IFormFile"
+			inputType = "file"
 		end
 
 		if prop.Attributes | Array.Size > 0
@@ -146,6 +153,26 @@ capture output
 			[inputIsValid]="{{propCamel}}.valid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
 			{{-end}}
 			formControlName="{{propCamel}}" />
+		{{-if hasValidators}}
+		<span *ngIf="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)" class="text-danger">
+			<ul class="px-3">
+				{{-for attr in prop.Attributes }}
+				{{ attr | Custom.GenerateLiFromAttr(propCamel, splitted)}} 
+				{{-end}}
+			</ul>
+		</span>
+		{{end}}
+	</div>
+	{{-end}}
+
+	{{-if inputType == "file"}}
+	<div class="form-group">
+		<app-file-upload formControlName="{{propCamel}}" [label]="'{{splitted}}'"
+			{{-if hasValidators}}
+			[isInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
+			[isValid]="{{propCamel}}.valid && ({{propCamel}}.dirty || {{propCamel}}.touched)">
+			{{-end}}
+		</app-file-upload> 
 		{{-if hasValidators}}
 		<span *ngIf="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)" class="text-danger">
 			<ul class="px-3">
