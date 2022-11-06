@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoadingAnimationsModule } from 'src/app/loading-animations/loading-animations.module';
+import { AnimationsModule } from '@animations/animations.module';
 import { SharedModule } from '../shared/shared.module';
 import { VenueDetailComponent } from './venue-detail.component';
 import { VenueItemComponent } from './venue-item.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
-        LoadingAnimationsModule,
+        AnimationsModule,
         SharedModule
     ],
     exports: [],

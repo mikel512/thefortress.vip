@@ -7,8 +7,9 @@
       "@services/*": ["src/app/services/*"],
       "@models/*": ["src/app/models/*"],
       "@forms/*": ["src/app/component/forms/*"],
-      "@directives/*": ["src/app/directives/*"],
-      "@styles/*": ["src/app/styles/*"]
+      "@directives/*": ["src/app/util/directives/*"],
+      "@styles/*": ["src/app/styles/*"],
+      "@animations/*": ["src/app/util/animations/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

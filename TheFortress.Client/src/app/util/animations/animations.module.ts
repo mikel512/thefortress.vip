@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AnimationOneComponent } from './animation1/animation-one.component';
+import { AnimationOneComponent } from './animation-one.component';
 
 
 const routes: Routes = [
@@ -9,7 +9,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AnimationOneComponent],
+  declarations: [
+    AnimationOneComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
@@ -18,4 +20,4 @@ const routes: Routes = [
     AnimationOneComponent
   ]
 })
-export class LoadingAnimationsModule { }
+export class AnimationsModule { }

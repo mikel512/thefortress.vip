@@ -14,11 +14,11 @@ import { FooterComponent } from './component/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SpinnerOverlayComponent } from './component/spinner-overlay/spinner-overlay.component';
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
-import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { LoaderInterceptor } from './util/interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { AuthButtonComponent } from './auth/btn/auth-button.component';
 import { AuthService } from './services/auth.service';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthInterceptor } from './util/interceptors/auth.interceptor';
 import { AdminGuard } from './auth/guards/admin.guard';
 
 @NgModule({
@@ -46,7 +46,7 @@ import { AdminGuard } from './auth/guards/admin.guard';
             { path: 'venues', loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesModule) },
             { path: ':city', loadChildren: () => import('./pages/events/event.module').then(m => m.EventModule) },
             { path: 'events/:eventId', loadChildren: () => import('./pages/event-detail/event-detail.module').then(m => m.EventDetailModule) },
-            { path: 'loading-animations', loadChildren: () => import('./loading-animations/loading-animations.module').then(m => m.LoadingAnimationsModule) },
+            // { path: 'loading-animations', loadChildren: () => import('@animations/animations.module').then(m => m.AnimationsModule) },
             { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
             { path: '**', component: HomeComponent, pathMatch: 'full' },
         ])
