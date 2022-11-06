@@ -1,11 +1,11 @@
-// NTypescript generated file
+﻿// NTypescript generated file
 
 import { City } from './city'
 import { EventConcert } from './event-concert'
 
 
 export interface IVenue {
-	venueId: number;
+		venueId: number;
 	venueName: string;
 	location: string | null;
 	address: string;

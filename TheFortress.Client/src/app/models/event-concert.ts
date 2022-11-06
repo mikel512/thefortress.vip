@@ -1,10 +1,10 @@
-// NTypescript generated file
+﻿// NTypescript generated file
 
 import { Venue } from './venue'
 
 
 export interface IEventConcert {
-	eventConcertId: number;
+		eventConcertId: number;
 	eventName: string;
 	flyer: string | null;
 	eventDate: Date;
