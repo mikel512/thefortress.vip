@@ -1,4 +1,5 @@
-﻿// NTypescript generated file
+﻿
+// NTypescript generated file
 
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -6,6 +7,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventConcert, IEventConcert } from '@models/event-concert'
+import { EventConcertFormModel, IEventConcertFormModel } from '@models/event-concert-form-model'
 
 
 @Injectable({
@@ -42,6 +44,12 @@ export class EventConcertService {
 	}
 	public post(concert: EventConcert): Observable<EventConcert> {
 		return this.http.post<EventConcert>(`${environment.baseUrl}api/EventConcert`, concert )
+			.pipe(map(response => {
+				return new EventConcert(<IEventConcert> response)
+			}));
+	}
+	public postWithFlyerFile(concert: EventConcertFormModel): Observable<EventConcert> {
+		return this.http.post<EventConcert>(`${environment.baseUrl}api/EventConcert/PostWithFlyerFile`, concert )
 			.pipe(map(response => {
 				return new EventConcert(<IEventConcert> response)
 			}));

@@ -8,6 +8,7 @@ export interface IEventConcertFormModel {
 	eventDate: Date;
 	details: string | null;
 	price: string | null;
+	ticketsUrl: string | null;
 	eventTime: string | null;
 	isApproved: boolean;
 	venueFk: number;
@@ -24,6 +25,7 @@ export class EventConcertFormModel implements IEventConcertFormModel {
 	eventDate: Date;
 	details: string | null;
 	price: string | null;
+	ticketsUrl: string | null;
 	eventTime: string | null;
 	isApproved: boolean;
 	venueFk: number;

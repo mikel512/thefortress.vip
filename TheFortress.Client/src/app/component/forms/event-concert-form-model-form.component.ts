@@ -38,9 +38,9 @@ export class EventConcertFormModelFormComponent implements OnInit {
 			]),
 			details: new FormControl (''),
 			price: new FormControl (''),
+			ticketsUrl: new FormControl (''),
 			eventTime: new FormControl (''),
 			isApproved: new FormControl (''),
-			venueFk: new FormControl (''),
 		});
 	} 
 	
@@ -49,9 +49,9 @@ export class EventConcertFormModelFormComponent implements OnInit {
 	get eventDate() { return this.inputForm.get('eventDate') }
 	get details() { return this.inputForm.get('details') }
 	get price() { return this.inputForm.get('price') }
+	get ticketsUrl() { return this.inputForm.get('ticketsUrl') }
 	get eventTime() { return this.inputForm.get('eventTime') }
 	get isApproved() { return this.inputForm.get('isApproved') }
-	get venueFk() { return this.inputForm.get('venueFk') }
 
 	setModel() {
 		this.input.eventName = this.eventName.value;
@@ -59,9 +59,9 @@ export class EventConcertFormModelFormComponent implements OnInit {
 		this.input.eventDate = this.eventDate.value;
 		this.input.details = this.details.value;
 		this.input.price = this.price.value;
+		this.input.ticketsUrl = this.ticketsUrl.value;
 		this.input.eventTime = this.eventTime.value;
 		this.input.isApproved = this.isApproved.value;
-		this.input.venueFk = this.venueFk.value;
 	}
 
 	submit() {
