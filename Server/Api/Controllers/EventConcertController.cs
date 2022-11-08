@@ -133,9 +133,9 @@ namespace Api.Controllers
         public async Task<IActionResult> PostWithFlyerFile()
         {
 
-            var h = Request.Form;
-            IFormFile file = h.Files.First(); 
-            EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(h.First().Value);
+            var formRequest = Request.Form;
+            IFormFile file = formRequest.Files.First(); 
+            EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(formRequest.First().Value);
             string flyerUrl = await _storageService.StoreImageFile(file);
 
             EventConcert item = new EventConcert();
