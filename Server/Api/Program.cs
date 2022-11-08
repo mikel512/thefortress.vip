@@ -1,4 +1,5 @@
 using Api.Data;
+using DataAccessLibrary.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
@@ -22,6 +23,9 @@ else //linux
 var dbString = builder.Configuration.GetValue<string>("DbConnection");
 builder.Services.AddDbContext<TheFortressContext>(x => x.UseSqlServer(dbString));
 IdentityModelEventSource.ShowPII = true;
+
+// Configure DI
+builder.Services.AddSingleton<IStorageService, StorageService>(); 
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>

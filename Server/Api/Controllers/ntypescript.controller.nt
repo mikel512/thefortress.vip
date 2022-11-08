@@ -6,7 +6,13 @@
 	capture output -}}
 {{- baseName = class | String.Remove("Controller")
 	snakeCase = baseName | Custom.ToSnakeCase()
+	hasFormObject = false
 	 -}}
+{{-for method in class.Methods | Symbols.ThatArePublic}}
+	{{-if method.Parameters | String.Contains("Form")-}}
+		{{hasFormObject = true}}
+	{{-end}}
+{{-end}}
 // NTypescript generated file
 
 import { environment } from 'src/environments/environment';
@@ -15,6 +21,9 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { {{baseName}}, I{{baseName}} } from '@models/{{snakeCase}}'
+{{-if hasFormObject == true}}
+import { {{baseName}}FormModel, I{{baseName}}FormModel } from '@models/{{snakeCase}}-form-model'
+{{-end}}
 
 
 @Injectable({
@@ -28,7 +37,7 @@ export class {{ baseName}}Service {
 		bodyParameterName = (method | Action.BodyParameter)?.Name ?? "null" 
 		returnType = method | Action.ReturnType | Type.ToTypeScriptType | String.Strip
 		paramArray = method | Action.Parameters
-		objVar = parameters | String.Remove(":") | String.Remove(baseName)
+		objVar = parameters | String.Remove(":") | String.Remove(baseName) | String.Remove("FormModel")
 		if returnType == "void" || returnType == ""
 			returnType = "any"
 		end

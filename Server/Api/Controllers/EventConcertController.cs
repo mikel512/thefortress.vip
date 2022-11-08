@@ -1,5 +1,7 @@
 ﻿using Api.Data;
+using Api.Forms;
 using Api.Models;
+using DataAccessLibrary.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +15,13 @@ namespace Api.Controllers
     {
         private UnitOfWork unitOfWork;
         private IConfiguration _configuration;
+        private IStorageService _storageService;
 
-        public EventConcertController(TheFortressContext context, IConfiguration configuration)
+        public EventConcertController(TheFortressContext context, IConfiguration configuration, IStorageService storageService)
         {
             unitOfWork = new UnitOfWork(context);
             _configuration = configuration;
+            _storageService = storageService;
         }
 
 
@@ -115,6 +119,26 @@ namespace Api.Controllers
             return item;
         }
 
+
+        [HttpPost("[action]")]
+        [Authorize(Roles = "Admin")]
+        public async Task<EventConcert> PostWithFlyerFile([FromBody] EventConcertFormModel concert)
+        {
+
+            string flyerUrl = await _storageService.StoreImageFile(concert.Flyer!);
+
+            EventConcert item = new EventConcert();
+            item.EventName = concert.EventName;
+            item.EventDate = concert.EventDate;
+            item.EventTime = concert.EventTime;
+            item.Details = concert.Details;
+            item.Tickets = concert.TicketsUrl;
+            item.Flyer = flyerUrl;
+
+            unitOfWork.EventConcertRepository.Insert(item);
+            unitOfWork.Save();
+            return item;
+        }
 
 
         [HttpPut("{id}")]

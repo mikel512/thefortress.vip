@@ -31,17 +31,15 @@ namespace DataAccessLibrary.Services
             // Get blob data
             BlobContainerClient container = new BlobContainerClient(connectionString, containerName);
 
-            await container.UploadBlobAsync(fileName, file.OpenReadStream());
+            var result = await container.UploadBlobAsync(fileName, file.OpenReadStream());
 
             // set final file destination
             //var picBlob = container.GetBlockBlobReference(filenameonly);
             //picBlob.Properties.ContentType = "image/jpg";
             // asynchronously upload file
             //await picBlob.UploadFromStreamAsync(file.OpenReadStream());
-            
-            // Scan file with VT, add report in json format to message queue
-            //var report = await _scan.VirusTotalScan(file, file.FileName);
-            //AddQueueMessage(report);
+
+            Console.WriteLine(result.Value); 
             
             // the url image is saved to
             return url + "/" + containerName + "/" + fileName;
