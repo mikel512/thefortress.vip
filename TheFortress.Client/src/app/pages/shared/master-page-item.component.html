@@ -6,7 +6,7 @@
             <div [hidden]="!imageLoader" class="img-loader img-loader-md img-loader-sm">
                 <app-animation-one></app-animation-one>
             </div>
-            <div [hidden]="imageLoader" class="image" style="background-image: url({{imgUrl}});"></div>
+            <div [hidden]="imageLoader" class="image" [ngStyle]="{'background-image': 'url(' + imgUrl + ')'}"></div>
             <img [src]="imgUrl" hidden (load)="this.imageLoader = false">
         </a>
     </div>

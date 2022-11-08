@@ -10,6 +10,7 @@ import { AppFormsModule } from 'src/app/component/forms/forms.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { AppPipesModule } from 'src/app/util/pipes/app-pipes.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
         AddEventComponent,
     ],
     imports: [
+        AppPipesModule,
         FormsModule,
         CommonModule,
         AppFormsModule,

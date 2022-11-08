@@ -10,7 +10,7 @@
                         <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
                     </ng-select>
                 </div>
-                <ui-event-concert-form-model-form (outputModel)="showPreviewModal($event)"></ui-event-concert-form-model-form>
+                <ui-event-concert-form-model-form #form (outputModel)="showPreviewModal($event)"></ui-event-concert-form-model-form>
 
             </div>
         </div>
@@ -20,8 +20,8 @@
 <app-modal #previewModal (onSubmit)="postNewEvent()">
     <div header>Event Preview</div>
     <div body>
-        <ng-container *ngIf="event">
-            <app-master-page-item [eventName]="event.eventName" [date]="event.eventDate"
+        <ng-container *ngIf="base64str">
+            <app-master-page-item #preview [eventName]="event?.eventName" [date]="event?.eventDate" [imgUrl]="base64str"
                 [isEvent]="true"></app-master-page-item>
 
         </ng-container>
