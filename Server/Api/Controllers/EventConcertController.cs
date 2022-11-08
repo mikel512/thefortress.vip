@@ -1,9 +1,11 @@
-﻿using Api.Data;
+﻿using Api.Attributes;
+using Api.Data;
 using Api.Forms;
 using Api.Models;
 using DataAccessLibrary.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -103,6 +105,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ReturnType("EventConcert")]
         public EventConcert Post([FromBody] EventConcert concert)
         {
             EventConcert item = new EventConcert();
@@ -120,12 +123,16 @@ namespace Api.Controllers
         }
 
 
+        [NTypewriterIgnore]
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public async Task<EventConcert> PostWithFlyerFile([FromBody] EventConcertFormModel concert)
+        public async Task<IActionResult> PostWithFlyerFile()
         {
 
-            string flyerUrl = await _storageService.StoreImageFile(concert.Flyer!);
+            var h = Request.Form;
+            IFormFile file = h.Files.First(); 
+            EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(h.First().Value);
+            string flyerUrl = await _storageService.StoreImageFile(file);
 
             EventConcert item = new EventConcert();
             item.EventName = concert.EventName;
@@ -135,9 +142,9 @@ namespace Api.Controllers
             item.Tickets = concert.TicketsUrl;
             item.Flyer = flyerUrl;
 
-            unitOfWork.EventConcertRepository.Insert(item);
-            unitOfWork.Save();
-            return item;
+            //unitOfWork.EventConcertRepository.Insert(item);
+            //unitOfWork.Save();
+            return new ObjectResult(item);
         }
 
 

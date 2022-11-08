@@ -41,7 +41,18 @@ export class {{ baseName}}Service {
 		if returnType == "void" || returnType == ""
 			returnType = "any"
 		end
+
+		returnT = "";
+		for attr in method.Attributes
+			if attr.Name == "ReturnType"
+			returnT = attr.Arguments | String.Remove("[type :") | String.Remove("]") | String.Strip()
+			end
+		end
 		}}    
+
+	{{-if method.Attributes | String.Contains("NTypewriterIgnore")}}
+	{{-continue}}
+	{{-end}}
 	{{-if Array.Size(paramArray) == 0 -}}
 	{{}}
 

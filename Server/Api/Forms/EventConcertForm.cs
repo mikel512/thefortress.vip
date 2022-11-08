@@ -21,7 +21,7 @@ namespace Api.Forms
         public string? Price { get; set; }
         public string? TicketsUrl { get; set; }
         public string? EventTime { get; set; }
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
 
         [FieldIgnore]
         public int VenueFk { get; set; }
