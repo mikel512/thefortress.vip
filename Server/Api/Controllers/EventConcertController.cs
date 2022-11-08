@@ -29,6 +29,7 @@ namespace Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [ReturnType("EventConcert[]")]
         public async Task<ActionResult<IEnumerable<EventConcert>>> Get()
         {
             try
@@ -49,6 +50,7 @@ namespace Api.Controllers
         // GET /<ConcertController>/5
         [HttpGet("{id}")]
         [AllowAnonymous]
+        [ReturnType("EventConcert")]
         public ActionResult<EventConcert> GetById(int id)
         {
             try
@@ -66,6 +68,7 @@ namespace Api.Controllers
 
         [HttpGet("[action]/{name}")]
         [AllowAnonymous]
+        [ReturnType("EventConcert[]")]
         public async Task<ActionResult<IEnumerable<EventConcert>>> GetByCity(string name)
         {
             try
@@ -85,6 +88,7 @@ namespace Api.Controllers
 
         [HttpGet("[action]/{id}")]
         [AllowAnonymous]
+        [ReturnType("EventConcert[]")]
         public async Task<ActionResult<IEnumerable<EventConcert>>> GetByVenue(int id)
         {
             try
@@ -150,6 +154,7 @@ namespace Api.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ReturnType("EventConcert")]
         public EventConcert Put(int id, [FromBody] EventConcert concert)
         {
             EventConcert item = new EventConcert();
@@ -169,6 +174,7 @@ namespace Api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [ReturnType("any")]
         public void Delete(int id)
         {
             unitOfWork.EventConcertRepository.Delete(id);

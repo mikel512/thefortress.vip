@@ -48,6 +48,11 @@ namespace Api.Extensions
 
             return "";
         }
+
+        public static string GetReturnTypeFromAttribute(string arg)
+        {
+            return "";
+        }
         public static string Split(string txt)
         {
             var r = @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])";
