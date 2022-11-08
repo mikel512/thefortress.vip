@@ -10,7 +10,8 @@ import { RegistrationDto } from '../models/registration-dto';
 export enum ClaimKey {
     name = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
     email = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
-    role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    expiration = "exp"
 }
 
 @Injectable({ providedIn: 'root' })
@@ -58,7 +59,9 @@ export class AuthService {
     }
 
     public isLoggedIn() {
-        let status = moment().isBefore(this.getExpiration());
+        const expiry = this.getExp();
+        const status = (Math.floor((new Date).getTime() / 1000)) <= expiry;
+        // let status = moment().isBefore(this.getExpiration());
         console.log(status);
         this._isAuthenticated.next(status);
     }
@@ -91,6 +94,8 @@ export class AuthService {
         if (token != null) {
             this._decodedJWT = JSON.parse(window.atob(token.split('.')[1]));
             console.log(this._decodedJWT);
+
+            this.getExp();
         }
 
     }
@@ -100,6 +105,11 @@ export class AuthService {
     }
     getRoles() {
         return this._decodedJWT[ClaimKey.role];
+    }
+    getExp() {
+        const exp = this._decodedJWT[ClaimKey.expiration];
+        console.log(`expires at: ${new Date(exp * 1000)}`)
+        return exp;
     }
     isAdmin() {
         return this.getRoles()?.includes("Admin");
