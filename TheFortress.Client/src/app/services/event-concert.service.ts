@@ -48,12 +48,6 @@ export class EventConcertService {
 				return new EventConcert(<IEventConcert> response)
 			}));
 	}
-	public postWithFlyerFile(concert: EventConcertFormModel): Observable<EventConcert> {
-		return this.http.post<EventConcert>(`${environment.baseUrl}api/EventConcert/PostWithFlyerFile`, concert )
-			.pipe(map(response => {
-				return new EventConcert(<IEventConcert> response)
-			}));
-	}
 	public put(id: number, concert: EventConcert): Observable<EventConcert> {
 		return this.http.put<EventConcert>(`${environment.baseUrl}api/EventConcert/${id}`, concert )
 			.pipe(map(response => {

@@ -4,6 +4,7 @@ import { AlertModel } from '@models/alert-model';
 import { EventConcertFormModel } from '@models/event-concert-form-model';
 import { Venue } from '@models/venue';
 import { Base64Service } from '@services/base-64.service';
+import { CustomService } from '@services/custom.service';
 import { EventConcertService } from '@services/event-concert.service';
 import { VenueService } from '@services/venue.service';
 import { MasterPageItemComponent } from '../shared/master-page-item.component';
@@ -28,7 +29,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
 
     constructor(private _venues: VenueService,
         private _base64: Base64Service,
-        private _event: EventConcertService,) { }
+        private _event: CustomService,) { }
 
     ngAfterViewInit(): void {
         this.form.inputForm.valueChanges.subscribe({
@@ -48,7 +49,6 @@ export class AddEventComponent implements OnInit, AfterViewInit {
         })
         this._base64.base64Observable.subscribe({
             next: x => {
-                console.log(x)
                 this.base64str = x;
             }
         });
@@ -59,16 +59,21 @@ export class AddEventComponent implements OnInit, AfterViewInit {
         this.event = event;
         event.venueFk = this.venueFK;
         this.preview.show();
-
-        console.log(this.previewCard);
-
     }
     closeModal() {
         this.preview.hide();
     }
 
-    postNewEvent() {
+    postNewEvent(event: EventConcertFormModel) {
         if (!this.venueFK) return;
+        this.event = event;
+        event.venueFk = this.venueFK;
+
+        this._event.postEventForm(this.event).subscribe({
+            next: item => {
+                console.log(item);
+            }
+        })
 
     }
 }

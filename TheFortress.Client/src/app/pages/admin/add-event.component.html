@@ -10,14 +10,14 @@
                         <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
                     </ng-select>
                 </div>
-                <ui-event-concert-form-model-form #form (outputModel)="showPreviewModal($event)"></ui-event-concert-form-model-form>
+                <ui-event-concert-form-model-form #form (outputModel)="postNewEvent($event)"></ui-event-concert-form-model-form>
 
             </div>
         </div>
     </div>
 </div>
 
-<app-modal #previewModal (onSubmit)="postNewEvent()">
+<app-modal #previewModal>
     <div header>Event Preview</div>
     <div body>
         <ng-container *ngIf="base64str">
