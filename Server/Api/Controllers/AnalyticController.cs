@@ -1,10 +1,12 @@
-﻿using Api.Data;
+﻿using Api.Attributes;
+using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [NTypewriterIgnore]
     [Route("api/[controller]")]
     [ApiController]
     public class AnalyticController : ControllerBase

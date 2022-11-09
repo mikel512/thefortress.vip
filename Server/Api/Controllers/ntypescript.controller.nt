@@ -35,17 +35,13 @@ export class {{ baseName}}Service {
 {{  for method in class.Methods | Symbols.ThatArePublic 
 		parameters = method | Action.Parameters | Parameters.ToTypeScript | Array.Join ", "; 
 		bodyParameterName = (method | Action.BodyParameter)?.Name ?? "null" 
-		returnType = method | Action.ReturnType | Type.ToTypeScriptType | String.Strip
 		paramArray = method | Action.Parameters
 		objVar = parameters | String.Remove(":") | String.Remove(baseName) | String.Remove("FormModel")
-		if returnType == "void" || returnType == ""
-			returnType = "any"
-		end
 
-		returnT = "";
+		returnType = "";
 		for attr in method.Attributes
 			if attr.Name == "ReturnType"
-			returnT = attr.Arguments | String.Remove("[type :") | String.Remove("]") | String.Strip()
+			returnType = attr.Arguments | Array.First | String.Remove("type :") | String.Strip
 			end
 		end
 		}}    

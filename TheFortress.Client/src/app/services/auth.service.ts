@@ -62,7 +62,6 @@ export class AuthService {
         const expiry = this.getExp();
         const status = (Math.floor((new Date).getTime() / 1000)) <= expiry;
         // let status = moment().isBefore(this.getExpiration());
-        console.log(status);
         this._isAuthenticated.next(status);
     }
 
@@ -75,7 +74,6 @@ export class AuthService {
             params: new HttpParams().set('userId', userId).set('code', code)
             
         };
-        console.log(options);
         return this.http.get<any>('/authenticate/ConfirmEmail', options);
     }
 

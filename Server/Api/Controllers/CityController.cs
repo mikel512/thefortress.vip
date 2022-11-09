@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Api.Data;
 using Api.Models;
+using Api.Attributes;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,6 +27,7 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [ReturnType("City[]")]
         public async Task<ActionResult<IEnumerable<City>>> Get()
         {
             try
@@ -43,6 +45,7 @@ namespace Api.Controllers
         // GET <CityController>/5
         [AllowAnonymous]
         [HttpGet("{id}")]
+        [ReturnType("City")]
         public async Task<ActionResult<City>> GetById(int id)
         {
             try
@@ -59,6 +62,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ReturnType("City")]
         public City Post([FromBody] City value)
         {
             City item = new City();
@@ -72,6 +76,7 @@ namespace Api.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ReturnType("City")]
         public City Put(int id, [FromBody] City value)
         {
             City item = new City();
@@ -86,6 +91,7 @@ namespace Api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [ReturnType("any")]
         public void Delete(int id)
         {
             unitOfWork.CityRepository.Delete(id);

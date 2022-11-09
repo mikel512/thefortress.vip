@@ -7,7 +7,6 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventConcert, IEventConcert } from '@models/event-concert'
-import { EventConcertFormModel, IEventConcertFormModel } from '@models/event-concert-form-model'
 
 
 @Injectable({

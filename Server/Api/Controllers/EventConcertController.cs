@@ -30,7 +30,7 @@ namespace Api.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ReturnType("EventConcert[]")]
-        public async Task<ActionResult<IEnumerable<EventConcert>>> Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
@@ -51,13 +51,15 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         [AllowAnonymous]
         [ReturnType("EventConcert")]
-        public ActionResult<EventConcert> GetById(int id)
+        public IActionResult GetById(int id)
         {
             try
             {
-                return unitOfWork.EventConcertRepository
+                var item = unitOfWork.EventConcertRepository
                     .Get(e => e.EventConcertId == id,
                         includeProperties: "VenueFkNavigation").Result.FirstOrDefault() ?? new EventConcert();
+
+                return new ObjectResult(item);
 
             }
             catch (Exception)
@@ -69,7 +71,7 @@ namespace Api.Controllers
         [HttpGet("[action]/{name}")]
         [AllowAnonymous]
         [ReturnType("EventConcert[]")]
-        public async Task<ActionResult<IEnumerable<EventConcert>>> GetByCity(string name)
+        public async Task<IActionResult> GetByCity(string name)
         {
             try
             {
@@ -89,7 +91,7 @@ namespace Api.Controllers
         [HttpGet("[action]/{id}")]
         [AllowAnonymous]
         [ReturnType("EventConcert[]")]
-        public async Task<ActionResult<IEnumerable<EventConcert>>> GetByVenue(int id)
+        public async Task<IActionResult> GetByVenue(int id)
         {
             try
             {
@@ -110,7 +112,7 @@ namespace Api.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ReturnType("EventConcert")]
-        public EventConcert Post([FromBody] EventConcert concert)
+        public IActionResult Post([FromBody] EventConcert concert)
         {
             EventConcert item = new EventConcert();
             item.EventName = concert.EventName;
@@ -123,7 +125,7 @@ namespace Api.Controllers
 
             unitOfWork.EventConcertRepository.Insert(item);
             unitOfWork.Save();
-            return item;
+            return new ObjectResult(item);
         }
 
 

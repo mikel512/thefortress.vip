@@ -1,4 +1,5 @@
-﻿using Api.Data;
+﻿using Api.Attributes;
+using Api.Data;
 using Api.Extensions;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Primitives;
 namespace Api.Controllers
 {
 
-    [Attributes.NTypewriterIgnore]
+    [NTypewriterIgnore]
     [Route("api/[controller]")]
     [ApiController]
     public class ScrapeController : ControllerBase

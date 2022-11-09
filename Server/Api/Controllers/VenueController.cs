@@ -1,4 +1,5 @@
-﻿using Api.Data;
+﻿using Api.Attributes;
+using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [ReturnType("Venue[]")]
         public async Task<ActionResult<IEnumerable<Venue>>> Get()
         {
             try
@@ -37,6 +39,7 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("city/{city}")]
+        [ReturnType("Venue[]")]
         public async Task<ActionResult<IEnumerable<Venue>>> GetByCity(string city)
         {
             try
@@ -54,6 +57,7 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
+        [ReturnType("Venue")]
         public async Task<ActionResult<Venue>> GetById(int id)
         {
             try
@@ -70,6 +74,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ReturnType("Venue")]
         public Venue Post([FromBody] Venue value)
         {
             Venue item = new Venue();
@@ -89,6 +94,7 @@ namespace Api.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ReturnType("Venue")]
         public Venue Put(int id, [FromBody] Venue value)
         {
             Venue item = new Venue();
@@ -109,6 +115,7 @@ namespace Api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [ReturnType("any")]
         public void Delete(int id)
         {
             //unitOfWork.VenueRepository.Delete(id);
