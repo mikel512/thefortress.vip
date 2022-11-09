@@ -1,8 +1,11 @@
 ﻿using Api.Attributes;
 using Api.Data;
+using Api.Forms;
 using Api.Models;
+using DataAccessLibrary.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,10 +16,12 @@ namespace Api.Controllers
     public class VenueController : ControllerBase
     {
         UnitOfWork unitOfWork;
+        IStorageService _storageService;
 
-        public VenueController(TheFortressContext context)
+        public VenueController(TheFortressContext context, IStorageService storageService)
         {
             unitOfWork = new UnitOfWork(context);
+            _storageService = storageService;
         }
 
         [AllowAnonymous]
@@ -91,6 +96,33 @@ namespace Api.Controllers
             unitOfWork.Save();
             return item;
         }
+
+        [NTypewriterIgnore]
+        [HttpPost("[action]")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PostWithImage()
+        {
+
+            var formRequest = Request.Form;
+            IFormFile file = formRequest.Files.First(); 
+            VenueFormModel? venue= JsonConvert.DeserializeObject<VenueFormModel>(formRequest.First().Value);
+            string imageUrl = await _storageService.StoreImageFile(file);
+
+            Venue item = new Venue();
+            item.Hours = venue.Hours;
+            item.TicketsLink = venue.TicketsLink;
+            item.MenuLink = venue.MenuLink;
+            item.Address = venue.Address;
+            item.CityFk = item.CityFk;
+            item.Description = item.Description;
+            item.VenueName = venue.VenueName;
+            item.Picture = imageUrl;
+
+            //unitOfWork.EventConcertRepository.Insert(item);
+            //unitOfWork.Save();
+            return new ObjectResult(item);
+        }
+
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
