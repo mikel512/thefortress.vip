@@ -13,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AppPipesModule } from 'src/app/util/pipes/app-pipes.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { VenuesListComponent } from './venues-list.component';
+import { AddVenueComponent } from './add-venue.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { VenuesListComponent } from './venues-list.component';
         AdminEventsComponent,
         AddEventComponent,
         VenuesListComponent,
+        AddVenueComponent,
     ],
     imports: [
         AppPipesModule,
@@ -36,6 +38,7 @@ import { VenuesListComponent } from './venues-list.component';
                     {path: 'events', component: AdminEventsComponent},
                     {path: 'add-event', component: AddEventComponent},
                     {path: 'venues', component: VenuesListComponent},
+                    {path: 'add-venue', component: AddVenueComponent},
                 ]}
         ])
     ],

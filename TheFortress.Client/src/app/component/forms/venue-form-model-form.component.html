@@ -1,0 +1,88 @@
+﻿<form [formGroup]="inputForm" (ngSubmit)="submit()">
+	<ui-alert [input]="alert"></ui-alert>
+	<div class="form-group">
+		<label>Venue Name</label>
+		<input class="form-control" type="text" placeholder="Venue Name"
+			[inputIsInvalid]="venueName.invalid && (venueName.dirty || venueName.touched)"
+			[inputIsValid]="venueName.valid && (venueName.dirty || venueName.touched)"
+			formControlName="venueName" />
+		<span *ngIf="venueName.invalid && (venueName.dirty || venueName.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="venueName.errors?.required">Venue Name field is required </li>
+				<li *ngIf="venueName.errors?.maxLength">Field must have a maximum of  </li>
+				<li *ngIf="venueName.errors?.maxLength">Field must have a minimum of</li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<div class="form-group">
+		<app-file-upload formControlName="picture" [label]="'Picture'"
+			[isInvalid]="picture.invalid && (picture.dirty || picture.touched)"
+			[isValid]="picture.valid && (picture.dirty || picture.touched)">
+		</app-file-upload>
+		<span *ngIf="picture.invalid && (picture.dirty || picture.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="picture.errors?.requiredFileType">File type is not accepted</li>
+				<li *ngIf="picture.errors?.required">Picture field is required </li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<div class="form-group">
+		<label>Location</label>
+		<input class="form-control" type="text" placeholder="Location"
+			formControlName="location" />
+	</div>
+	
+	<div class="form-group">
+		<label>Address</label>
+		<input class="form-control" type="text" placeholder="Address"
+			[inputIsInvalid]="address.invalid && (address.dirty || address.touched)"
+			[inputIsValid]="address.valid && (address.dirty || address.touched)"
+			formControlName="address" />
+		<span *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="address.errors?.required">Address field is required </li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<div class="form-group">
+		<label>Description</label>
+		<input class="form-control" type="text" placeholder="Description"
+			[inputIsInvalid]="description.invalid && (description.dirty || description.touched)"
+			[inputIsValid]="description.valid && (description.dirty || description.touched)"
+			formControlName="description" />
+		<span *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="description.errors?.required">Description field is required </li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<div class="form-group">
+		<label>Tickets Link</label>
+		<input class="form-control" type="text" placeholder="Tickets Link"
+			formControlName="ticketsLink" />
+	</div>
+	
+	<div class="form-group">
+		<label>Menu Link</label>
+		<input class="form-control" type="text" placeholder="Menu Link"
+			formControlName="menuLink" />
+	</div>
+	
+	<div class="form-group">
+		<label>Hours</label>
+		<input class="form-control" type="text" placeholder="Hours"
+			formControlName="hours" />
+	</div>
+	
+	<button type="submit" class="w-100 my-4 btn btn-primary"
+		[disabled]="inputForm.invalid || inputForm.pristine">Submit</button>
+</form>
+
