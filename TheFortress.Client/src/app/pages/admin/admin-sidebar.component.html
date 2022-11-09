@@ -39,22 +39,16 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+
+                    <ul *ngFor="let item of manageItems" class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['/admin/events']">
+                            <a class="nav-link" [routerLink]="[item.routerLink]">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Events List</p>
+                                <p>{{item.name}}</p>
                             </a>
                         </li>
                     </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['/admin/add-event']">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add Event</p>
-                            </a>
-                        </li>
-                    </ul>
+
                 </li>
                 <li class="nav-item has-treeview menu-open">
                     <a href="javascript:void(0)" class="nav-link active">

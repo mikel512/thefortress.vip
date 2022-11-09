@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">Add a new event</div>
             <div class="card-body">
-
+                <ui-alert [input]="alert"></ui-alert>
                 <div class="form-group">
                     <label>Venue</label>
                     <ng-select [(ngModel)]="venueFK" placeholder="Choose a venue">

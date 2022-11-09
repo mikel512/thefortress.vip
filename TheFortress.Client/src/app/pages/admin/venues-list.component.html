@@ -1,0 +1,29 @@
+<div class="card">
+
+    <div class="card-header">Venue List</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table m-0" id="localConcertsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>Location</th>
+                        <th>Address</th>
+                        <th>Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let venue of venues">
+                        <td>{{venue.venueName}}</td>
+                        <td>{{venue.cityFkNavigation.cityName}}</td>
+                        <td>{{venue.location}}</td>
+                        <td>{{venue.address}}</td>
+                        <td>{{venue.hours}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

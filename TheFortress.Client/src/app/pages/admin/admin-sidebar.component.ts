@@ -8,7 +8,22 @@ import { AuthService } from '@services/auth.service';
 })
 
 export class AdminSidebarComponent implements OnInit {
-    constructor(public auth: AuthService) { }
+    manageItems: SideBarItem[] = [];
+
+
+    constructor(public auth: AuthService) {
+        this.manageItems = [
+            { routerLink: '/admin/events', name: 'Event List' },
+            { routerLink: '/admin/add-event', name: 'Add Event' },
+            { routerLink: '/admin/venues', name: 'Venue List' },
+            { routerLink: '', name: 'Add Venue' }
+        ]
+    }
 
     ngOnInit() { }
+}
+
+export class SideBarItem {
+    routerLink: string;
+    name: string;
 }

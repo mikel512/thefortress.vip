@@ -65,7 +65,10 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     }
 
     postNewEvent(event: EventConcertFormModel) {
-        if (!this.venueFK) return;
+        if (!this.venueFK){
+            this.alert.error = 'Venue selection is required.'
+            return;
+        }
         this.event = event;
         event.venueFk = this.venueFK;
 

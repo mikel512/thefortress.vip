@@ -11,6 +11,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { AppPipesModule } from 'src/app/util/pipes/app-pipes.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { VenuesListComponent } from './venues-list.component';
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import { AppPipesModule } from 'src/app/util/pipes/app-pipes.module';
         AdminSidebarComponent,
         AdminEventsComponent,
         AddEventComponent,
+        VenuesListComponent,
     ],
     imports: [
         AppPipesModule,
@@ -31,7 +34,8 @@ import { AppPipesModule } from 'src/app/util/pipes/app-pipes.module';
             {path: '', component: AdminComponent,
                 children: [
                     {path: 'events', component: AdminEventsComponent},
-                    {path: 'add-event', component: AddEventComponent}
+                    {path: 'add-event', component: AddEventComponent},
+                    {path: 'venues', component: VenuesListComponent},
                 ]}
         ])
     ],

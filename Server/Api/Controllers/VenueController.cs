@@ -26,7 +26,7 @@ namespace Api.Controllers
         {
             try
             {
-                var items =  await unitOfWork.VenueRepository.Get();
+                var items =  await unitOfWork.VenueRepository.Get(includeProperties: "CityFkNavigation");
 
                 return new ObjectResult(items);
             }
