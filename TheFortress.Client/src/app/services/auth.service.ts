@@ -91,7 +91,6 @@ export class AuthService {
         let token = localStorage.getItem('id_token');
         if (token != null) {
             this._decodedJWT = JSON.parse(window.atob(token.split('.')[1]));
-            console.log(this._decodedJWT);
 
             this.getExp();
         }

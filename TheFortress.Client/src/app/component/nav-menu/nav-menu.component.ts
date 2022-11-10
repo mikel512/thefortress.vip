@@ -10,9 +10,7 @@ export class NavMenuComponent {
   isExpanded = false;
 
   constructor(
-    @Inject('BASE_URL') baseUrl: string
   ) {
-    // analytic.get(baseUrl).subscribe();
   }
 
   ngOnInit() {
