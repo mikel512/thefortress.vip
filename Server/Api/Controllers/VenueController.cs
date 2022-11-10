@@ -1,5 +1,6 @@
 ﻿using Api.Attributes;
 using Api.Data;
+using Api.Extensions;
 using Api.Forms;
 using Api.Models;
 using DataAccessLibrary.Services;
@@ -27,11 +28,11 @@ namespace Api.Controllers
         [AllowAnonymous]
         [HttpGet]
         [ReturnType("Venue[]")]
-        public async Task<ActionResult<IEnumerable<Venue>>> Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var items =  await unitOfWork.VenueRepository.Get(includeProperties: "CityFkNavigation");
+                var items = await unitOfWork.VenueRepository.Get(includeProperties: "CityFkNavigation");
 
                 return new ObjectResult(items);
             }
@@ -45,7 +46,7 @@ namespace Api.Controllers
         [AllowAnonymous]
         [HttpGet("city/{city}")]
         [ReturnType("Venue[]")]
-        public async Task<ActionResult<IEnumerable<Venue>>> GetByCity(string city)
+        public async Task<IActionResult> GetByCity(string city)
         {
             try
             {
@@ -80,21 +81,30 @@ namespace Api.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ReturnType("Venue")]
-        public Venue Post([FromBody] Venue value)
+        public IActionResult Post([FromBody] Venue value)
         {
-            Venue item = new Venue();
-            item.Picture = value.Picture;
-            item.Hours = value.Hours;
-            item.TicketsLink = value.TicketsLink;
-            item.MenuLink = value.MenuLink;
-            item.Address = value.Address;
-            item.CityFk = item.CityFk;
-            item.Description = item.Description;
-            item.VenueName = value.VenueName;
+            try
+            {
+                Venue item = new Venue();
+                item.Picture = value.Picture;
+                item.Hours = value.Hours;
+                item.TicketsLink = value.TicketsLink;
+                item.MenuLink = value.MenuLink;
+                item.Address = value.Address;
+                item.CityFk = item.CityFk;
+                item.Description = item.Description;
+                item.VenueName = value.VenueName;
 
-            unitOfWork.VenueRepository.Insert(item);
-            unitOfWork.Save();
-            return item;
+                unitOfWork.VenueRepository.Insert(item);
+                unitOfWork.Save();
+                return new ObjectResult(item);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [NTypewriterIgnore]
@@ -103,46 +113,68 @@ namespace Api.Controllers
         public async Task<IActionResult> PostWithImage()
         {
 
-            var formRequest = Request.Form;
-            IFormFile file = formRequest.Files.First(); 
-            VenueFormModel? venue= JsonConvert.DeserializeObject<VenueFormModel>(formRequest.First().Value);
-            string imageUrl = await _storageService.StoreImageFile(file);
+            try
+            {
+                var formRequest = Request.Form;
+                IFormFile file = formRequest.Files.First();
 
-            Venue item = new Venue();
-            item.Hours = venue.Hours;
-            item.TicketsLink = venue.TicketsLink;
-            item.MenuLink = venue.MenuLink;
-            item.Address = venue.Address;
-            item.CityFk = item.CityFk;
-            item.Description = item.Description;
-            item.VenueName = venue.VenueName;
-            item.Picture = imageUrl;
+                if (!file.ValidateFileExtension("jpg", "png", "jpeg"))
+                {
+                    return StatusCode(StatusCodes.Status415UnsupportedMediaType);
+                }
 
-            //unitOfWork.EventConcertRepository.Insert(item);
-            //unitOfWork.Save();
-            return new ObjectResult(item);
+                VenueFormModel? venue = JsonConvert.DeserializeObject<VenueFormModel>(formRequest.First().Value);
+                string imageUrl = await _storageService.StoreImageFile(file);
+
+                Venue item = new Venue();
+                item.Hours = venue.Hours;
+                item.TicketsLink = venue.TicketsLink;
+                item.MenuLink = venue.MenuLink;
+                item.Address = venue.Address;
+                item.CityFk = item.CityFk;
+                item.Description = item.Description;
+                item.VenueName = venue.VenueName;
+                item.Picture = imageUrl;
+
+                //unitOfWork.EventConcertRepository.Insert(item);
+                //unitOfWork.Save();
+                return new ObjectResult(item);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [ReturnType("Venue")]
-        public Venue Put(int id, [FromBody] Venue value)
+        public IActionResult Put(int id, [FromBody] Venue value)
         {
-            Venue item = new Venue();
-            item.VenueId = id;
-            item.Picture = value.Picture;
-            item.Hours = value.Hours;
-            item.TicketsLink = value.TicketsLink;
-            item.MenuLink = value.MenuLink;
-            item.Address = value.Address;
-            item.CityFk = item.CityFk;
-            item.Description = item.Description;
-            item.VenueName = value.VenueName;
+            try
+            {
+                Venue item = new Venue();
+                item.VenueId = id;
+                item.Picture = value.Picture;
+                item.Hours = value.Hours;
+                item.TicketsLink = value.TicketsLink;
+                item.MenuLink = value.MenuLink;
+                item.Address = value.Address;
+                item.CityFk = item.CityFk;
+                item.Description = item.Description;
+                item.VenueName = value.VenueName;
 
-            unitOfWork.VenueRepository.Update(item);
-            unitOfWork.Save();
-            return item;
+                unitOfWork.VenueRepository.Update(item);
+                unitOfWork.Save();
+                return new ObjectResult(item);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpDelete("{id}")]

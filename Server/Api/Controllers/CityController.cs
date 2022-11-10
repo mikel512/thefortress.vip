@@ -28,7 +28,7 @@ namespace Api.Controllers
         [AllowAnonymous]
         [HttpGet]
         [ReturnType("City[]")]
-        public async Task<ActionResult<IEnumerable<City>>> Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace Api.Controllers
         [AllowAnonymous]
         [HttpGet("{id}")]
         [ReturnType("City")]
-        public async Task<ActionResult<City>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
@@ -63,30 +63,46 @@ namespace Api.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ReturnType("City")]
-        public City Post([FromBody] City value)
+        public IActionResult Post([FromBody] City value)
         {
-            City item = new City();
-            item.CityName = value.CityName;
-            item.Image = value.Image;
+            try
+            {
+                City item = new City();
+                item.CityName = value.CityName;
+                item.Image = value.Image;
 
-            unitOfWork.CityRepository.Insert(item);
-            unitOfWork.Save();
-            return item;
+                unitOfWork.CityRepository.Insert(item);
+                unitOfWork.Save();
+                return new ObjectResult(item);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [ReturnType("City")]
-        public City Put(int id, [FromBody] City value)
+        public IActionResult Put(int id, [FromBody] City value)
         {
-            City item = new City();
-            item.CityId = id;
-            item.CityName = value.CityName;
-            item.Image = value.Image;
+            try
+            {
+                City item = new City();
+                item.CityId = id;
+                item.CityName = value.CityName;
+                item.Image = value.Image;
 
-            unitOfWork.CityRepository.Update(item);
-            unitOfWork.Save();
-            return item;
+                unitOfWork.CityRepository.Update(item);
+                unitOfWork.Save();
+                return new ObjectResult(item); 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -94,7 +110,7 @@ namespace Api.Controllers
         [ReturnType("any")]
         public void Delete(int id)
         {
-            unitOfWork.CityRepository.Delete(id);
+            //unitOfWork.CityRepository.Delete(id);
         }
     }
 }

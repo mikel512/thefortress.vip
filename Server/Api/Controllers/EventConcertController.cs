@@ -2,6 +2,7 @@
 using Api.Data;
 using Api.Forms;
 using Api.Models;
+using Api.Extensions;
 using DataAccessLibrary.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -82,7 +83,7 @@ namespace Api.Controllers
 
                 return new ObjectResult(items);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return StatusCode(500);
             }
@@ -114,18 +115,27 @@ namespace Api.Controllers
         [ReturnType("EventConcert")]
         public IActionResult Post([FromBody] EventConcert concert)
         {
-            EventConcert item = new EventConcert();
-            item.EventName = concert.EventName;
-            item.EventDate = concert.EventDate;
-            item.EventTime = concert.EventTime;
-            item.Details = concert.Details;
-            item.Tickets = concert.Tickets;
-            item.Flyer = concert.Flyer;
-            item.Status = concert.Status;
+            try
+            {
+                EventConcert item = new EventConcert();
+                item.EventName = concert.EventName;
+                item.EventDate = concert.EventDate;
+                item.EventTime = concert.EventTime;
+                item.Details = concert.Details;
+                item.Tickets = concert.Tickets;
+                item.Flyer = concert.Flyer;
+                item.Status = concert.Status;
 
-            unitOfWork.EventConcertRepository.Insert(item);
-            unitOfWork.Save();
-            return new ObjectResult(item);
+                unitOfWork.EventConcertRepository.Insert(item);
+                unitOfWork.Save();
+                return new ObjectResult(item);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
 
@@ -134,53 +144,86 @@ namespace Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostWithFlyerFile()
         {
+            try
+            {
+                var formRequest = Request.Form;
+                IFormFile file = formRequest.Files.First();
+                // validate file extension
+                if (!file.ValidateFileExtension("jpg", "png", "jpeg"))
+                {
+                    return StatusCode(StatusCodes.Status415UnsupportedMediaType);
+                }
 
-            var formRequest = Request.Form;
-            IFormFile file = formRequest.Files.First(); 
-            EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(formRequest.First().Value);
-            string flyerUrl = await _storageService.StoreImageFile(file);
+                EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(formRequest.First().Value);
+                string flyerUrl = await _storageService.StoreImageFile(file);
 
-            EventConcert item = new EventConcert();
-            item.EventName = concert.EventName;
-            item.EventDate = concert.EventDate;
-            item.EventTime = concert.EventTime;
-            item.Details = concert.Details;
-            item.Tickets = concert.TicketsUrl;
-            item.Flyer = flyerUrl;
+                EventConcert item = new EventConcert();
+                item.EventName = concert.EventName;
+                item.EventDate = concert.EventDate;
+                item.EventTime = concert.EventTime;
+                item.Details = concert.Details;
+                item.Tickets = concert.TicketsUrl;
+                item.Flyer = flyerUrl;
 
-            //unitOfWork.EventConcertRepository.Insert(item);
-            //unitOfWork.Save();
-            return new ObjectResult(item);
+                unitOfWork.EventConcertRepository.Insert(item);
+                unitOfWork.Save();
+                return new ObjectResult(item);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [ReturnType("EventConcert")]
-        public EventConcert Put(int id, [FromBody] EventConcert concert)
+        public IActionResult Put(int id, [FromBody] EventConcert concert)
         {
-            EventConcert item = new EventConcert();
-            item.EventConcertId = id;
-            item.EventName = concert.EventName;
-            item.EventDate = concert.EventDate;
-            item.EventTime = concert.EventTime;
-            item.Details = concert.Details;
-            item.Tickets = concert.Tickets;
-            item.Flyer = concert.Flyer;
-            item.Status = concert.Status;
+            try
+            {
+                EventConcert item = new EventConcert();
+                item.EventConcertId = id;
+                item.EventName = concert.EventName;
+                item.EventDate = concert.EventDate;
+                item.EventTime = concert.EventTime;
+                item.Details = concert.Details;
+                item.Tickets = concert.Tickets;
+                item.Flyer = concert.Flyer;
+                item.Status = concert.Status;
 
-            unitOfWork.EventConcertRepository.Update(item);
-            unitOfWork.Save();
-            return item;
+                unitOfWork.EventConcertRepository.Update(item);
+                unitOfWork.Save();
+                return new ObjectResult(item);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         [ReturnType("any")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            unitOfWork.EventConcertRepository.Delete(id);
-            unitOfWork.Save();
+            try
+            {
+                unitOfWork.EventConcertRepository.Delete(id);
+                unitOfWork.Save();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
