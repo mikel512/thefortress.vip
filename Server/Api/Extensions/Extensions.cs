@@ -21,7 +21,7 @@
                 throw new ArgumentNullException(nameof(allowedExtension));
             }
 
-            var fileExt = System.IO.Path.GetExtension(file.FileName).Substring(1);
+            var fileExt = System.IO.Path.GetExtension(file.FileName).Substring(1).ToLower();
             if (!allowedExtension.Contains(fileExt))
             {
                 return false;

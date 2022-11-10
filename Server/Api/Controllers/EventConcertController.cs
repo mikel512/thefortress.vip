@@ -125,6 +125,7 @@ namespace Api.Controllers
                 item.Tickets = concert.Tickets;
                 item.Flyer = concert.Flyer;
                 item.Status = concert.Status;
+                item.VenueFk = concert.VenueFk;
 
                 unitOfWork.EventConcertRepository.Insert(item);
                 unitOfWork.Save();
@@ -164,6 +165,7 @@ namespace Api.Controllers
                 item.Details = concert.Details;
                 item.Tickets = concert.TicketsUrl;
                 item.Flyer = flyerUrl;
+                item.VenueFk = concert.VenueFk;
 
                 unitOfWork.EventConcertRepository.Insert(item);
                 unitOfWork.Save();
