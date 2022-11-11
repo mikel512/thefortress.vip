@@ -1,6 +1,6 @@
 
 <div class="d-flex justify-content-center">
-    <div class="col-6">
+    <div class="col-8">
         <div class="card">
             <div class="card-header">Add a new event</div>
             <div class="card-body">
@@ -11,7 +11,7 @@
                         <ng-option *ngFor="let city of cities" [value]="city.cityId">{{city.cityName}} </ng-option>
                     </ng-select>
                 </div>
-                <ui-venue-form-model-form></ui-venue-form-model-form>
+                <ui-venue-form-model-form (outputModel)="post($event)"></ui-venue-form-model-form>
 
             </div>
         </div>

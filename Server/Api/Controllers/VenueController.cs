@@ -131,13 +131,14 @@ namespace Api.Controllers
                 item.TicketsLink = venue.TicketsLink;
                 item.MenuLink = venue.MenuLink;
                 item.Address = venue.Address;
-                item.CityFk = item.CityFk;
-                item.Description = item.Description;
+                item.CityFk = venue.CityFk;
+                item.Description = venue.Description;
                 item.VenueName = venue.VenueName;
+                item.Location = venue.Location;
                 item.Picture = imageUrl;
 
-                //unitOfWork.EventConcertRepository.Insert(item);
-                //unitOfWork.Save();
+                unitOfWork.VenueRepository.Insert(item);
+                unitOfWork.Save();
                 return new ObjectResult(item);
             }
             catch (Exception e)
