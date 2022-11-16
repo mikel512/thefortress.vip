@@ -12,7 +12,7 @@
 -}}
 // NTypewriter generated content
 	
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
@@ -27,6 +27,7 @@ import { {{modelName}} } from '@models/{{snakeCaseName}}'
 export class {{modelName}}FormComponent implements OnInit {
 	public input: {{modelName}} = new {{modelName}}();
 	public inputForm: FormGroup;
+	@Input() validate: boolean = true;
 
 	public alert: AlertModel = new AlertModel();
 	
@@ -35,39 +36,56 @@ export class {{modelName}}FormComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {    
-		this.inputForm = new FormGroup({
-			{{-for prop in class.Properties -}}
-			{{- if prop | Symbol.HasAttribute("FieldIgnore")
-				continue
-				end
-			-}}
-			{{if prop.Attributes | Array.Size == 0}}
-			{{prop.BareName | String.ToCamelCase}}: new FormControl (''),
-			{{-else}} 
-			{{prop.BareName | String.ToCamelCase}}: new FormControl ('', [
-				{{-for attr in prop.Attributes}}
-				{{-if attr.Name == "Required"}}
-				Validators.required,
-				{{-end}}
-				{{-if attr.Name == "FileExtensions"-}}
-				{{extensions = attr.Arguments | String.Replace("[Extensions :", "") | String.Replace("]", "") | String.Split(",") }} 
-				fileTypeValidator({{extensions}}),
-				{{-end}}
-				{{-if attr.Name == "MaxLength"
-					length = attr.Arguments[0].Value
-				}}
-				Validators.maxLength({{length}}),
-				{{-end}}
-				{{-if attr.Name == "MinLength"
-					length = attr.Arguments[0].Value
-				}}
-				Validators.minLength({{length}}),
+		if(this.validate){
+			this.inputForm = new FormGroup({
+				{{-for prop in class.Properties -}}
+				{{- if prop | Symbol.HasAttribute("FieldIgnore")
+					continue
+					end
+				-}}
+				{{if prop.Attributes | Array.Size == 0}}
+				{{prop.BareName | String.ToCamelCase}}: new FormControl (''),
+				{{-else}} 
+				{{prop.BareName | String.ToCamelCase}}: new FormControl ('', [
+					{{-for attr in prop.Attributes}}
+					{{-if attr.Name == "Required"}}
+					Validators.required,
+					{{-end}}
+					{{-if attr.Name == "FileExtensions"-}}
+					{{extensions = attr.Arguments | String.Replace("[Extensions :", "") | String.Replace("]", "") | String.Split(",") }} 
+					fileTypeValidator({{extensions}}),
+					{{-end}}
+					{{-if attr.Name == "MaxLength"
+						length = attr.Arguments[0].Value
+					}}
+					Validators.maxLength({{length}}),
+					{{-end}}
+					{{-if attr.Name == "MinLength"
+						length = attr.Arguments[0].Value
+					}}
+					Validators.minLength({{length}}),
+					{{-end
+						end}}
+				]),
 				{{-end
-					end}}
-			]),
-			{{-end
-			end}}
-		});
+				end}}
+			});
+		} else {
+			this.inputForm = new FormGroup({
+				{{-for prop in class.Properties -}} {{- if prop | Symbol.HasAttribute("FieldIgnore")
+					continue
+					end
+				-}}
+				{{if prop.Attributes | Array.Size == 0}}
+				{{prop.BareName | String.ToCamelCase}}: new FormControl (''),
+				{{-else}} 
+				{{prop.BareName | String.ToCamelCase}}: new FormControl ('', [
+				]),
+				{{-end
+				end}}
+			});
+
+		}
 	} 
 	{{for prop in class.Properties
 		 if prop | Symbol.HasAttribute("FieldIgnore")

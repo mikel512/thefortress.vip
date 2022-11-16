@@ -1,6 +1,6 @@
 ﻿// NTypewriter generated content
 	
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertModel } from '@models/alert-model';
@@ -15,6 +15,7 @@ import { EventConcertFormModel } from '@models/event-concert-form-model'
 export class EventConcertFormModelFormComponent implements OnInit {
 	public input: EventConcertFormModel = new EventConcertFormModel();
 	public inputForm: FormGroup;
+	@Input() validate: boolean = true;
 
 	public alert: AlertModel = new AlertModel();
 	
@@ -23,25 +24,42 @@ export class EventConcertFormModelFormComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {    
-		this.inputForm = new FormGroup({ 
-			eventName: new FormControl ('', [
-				Validators.required,
-				Validators.maxLength(100),
-				Validators.minLength(1),
-			]), 
-			flyer: new FormControl ('', [ 
-				fileTypeValidator([" jpg", "jpeg", "png"]),
-				Validators.required,
-			]), 
-			eventDate: new FormControl ('', [
-				Validators.required,
-			]),
-			details: new FormControl (''),
-			price: new FormControl (''),
-			ticketsUrl: new FormControl (''),
-			eventTime: new FormControl (''),
-			isApproved: new FormControl (''),
-		});
+		if(this.validate){
+			this.inputForm = new FormGroup({ 
+				eventName: new FormControl ('', [
+					Validators.required,
+					Validators.maxLength(100),
+					Validators.minLength(1),
+				]), 
+				flyer: new FormControl ('', [ 
+					fileTypeValidator([" jpg", "jpeg", "png"]),
+					Validators.required,
+				]), 
+				eventDate: new FormControl ('', [
+					Validators.required,
+				]),
+				details: new FormControl (''),
+				price: new FormControl (''),
+				ticketsUrl: new FormControl (''),
+				eventTime: new FormControl (''),
+				isApproved: new FormControl (''),
+			});
+		} else {
+			this.inputForm = new FormGroup({ 
+				eventName: new FormControl ('', [
+				]), 
+				flyer: new FormControl ('', [
+				]), 
+				eventDate: new FormControl ('', [
+				]),
+				details: new FormControl (''),
+				price: new FormControl (''),
+				ticketsUrl: new FormControl (''),
+				eventTime: new FormControl (''),
+				isApproved: new FormControl (''),
+			});
+
+		}
 	} 
 	
 	get eventName() { return this.inputForm.get('eventName') }
