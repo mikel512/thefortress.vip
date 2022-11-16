@@ -35,7 +35,13 @@
 <app-modal #editModal>
     <div header>Edit Venue: {{editVenue?.venueName}}</div>
     <div body>
-        <ui-venue-form-model-form [validate]="false" (outputModel)="update($event)"></ui-venue-form-model-form>
+        <div class="container-fluid">
+            <div class="form-group">
+                <label>Image preview</label>
+                <img [src]="editVenue?.picture" style="width: 100%; height:auto;">
+            </div>
+            <ui-venue-form-model-form [validate]="false" (outputModel)="update($event)"></ui-venue-form-model-form>
+        </div>
     </div>
 
 </app-modal>
