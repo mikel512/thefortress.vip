@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { NavBarItem } from '@models/nav-bar-item';
 
 
 @Component({
@@ -8,9 +9,14 @@ import { Component, Inject } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  public navItems: NavBarItem[] = [];
 
-  constructor(
-  ) {
+  constructor() {
+    this.navItems = [
+      { name: 'Events', routerLink: '/All' },
+      { name: 'Venues', routerLink: '/venues/All' },
+      { name: 'About', routerLink: '/about' },
+    ]
   }
 
   ngOnInit() {
@@ -27,11 +33,3 @@ export class NavMenuComponent {
   }
 
 }
-
-
-export class Claim {
-  id: number;
-  claim: string;
-  value: string;
-}
-

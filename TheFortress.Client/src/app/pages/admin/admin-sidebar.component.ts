@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavBarItem } from '@models/nav-bar-item';
 import { AuthService } from '@services/auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '@services/auth.service';
 })
 
 export class AdminSidebarComponent implements OnInit {
-    manageItems: SideBarItem[] = [];
+    manageItems: NavBarItem[] = [];
 
 
     constructor(public auth: AuthService) {
@@ -21,9 +22,4 @@ export class AdminSidebarComponent implements OnInit {
     }
 
     ngOnInit() { }
-}
-
-export class SideBarItem {
-    routerLink: string;
-    name: string;
 }
