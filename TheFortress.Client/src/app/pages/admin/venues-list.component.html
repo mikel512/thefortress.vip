@@ -6,6 +6,7 @@
             <table class="table m-0" id="localConcertsTable">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>City</th>
                         <th>Location</th>
@@ -15,6 +16,9 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let venue of venues">
+                        <td>
+                            <button class="btn btn-primary" (click)="edit(venue)">Edit</button>
+                        </td>
                         <td>{{venue.venueName}}</td>
                         <td>{{venue.cityFkNavigation.cityName}}</td>
                         <td>{{venue.location}}</td>
@@ -27,3 +31,11 @@
     </div>
 
 </div>
+
+<app-modal #editModal>
+    <div header>Edit Venue: {{editVenue?.venueName}}</div>
+    <div body>
+        <ui-venue-form-model-form [validate]="false" (outputModel)="update($event)"></ui-venue-form-model-form>
+    </div>
+
+</app-modal>
