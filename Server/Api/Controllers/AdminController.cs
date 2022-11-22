@@ -23,7 +23,7 @@ namespace Api.Controllers
             _storageService = storageService;
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UploadImage()
         {
@@ -39,7 +39,7 @@ namespace Api.Controllers
 
                 string imageUrl = await _storageService.StoreImageFile(file);
 
-                return Ok(imageUrl);
+                return new ObjectResult(imageUrl);
             }
             catch (Exception e)
             {

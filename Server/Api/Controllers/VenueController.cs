@@ -163,8 +163,8 @@ namespace Api.Controllers
                 item.TicketsLink = value.TicketsLink;
                 item.MenuLink = value.MenuLink;
                 item.Address = value.Address;
-                item.CityFk = item.CityFk;
-                item.Description = item.Description;
+                item.CityFk = value.CityFk;
+                item.Description = value.Description;
                 item.VenueName = value.VenueName;
 
                 unitOfWork.VenueRepository.Update(item);

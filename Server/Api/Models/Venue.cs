@@ -22,7 +22,7 @@ namespace Api.Models
         public string? Hours { get; set; }
         public int CityFk { get; set; }
 
-        public virtual City CityFkNavigation { get; set; } = null!;
+        public virtual City? CityFkNavigation { get; set; } = null!;
         public virtual ICollection<EventConcert> EventConcerts { get; set; }
     }
 }
