@@ -28,6 +28,7 @@ export class {{modelName}}FormComponent implements OnInit {
 	public input: {{modelName}} = new {{modelName}}();
 	public inputForm: FormGroup;
 	@Input() validate: boolean = true;
+	@Input() showSubmit: boolean = true;
 
 	public alert: AlertModel = new AlertModel();
 	
@@ -111,6 +112,11 @@ get {{propName}}() { return this.inputForm.get('{{propName}}') }
 		}
 		this.setModel();
 		this.outputModel.emit(this.input);
+	}
+
+	getInputModel() {
+		this.setModel();
+		return this.input;
 	}
 
 	reset(){
@@ -240,8 +246,8 @@ capture output
 	</div>
 	{{-end}}
 	{{end}}
-	<button type="submit" class="w-100 my-4 btn btn-primary"
-		[disabled]="inputForm.invalid || inputForm.pristine">Submit</button>
+	<button *ngIf="showSubmit" type="submit" class="w-100 my-4 btn btn-primary"
+		[disabled]="validate && (inputForm.invalid || inputForm.pristine)">Submit</button>
 </form>
 
 {{end
