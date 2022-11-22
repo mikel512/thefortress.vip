@@ -16,6 +16,7 @@ export class EventConcertFormModelFormComponent implements OnInit {
 	public input: EventConcertFormModel = new EventConcertFormModel();
 	public inputForm: FormGroup;
 	@Input() validate: boolean = true;
+	@Input() showSubmit: boolean = true;
 
 	public alert: AlertModel = new AlertModel();
 	
@@ -88,6 +89,11 @@ export class EventConcertFormModelFormComponent implements OnInit {
 		}
 		this.setModel();
 		this.outputModel.emit(this.input);
+	}
+
+	getInputModel() {
+		this.setModel();
+		return this.input;
 	}
 
 	reset(){

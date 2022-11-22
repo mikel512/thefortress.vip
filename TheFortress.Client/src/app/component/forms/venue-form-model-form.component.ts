@@ -16,6 +16,7 @@ export class VenueFormModelFormComponent implements OnInit {
 	public input: VenueFormModel = new VenueFormModel();
 	public inputForm: FormGroup;
 	@Input() validate: boolean = true;
+	@Input() showSubmit: boolean = true;
 
 	public alert: AlertModel = new AlertModel();
 	
@@ -91,6 +92,11 @@ export class VenueFormModelFormComponent implements OnInit {
 		}
 		this.setModel();
 		this.outputModel.emit(this.input);
+	}
+
+	getInputModel() {
+		this.setModel();
+		return this.input;
 	}
 
 	reset(){

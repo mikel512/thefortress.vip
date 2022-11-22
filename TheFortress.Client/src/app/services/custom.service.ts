@@ -39,8 +39,6 @@ export class CustomService {
         let formData: FormData = new FormData();
         formData.append('file', file, file.name);
 
-        return this.http.post<string>(`${environment.baseUrl}api/admin/uploadImage`, formData)
-            .pipe(map(response => { return response }
-                ));
+        return this.http.post(`${environment.baseUrl}api/admin/uploadImage`, formData, {responseType: 'text'});
     }
 }

@@ -32,7 +32,7 @@
 
 </div>
 
-<app-modal #editModal>
+<app-modal (onSubmit)="update()" #editModal>
     <div header>Edit Venue: {{editVenue?.venueName}}</div>
     <div body>
         <div class="container-fluid">
@@ -40,7 +40,7 @@
                 <label>Image preview</label>
                 <img [src]="editVenue?.picture" style="width: 100%; height:auto;">
             </div>
-            <ui-venue-form-model-form [validate]="false" (outputModel)="update($event)"></ui-venue-form-model-form>
+            <ui-venue-form-model-form [validate]="false" [showSubmit]="false"></ui-venue-form-model-form>
         </div>
     </div>
 

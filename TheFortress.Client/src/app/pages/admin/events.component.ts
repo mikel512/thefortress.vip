@@ -18,9 +18,9 @@ export class AdminEventsComponent implements OnInit {
     }
 
     reload() {
-        this.events = [];
         this.data.get().subscribe(
             x => {
+                this.events = [];
                 this.events = x;
             }
         );

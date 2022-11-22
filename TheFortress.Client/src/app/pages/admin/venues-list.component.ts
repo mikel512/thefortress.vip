@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VenueFormModelFormComponent } from '@forms/venue-form-model-form.component';
 import { Venue } from '@models/venue';
-import { VenueFormModel } from '@models/venue-form-model';
 import { CustomService } from '@services/custom.service';
 import { VenueService } from '@services/venue.service';
-import { concat } from 'rxjs';
+import { concatWith, tap } from 'rxjs';
 import { AppModalComponent } from '../shared/modal.component';
 
 @Component({
@@ -37,6 +36,7 @@ export class VenuesListComponent implements OnInit {
 
     edit(venue: Venue) {
         this.editVenue = venue;
+        console.log(this.editVenue);
         this.form.inputForm.setValue({
             venueName: venue.venueName,
             address: venue.address,
@@ -50,8 +50,12 @@ export class VenuesListComponent implements OnInit {
         this.modal.show();
     }
 
-    update(updateVenue: VenueFormModel) {
+    update() {
+        console.log(`update func`);
+        const updateVenue = this.form.getInputModel();
+
         let update = new Venue({
+            cityFk: this.editVenue.cityFk,
             venueId: this.editVenue.venueId,
             venueName: updateVenue.venueName,
             location: updateVenue.location,
@@ -65,19 +69,31 @@ export class VenuesListComponent implements OnInit {
 
 
         });
-        // first upload the image, if there is one
-        const venuePut = this.venueData.put(update.venueId, update);
-        if (updateVenue.picture) {
-            const imgObservable = this.cstmService.postImage(updateVenue.picture);
 
-            concat(imgObservable, venuePut).subscribe({
-                next(value) {
-                    
-                },
-            })
+        console.log(update);
+        // first upload the image, if there is one
+        const venuePut$ = this.venueData.put(update.venueId, update);
+        if (updateVenue.picture) {
+            console.log(`update w picture`);
+            const imgObservable$ = this.cstmService.postImage(updateVenue.picture);
+
+            imgObservable$.pipe(
+                tap(x => {
+                    console.log(x)
+                    update.picture = x
+                }),
+                concatWith(
+                    venuePut$.pipe(
+                        tap(y => {
+                            this.modal.hide();
+                            this.reload();
+                        })
+                    ))
+            ).subscribe();
         } else {
+            console.log(`update `);
             update.picture = this.editVenue.picture;
-            venuePut.subscribe({
+            venuePut$.subscribe({
                 next: x => {
                     this.modal.hide();
                     this.reload();

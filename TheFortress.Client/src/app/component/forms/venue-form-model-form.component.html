@@ -82,7 +82,7 @@
 			formControlName="hours" />
 	</div>
 	
-	<button type="submit" class="w-100 my-4 btn btn-primary"
-		[disabled]="inputForm.invalid || inputForm.pristine">Submit</button>
+	<button *ngIf="showSubmit" type="submit" class="w-100 my-4 btn btn-primary"
+		[disabled]="validate && (inputForm.invalid || inputForm.pristine)">Submit</button>
 </form>
 
