@@ -32,24 +32,24 @@ export class LoaderInterceptor implements HttpInterceptor {
     }
     return new Observable(observer => {
       const subscription = next.handle(request)
-        .subscribe(
-          event => {
+        .subscribe({
+          next: event => {
             if (event instanceof HttpResponse) {
               this.removeRequest(request);
             }
             observer.next(event);
           },
-          err => {
+          error: err => {
             // this.alertService.setAlert('error', err.message);
             this.removeRequest(request);
             observer.error(err);
             this.loaderService.hide();
           },
-          () => {
+          complete: () => {
             this.removeRequest(request);
             observer.complete();
             this.loaderService.hide();
-          });
+    }});
       // remove request from queue when cancelled
       return () => {
         this.removeRequest(request);

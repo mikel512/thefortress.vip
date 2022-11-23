@@ -17,7 +17,8 @@ export class AdminSidebarComponent implements OnInit {
             { routerLink: '/admin/events', name: 'Event List' },
             { routerLink: '/admin/add-event', name: 'Add Event' },
             { routerLink: '/admin/venues', name: 'Venue List' },
-            { routerLink: '/admin/add-venue', name: 'Add Venue' }
+            { routerLink: '/admin/add-venue', name: 'Add Venue' },
+            { routerLink: '/admin/cities', name: 'City List' },
         ]
     }
 

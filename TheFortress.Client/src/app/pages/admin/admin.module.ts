@@ -14,6 +14,7 @@ import { AppPipesModule } from 'src/app/util/pipes/app-pipes.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { VenuesListComponent } from './venues-list.component';
 import { AddVenueComponent } from './add-venue.component';
+import { CitiesListComponent } from './cities-list.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AddVenueComponent } from './add-venue.component';
         AddEventComponent,
         VenuesListComponent,
         AddVenueComponent,
+        CitiesListComponent,
     ],
     imports: [
         AppPipesModule,
@@ -39,6 +41,7 @@ import { AddVenueComponent } from './add-venue.component';
                     {path: 'add-event', component: AddEventComponent},
                     {path: 'venues', component: VenuesListComponent},
                     {path: 'add-venue', component: AddVenueComponent},
+                    {path: 'cities', component: CitiesListComponent},
                 ]}
         ])
     ],
