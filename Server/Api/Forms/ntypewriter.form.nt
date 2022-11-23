@@ -161,9 +161,9 @@ capture output
 		continue
 		end
 	}}
-	{{-if inputType == "text" }}
-	<div class="form-group">
-		<label>{{splitted}}</label>
+	{{-if inputType == "text" || inputType == "date" }}
+	<div class="mb-3">
+		<label class="form-label">{{splitted}}</label>
 		<input class="form-control" type="{{inputType}}" placeholder="{{splitted}}"
 			{{-if hasValidators}}
 			[inputIsInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
@@ -180,32 +180,10 @@ capture output
 		</span>
 		{{end}}
 	</div>
-	{{-end}}
-
-
-	{{-if inputType == "date" }}
-	<div class="form-group">
-		<label>{{splitted}}</label>
-		<input class="form-control" type="{{inputType}}" placeholder="{{splitted}}"
-			{{-if hasValidators}}
-			[inputIsInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
-			[inputIsValid]="{{propCamel}}.valid && ({{propCamel}}.dirty || {{propCamel}}.touched)"
-			{{-end}}
-			formControlName="{{propCamel}}" />
-		{{-if hasValidators}}
-		<span *ngIf="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)" class="text-danger">
-			<ul class="px-3">
-				{{-for attr in prop.Attributes }}
-				{{ attr | Custom.GenerateLiFromAttr(propCamel, splitted)}} 
-				{{-end}}
-			</ul>
-		</span>
-		{{end}}
-	</div>
-	{{-end}}
+	{{-end}} 
 
 	{{-if inputType == "file"}}
-	<div class="form-group">
+	<div class="mb-3">
 		<app-file-upload formControlName="{{propCamel}}" [label]="'{{splitted}}'"
 			{{-if hasValidators}}
 			[isInvalid]="{{propCamel}}.invalid && ({{propCamel}}.dirty || {{propCamel}}.touched)"

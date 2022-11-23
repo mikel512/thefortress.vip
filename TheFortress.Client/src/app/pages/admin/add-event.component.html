@@ -4,8 +4,8 @@
             <div class="card-header">Add a new event</div>
             <div class="card-body">
                 <ui-alert [input]="alert"></ui-alert>
-                <div class="form-group">
-                    <label>Venue</label>
+                <div class="mb-3">
+                    <label class="form-label">Venue</label>
                     <ng-select [(ngModel)]="venueFK" placeholder="Choose a venue">
                         <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
                     </ng-select>

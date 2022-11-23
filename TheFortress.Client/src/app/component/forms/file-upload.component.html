@@ -1,6 +1,5 @@
-<label>{{label}}</label>
-<div class="custom-file" [inputIsInvalid]="isInvalid" [inputIsValid]="isValid">
-    <input type="file" class="custom-file-input"
-        [inputIsInvalid]="isInvalid" [inputIsValid]="isValid" id="customFile">
-    <label class="custom-file-label" for="customFile">{{file ? file.name :'Choose a file'}}</label>
-</div>
+<label class="form-label">{{label}}</label>
+<!-- <div class="custom-file" [inputIsInvalid]="isInvalid" [inputIsValid]="isValid"> -->
+<input type="file" class="form-control" [inputIsInvalid]="isInvalid" [inputIsValid]="isValid" id="customFile">
+<!-- <label class="custom-file-label" for="customFile">{{file ? file.name :'Choose a file'}}</label> -->
+<!-- </div> -->
