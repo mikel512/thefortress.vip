@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CityFormModelFormComponent } from '@forms/city-form-model-form.component';
 import { City } from '@models/city';
 import { CityService } from '@services/city.service';
 import { AppModalComponent } from '../shared/modal.component';
@@ -13,6 +14,7 @@ export class CitiesListComponent implements OnInit {
     public cityEdit: City;
 
     @ViewChild(AppModalComponent) modal: AppModalComponent;
+    @ViewChild(CityFormModelFormComponent) form: CityFormModelFormComponent;
 
     constructor(private _cities: CityService) { }
 
@@ -30,6 +32,10 @@ export class CitiesListComponent implements OnInit {
 
     edit(city: City) {
         this.cityEdit = city;
+        this.form.inputForm.setValue({
+            cityName: city.cityName,
+            image: city.image
+        })
         this.modal.show();
     }
 }

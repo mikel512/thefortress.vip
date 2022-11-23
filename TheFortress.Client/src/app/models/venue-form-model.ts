@@ -5,9 +5,9 @@
 export interface IVenueFormModel {
 	venueName: string;
 	picture: File;
-	location: string;
 	address: string;
 	description: string;
+	location: string;
 	ticketsLink: string;
 	menuLink: string;
 	hours: string;
@@ -22,9 +22,9 @@ export class VenueFormModel implements IVenueFormModel {
 	
 	venueName: string;
 	picture: File;
-	location: string;
 	address: string;
 	description: string;
+	location: string;
 	ticketsLink: string;
 	menuLink: string;
 	hours: string;

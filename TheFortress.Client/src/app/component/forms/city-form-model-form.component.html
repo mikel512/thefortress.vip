@@ -1,0 +1,35 @@
+﻿<form [formGroup]="inputForm" (ngSubmit)="submit()">
+	<ui-alert [input]="alert"></ui-alert>
+	<div class="form-group">
+		<label>City Name</label>
+		<input class="form-control" type="text" placeholder="City Name"
+			[inputIsInvalid]="cityName.invalid && (cityName.dirty || cityName.touched)"
+			[inputIsValid]="cityName.valid && (cityName.dirty || cityName.touched)"
+			formControlName="cityName" />
+		<span *ngIf="cityName.invalid && (cityName.dirty || cityName.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="cityName.errors?.required">City Name field is required </li>
+				<li *ngIf="cityName.errors?.maxLength">Field must have a maximum of  </li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<div class="form-group">
+		<app-file-upload formControlName="image" [label]="'Image'"
+			[isInvalid]="image.invalid && (image.dirty || image.touched)"
+			[isValid]="image.valid && (image.dirty || image.touched)">
+		</app-file-upload>
+		<span *ngIf="image.invalid && (image.dirty || image.touched)" class="text-danger">
+			<ul class="px-3">
+				<li *ngIf="image.errors?.requiredFileType">File type is not accepted</li>
+				<li *ngIf="image.errors?.required">Image field is required </li>
+			</ul>
+		</span>
+		
+	</div>
+	
+	<button *ngIf="showSubmit" type="submit" class="w-100 my-4 btn btn-primary"
+		[disabled]="validate && (inputForm.invalid || inputForm.pristine)">Submit</button>
+</form>
+

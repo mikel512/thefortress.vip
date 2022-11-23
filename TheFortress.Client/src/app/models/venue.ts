@@ -16,7 +16,7 @@ export interface IVenue {
 	menuLink: string | null;
 	hours: string | null;
 	cityFk: number;
-	cityFkNavigation: City;
+	cityFkNavigation: City | null;
 	eventConcerts: EventConcert[];
 
 }
@@ -37,6 +37,6 @@ export class Venue implements IVenue {
 	menuLink: string | null;
 	hours: string | null;
 	cityFk: number;
-	cityFkNavigation: City;
+	cityFkNavigation: City | null;
 	eventConcerts: EventConcert[];
 }
