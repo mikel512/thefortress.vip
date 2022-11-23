@@ -7,6 +7,7 @@ import { EventConcert } from '@models/event-concert';
 import { SpinnerOverlayService } from '@services/spinner-overlay.service';
 import { VenueService } from '@services/venue.service';
 import { EventConcertService } from '@services/event-concert.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-venue-detail',
@@ -41,13 +42,12 @@ export class VenueDetailComponent implements OnInit {
     let venue$ = _venue.getById(this.venueId);
     let events$ = _event.getByVenue(this.venueId);
 
-    venue$.subscribe(x => {
-      this.venue = x;
-    }, error => console.log('error'));
-    overlay.hide();
-    events$.subscribe(x =>{
-      this.concerts = x;
-    }, error => console.log(error));
+    forkJoin([venue$, events$]).subscribe({
+      next: x => {
+        this.venue = x[0];
+        this.concerts = x[1];
+      }
+    })
   }
 
   ngOnInit(): void {

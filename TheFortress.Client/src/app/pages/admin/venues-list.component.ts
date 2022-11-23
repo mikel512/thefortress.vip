@@ -36,7 +36,6 @@ export class VenuesListComponent implements OnInit {
 
     edit(venue: Venue) {
         this.editVenue = venue;
-        console.log(this.editVenue);
         this.form.inputForm.setValue({
             venueName: venue.venueName,
             address: venue.address,

@@ -35,7 +35,8 @@ export class CitiesListComponent implements OnInit {
         this.form.inputForm.setValue({
             cityName: city.cityName,
             image: city.image
-        })
+        });
+
         this.modal.show();
     }
 }
