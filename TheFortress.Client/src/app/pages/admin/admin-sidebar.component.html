@@ -1,95 +1,16 @@
-<div class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="javascript:void(0)" class="brand-link">
-        <span class="brand-text font-weight-light">The Fortress Admin Home</span>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <svg class="bi pe-none me-2" width="40" height="32">
+            <use xlink:href="#bootstrap"></use>
+        </svg>
+        <span class="fs-4">Admin Panel</span>
     </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <!-- <div class="image">
-                    <img src="/img/adminlte/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div> -->
-            <div class="info">
-                <a href="javascript:void(0)" class="d-block">{{auth.getName()}} </a>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a asp-action="Index" asp-controller="Admin" class="nav-link">
-                        <i class="nav-icon fas fa-home"></i>
-                        <p>
-                            Admin Home
-                        </p>
-                    </a>
-                </li>
-                <!-- @*Events navtree*@
-                @* TODO add ApprovalQueue link *@ -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="javascript:void(0)" class="nav-link active">
-                        <i class="nav-icon fas fa-calendar-alt"></i>
-                        <p>
-                            Manage
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-
-                    <ul *ngFor="let item of manageItems" class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="[item.routerLink]">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{item.name}}</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                </li>
-                <li class="nav-item has-treeview menu-open">
-                    <a href="javascript:void(0)" class="nav-link active">
-                        <i class="nav-icon far fa-envelope"></i>
-                        <p>
-                            Mailbox
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inbox</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link"> <i class="far fa-circle nav-icon"></i>
-                                <p>Compose</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Read</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Users
-                        </p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+    <hr>
+    <ul  class="nav nav-pills flex-column mb-auto">
+        <li *ngFor="let item of manageItems" class="nav-item">
+            <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="[item.routerLink]">
+                {{item.name}}
+            </a>
+        </li>
+    </ul>
 </div>

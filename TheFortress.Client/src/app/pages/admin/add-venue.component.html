@@ -5,8 +5,8 @@
             <div class="card-header">Add a new event</div>
             <div class="card-body">
                 <ui-alert [input]="alert"></ui-alert>
-                <div class="form-group">
-                    <label>City</label>
+                <div class="mb-3">
+                    <label class="form-label">City</label>
                     <ng-select [(ngModel)]="cityFk" placeholder="Choose a city">
                         <ng-option *ngFor="let city of cities" [value]="city.cityId">{{city.cityName}} </ng-option>
                     </ng-select>

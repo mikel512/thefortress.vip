@@ -1,27 +1,24 @@
 <div class="card">
 
     <div class="card-header">City List</div>
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table m-0" id="localConcertsTable">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let city of cities">
-                        <td>
-                            <button class="btn btn-primary" (click)="edit(city)">Edit</button>
-                        </td>
-                        <td>{{city.cityName}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card-body">
+        <table class="table table-striped table-dark" id="localConcertsTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let city of cities">
+                    <td>
+                        <button class="btn btn-primary" (click)="edit(city)">Edit</button>
+                    </td>
+                    <td>{{city.cityName}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
 </div>
 
 <app-modal #editModal>
