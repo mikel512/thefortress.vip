@@ -166,6 +166,7 @@ namespace Api.Controllers
                 item.CityFk = value.CityFk;
                 item.Description = value.Description;
                 item.VenueName = value.VenueName;
+                item.Location = value.Location;
 
                 unitOfWork.VenueRepository.Update(item);
                 unitOfWork.Save();
