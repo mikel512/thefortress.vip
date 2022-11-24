@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'app-modal',
@@ -9,12 +9,14 @@ export class AppModalComponent implements OnInit {
     public modalDisplay: string = 'none';
 
     @Output() onSubmit: EventEmitter<void> = new EventEmitter<void>();
+    @ViewChild('modal') modal: ElementRef;
 
     constructor() { }
 
     ngOnInit() { }
 
     show(){
+        this.modal.nativeElement.className = 'modal fade show';
         this.modalDisplay = 'block';
     }
 

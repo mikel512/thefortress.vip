@@ -5,6 +5,10 @@
     border-radius: 0;
     padding-left: 0;
 }
+.form-control{
+    color: azure !important;
+    background-color: transparent !important;
+}
 .custom-file-input {
     border-top: 0;
     border-right: 0;
