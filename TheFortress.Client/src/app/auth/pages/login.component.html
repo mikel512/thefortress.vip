@@ -1,32 +1,43 @@
-<div class="card">
+<div class="card text-bg-dark">
     <div class="idp-title mt-4">
-        <h2 class="mx-4">Login</h2>
+        <h2 class="mx-4">{{title}} </h2>
     </div>
     <div class="card-body">
         <div class="container py-3">
             <ui-alert [input]="alert"></ui-alert>
-            <div class="mb-3">
-                <label class="form-label">Username or email</label>
-                <input class="form-control" autocomplete="on" [(ngModel)]="login.username"
-                    [inputIsInvalid]="submitted && login.username === ''" placeholder="your-email@mailbox.com">
-                <span *ngIf="submitted && login.username === ''" class="text-danger">Username is required</span>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" [(ngModel)]="login.password" (keyup.enter)="submit()"
-                    [inputIsInvalid]="submitted && login.password === ''" placeholder="Password" autocomplete="off">
-                <span *ngIf="submitted && login.password === ''" class="text-danger">Password is required</span>
-            </div>
+            <ng-container *ngIf="forgotPassword == false; else forgotPass">
+                <div class="mb-3">
+                    <label class="form-label">Username or email</label>
+                    <input class="form-control" autocomplete="on" [(ngModel)]="login.username"
+                        [inputIsInvalid]="submitted && login.username === ''" placeholder="your-email@mailbox.com">
+                    <span *ngIf="submitted && login.username === ''" class="text-danger">Username is required</span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" [(ngModel)]="login.password" (keyup.enter)="submit()"
+                        [inputIsInvalid]="submitted && login.password === ''" placeholder="Password" autocomplete="off">
+                    <span *ngIf="submitted && login.password === ''" class="text-danger">Password is required</span>
+                </div>
 
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label">
-                    Remember My Login
-                </label>
-            </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input">
+                    <label class="form-check-label">
+                        Remember My Login
+                    </label>
+                </div>
 
-            <button class="btn btn-primary w-100" (click)="submit()">Continue</button>
-            <p class="text-muted d-flex justify-content-center">Forgot your password?</p>
+                <button class="btn btn-light w-100" (click)="submit()">Continue</button>
+                <a href="javascript:void()" (click)="toggle()" class="d-flex justify-content-center pt-3">Forgot your password?</a>
+            </ng-container>
+            <ng-template #forgotPass>
+                <div class="mb-3">
+                    <label class="form-label">Username or email</label>
+                    <input class="form-control" autocomplete="on" [(ngModel)]="login.username"
+                        [inputIsInvalid]="submitted && login.username === ''" placeholder="your-email@mailbox.com">
+                    <span *ngIf="submitted && login.username === ''" class="text-danger">Username is required</span>
+                </div>
+
+            </ng-template>
 
         </div>
     </div>
