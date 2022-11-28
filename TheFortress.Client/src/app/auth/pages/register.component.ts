@@ -9,7 +9,6 @@ import { AuthService } from '@services/auth.service';
 @Component({
     selector: 'ui-register',
     templateUrl: './register.component.html',
-    styleUrls: ['../auth.css', '../../styles/app-styles.css' ]
 })
 export class RegisterComponent implements OnInit {
     public input: RegistrationDto = new RegistrationDto();

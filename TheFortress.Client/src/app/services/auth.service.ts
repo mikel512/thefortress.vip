@@ -2,7 +2,6 @@
 import { Injectable } from '@angular/core';
 import { shareReplay, Subject, tap } from 'rxjs'
 import { LoginDto } from '../models/login-dto';
-import * as moment from 'moment';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { Router } from '@angular/router';
 import { RegistrationDto } from '../models/registration-dto';
@@ -35,16 +34,20 @@ export class AuthService {
             .pipe(tap((x) => this.setSession(x), shareReplay));
     }
 
+    forgotPassword(input: LoginDto) {
+        return this.http.post<any>('/authenticate/forgotPassword', input);
+    }
+
     register(input: RegistrationDto) {
         return this.http.post<any>('/authenticate/register', input);
 
     }
 
     private setSession(authResult) {
-        const expiresAt = moment().add(authResult.expiresIn, 'second');
+        // const expiresAt = moment().add(authResult.expiresIn, 'second');
 
         localStorage.setItem('id_token', authResult.token);
-        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
+        // localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
         this.setClaims();
 
         this._isAuthenticated.next(true);
@@ -81,11 +84,11 @@ export class AuthService {
     //     return !this.isLoggedIn();
     // }
 
-    getExpiration() {
-        const expiration = localStorage.getItem("expires_at");
-        const expiresAt = JSON.parse(expiration);
-        return moment(expiresAt);
-    }
+    // getExpiration() {
+    //     const expiration = localStorage.getItem("expires_at");
+    //     const expiresAt = JSON.parse(expiration);
+    //     return moment(expiresAt);
+    // }
 
     setClaims() {
         let token = localStorage.getItem('id_token');

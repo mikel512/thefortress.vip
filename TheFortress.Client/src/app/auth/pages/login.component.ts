@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
     selector: 'ui-login',
     templateUrl: './login.component.html',
-    styleUrls: ['../auth.css', '../../styles/app-styles.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -15,19 +14,41 @@ export class LoginComponent implements OnInit {
 
     public alert: AlertModel = new AlertModel();
 
-    constructor(private _auth: AuthService,
-        ) { 
+    constructor(private _auth: AuthService,) {
         this.login = {
             username: '',
             password: ''
         }
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+    }
+
+        this.title = 'Forgot Password';
+    }
+
+        this.title = 'Forgot Password';
+    }
+
+        this.title = 'Forgot Password';
+    }
+
+        this.title = 'Forgot Password';
+    }
+
+        this.title = 'Forgot Password';
+    }
+        if(this.login.username ==='' || this.login.password === ''){
+        this.title = 'Forgot Password';
+    }
+
+        this.title = 'Forgot Password';
+    }
 
     submit() {
         this.submitted = true;
-        if(this.login.username ==='' || this.login.password === ''){
+        if (this.login.username === '' || this.login.password === '') {
             this.login.username = '';
             this.alert.error = 'Error validating one or more fields';
             return;

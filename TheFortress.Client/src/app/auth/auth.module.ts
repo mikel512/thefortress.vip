@@ -9,6 +9,7 @@ import { AuthComponent } from './auth.component';
 import { ConfirmationComponent } from './pages/confirmation.component';
 import { LoginComponent } from './pages/login.component';
 import { RegisterComponent } from './pages/register.component';
+import { ResetPasswordComponent } from './pages/reset-password.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { RegisterComponent } from './pages/register.component';
         LoginComponent,
         RegisterComponent,
         ConfirmationComponent,
+        ResetPasswordComponent,
     ],
     imports: [
         MyDirectivesModule,
@@ -31,7 +33,9 @@ import { RegisterComponent } from './pages/register.component';
                 children: [
                     { path: 'login', component: LoginComponent },
                     { path: 'register', component: RegisterComponent },
-                    { path: 'confirm-email/:userId/:hash', component: ConfirmationComponent }
+                    { path: 'confirm-email/:userId/:hash', component: ConfirmationComponent },
+                    { path: 'reset-password', component: ResetPasswordComponent},
+                    { path: 'reset-password/:code', component: ResetPasswordComponent}
                 ]
             },
         ]),
@@ -40,5 +44,6 @@ import { RegisterComponent } from './pages/register.component';
     ],
     exports: [],
     providers: [],
+    
 })
 export class AuthModule { }
