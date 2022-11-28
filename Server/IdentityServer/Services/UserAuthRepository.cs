@@ -55,8 +55,25 @@ namespace IdentityServer.Services
             {
                 callbackUrl = $"https://thefortress.vip/auth/confirm-email/{user.Id}/{code}";
             }
-            await _emailService.SendMailAsync("admin@thefortress.vip", "Admin", InputModel.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            EmailVariables emailVars = new EmailVariables()
+            {
+                Sender = "Admin",
+                From = "admin@thefortress.vip",
+                To = InputModel.Email,
+                Subject = "Confirm your email",
+            };
+
+            var name = InputModel.Username ?? InputModel.Email;
+            var response = await _emailService.SendMailAsync(emailVars, EmailTemplate.BasicLink,
+                new
+                {
+                    name = name,
+                    text_body = $"Please Verify that your email address is {InputModel.Email} and that you entered it when signing up for The Fortress.",
+                    link_url = HtmlEncoder.Default.Encode(callbackUrl),
+                    link_text = "Verify Email"
+                }
+            );
 
             return result;
         }
@@ -109,12 +126,12 @@ namespace IdentityServer.Services
             if (_env == "Development")
             {
                 iss = jwtSettings["ValidIssuerDEV"];
-                aud = jwtSettings["ValidAudienceDEV"]; 
+                aud = jwtSettings["ValidAudienceDEV"];
             }
             else
             {
                 iss = jwtSettings["ValidIssuerPROD"];
-                aud = jwtSettings["ValidAudiencePROD"]; 
+                aud = jwtSettings["ValidAudiencePROD"];
             }
             var tokenOptions = new JwtSecurityToken
             (

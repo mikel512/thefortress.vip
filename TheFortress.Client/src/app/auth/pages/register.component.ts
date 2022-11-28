@@ -64,6 +64,9 @@ export class RegisterComponent implements OnInit {
                 //     this.router.navigate(['/auth/login']);
 
                 // }, 3000);
+            },
+            error: err => {
+                this.alert.error = "Something went wrong during registration. Please try again later."
             }
         });
 

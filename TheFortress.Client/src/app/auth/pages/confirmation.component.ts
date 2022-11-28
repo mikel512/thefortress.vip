@@ -17,8 +17,7 @@ export class ConfirmationComponent implements OnInit {
     constructor(private actRouter: ActivatedRoute,
         private _olay: SpinnerOverlayService,
         private router: Router,
-        private auth: AuthService,
-        @Inject('BASE_URL') baseUrl: string) { }
+        private auth: AuthService) { }
 
     ngOnInit() {
         const snapshot = this.actRouter.snapshot;
