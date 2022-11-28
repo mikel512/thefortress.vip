@@ -20,6 +20,8 @@ namespace IdentityServer.Services
         private IEmailService _emailService;
         private ApplicationUser _user;
         private readonly string _env;
+        private static string _defaultSender = "The Fortress";
+        private static string _defaultFrom = "thefortress-verification@thefortress.vip";
 
         public UserAuthRepository(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
@@ -55,8 +57,25 @@ namespace IdentityServer.Services
             {
                 callbackUrl = $"https://thefortress.vip/auth/confirm-email/{user.Id}/{code}";
             }
-            await _emailService.SendMailAsync("admin@thefortress.vip", "Admin", InputModel.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            EmailVariables emailVars = new EmailVariables()
+            {
+                Sender = $"{_defaultSender}",
+                From = _defaultFrom,
+                To = InputModel.Email,
+                Subject = "Confirm your email",
+            };
+
+            var name = InputModel.Username ?? InputModel.Email;
+            var response = await _emailService.SendMailAsync(emailVars, EmailTemplate.BasicLink,
+                new
+                {
+                    name = name,
+                    text_body = $"Please Verify that your email address is {InputModel.Email} and that you entered it when signing up for The Fortress.",
+                    link_url = HtmlEncoder.Default.Encode(callbackUrl),
+                    link_text = "Verify Email"
+                }
+            );
 
             return result;
         }
@@ -89,6 +108,53 @@ namespace IdentityServer.Services
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return new StatusCodeResult(StatusCodes.Status200OK);
 
+        }
+
+        public async Task<IActionResult> SendPasswordResetAsync(string email)
+        {
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                // Don't reveal that the user does not exist or is not confirmed
+                return new OkResult();
+            }
+
+            // For more information on how to enable account confirmation and password reset please 
+            // visit https://go.microsoft.com/fwlink/?LinkID=532713
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            String callbackUrl = null;
+            if (_env == "Development")
+            {
+                callbackUrl = $"https://localhost:4200/auth/reset-password/{code}";
+            }
+            else
+            {
+                callbackUrl = $"https://thefortress.vip/auth/reset-password/{code}";
+            }
+
+            EmailVariables emailVars = new EmailVariables()
+            {
+                Sender = _defaultSender,
+                From = _defaultFrom,
+                To = email,
+                Subject = "Reset Password",
+            };
+
+            var response = await _emailService.SendMailAsync(emailVars, EmailTemplate.BasicLink,
+                new
+                {
+                    name = "",
+                    text_body = $@"Somebody requested a new password for the account associated with {email}.  No changes have been made to your account yet. 
+                        You can reset your password by clicking the link below: 
+                        If you did not request a new password, please let us know immediately by replying to this email.",
+                    link_url = HtmlEncoder.Default.Encode(callbackUrl),
+                    link_text = "Reset Password"
+                }
+            );
+
+            return new OkResult();
         }
 
         public async Task<string> CreateTokenAsync()
