@@ -69,11 +69,9 @@ export class VenuesListComponent implements OnInit {
 
         });
 
-        console.log(update);
         // first upload the image, if there is one
         const venuePut$ = this.venueData.put(update.venueId, update);
-        if (updateVenue.picture) {
-            console.log(`update w picture`);
+        if (updateVenue.picture instanceof File) {
             const imgObservable$ = this.cstmService.postImage(updateVenue.picture);
 
             imgObservable$.pipe(
@@ -85,16 +83,17 @@ export class VenuesListComponent implements OnInit {
                     venuePut$.pipe(
                         tap(y => {
                             this.modal.hide();
+                            this.form.reset();
                             this.reload();
                         })
                     ))
             ).subscribe();
         } else {
-            console.log(`update `);
             update.picture = this.editVenue.picture;
             venuePut$.subscribe({
                 next: x => {
                     this.modal.hide();
+                    this.form.reset();
                     this.reload();
                 }
             })
