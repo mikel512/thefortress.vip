@@ -21,30 +21,7 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    ngOnInit() {
-
-    }
-
-        this.title = 'Forgot Password';
-    }
-
-        this.title = 'Forgot Password';
-    }
-
-        this.title = 'Forgot Password';
-    }
-
-        this.title = 'Forgot Password';
-    }
-
-        this.title = 'Forgot Password';
-    }
-        if(this.login.username ==='' || this.login.password === ''){
-        this.title = 'Forgot Password';
-    }
-
-        this.title = 'Forgot Password';
-    }
+    ngOnInit() { }
 
     submit() {
         this.submitted = true;
