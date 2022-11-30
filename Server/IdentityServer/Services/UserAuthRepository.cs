@@ -175,12 +175,12 @@ namespace IdentityServer.Services
             if (_env == "Development")
             {
                 iss = jwtSettings["ValidIssuerDEV"];
-                aud = jwtSettings["ValidAudienceDEV"]; 
+                aud = jwtSettings["ValidAudienceDEV"];
             }
             else
             {
                 iss = jwtSettings["ValidIssuerPROD"];
-                aud = jwtSettings["ValidAudiencePROD"]; 
+                aud = jwtSettings["ValidAudiencePROD"];
             }
             var tokenOptions = new JwtSecurityToken
             (

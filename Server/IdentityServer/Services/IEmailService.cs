@@ -4,6 +4,6 @@ namespace IdentityServer.Services
 {
     public interface IEmailService
     {
-        Task<RestResponse> SendMailAsync(string from, string sender, string to, string subject, string body);
+        Task<RestResponse> SendMailAsync(EmailVariables variables, string templateName, object? templateVars);
     }
 }

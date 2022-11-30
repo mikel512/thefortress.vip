@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class LoginComponent implements OnInit {
+    public forgotPassword: boolean = false;
+    public title: string = 'Login';
     public login: LoginDto;
     public submitted: boolean = false;
 
@@ -22,6 +24,11 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() { }
+
+    toggle() {
+        this.forgotPassword = true;
+        this.title = 'Forgot Password';
+    }
 
     submit() {
         this.submitted = true;
