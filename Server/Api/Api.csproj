@@ -19,7 +19,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.24.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NTypewriter.CodeModel" Version="0.3.6" />
     <PackageReference Include="Scrutor" Version="4.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
