@@ -10,7 +10,6 @@ import { CityFormModel } from '@models/city-form-model'
 @Component({
 	selector: 'ui-city-form-model-form',
 	templateUrl: './city-form-model-form.component.html',
-	styleUrls: ['../../styles/app-styles.css']
 })
 export class CityFormModelFormComponent implements OnInit {
 	public input: CityFormModel = new CityFormModel();

@@ -10,7 +10,6 @@ import { EventConcertFormModel } from '@models/event-concert-form-model'
 @Component({
 	selector: 'ui-event-concert-form-model-form',
 	templateUrl: './event-concert-form-model-form.component.html',
-	styleUrls: ['../../styles/app-styles.css']
 })
 export class EventConcertFormModelFormComponent implements OnInit {
 	public input: EventConcertFormModel = new EventConcertFormModel();

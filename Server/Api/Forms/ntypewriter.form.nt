@@ -22,7 +22,6 @@ import { {{modelName}} } from '@models/{{snakeCaseName}}'
 @Component({
 	selector: 'ui-{{snakeCaseName}}-form',
 	templateUrl: './{{snakeCaseName}}-form.component.html',
-	styleUrls: ['../../styles/app-styles.css']
 })
 export class {{modelName}}FormComponent implements OnInit {
 	public input: {{modelName}} = new {{modelName}}();
