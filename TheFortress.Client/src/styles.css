@@ -125,9 +125,15 @@ a {
     border-right: 0;
     border-left: 0;
     border-radius: 0;
-    padding-left: 0;
+    padding-left: .25rem;
 }
+
+.form-control:focus {
+  border-radius: .25rem;
+}
+
 .form-control{
+    padding-left: .25rem;
     color: azure !important;
     background-color: transparent !important;
 }
