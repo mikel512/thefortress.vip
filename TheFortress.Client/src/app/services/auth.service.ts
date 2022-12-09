@@ -34,12 +34,23 @@ export class AuthService {
             .pipe(tap((x) => this.setSession(x), shareReplay));
     }
 
-    forgotPassword(input: LoginDto) {
-        return this.http.post<any>('/authenticate/forgotPassword', input);
+    forgotPassword(email: string) {
+        email = email.trim();
+
+        const options = 
+        {
+            params: new HttpParams().set('email', email)           
+        };
+        return this.http.get<any>('/authenticate/forgotPassword', options);
     }
 
     register(input: RegistrationDto) {
         return this.http.post<any>('/authenticate/register', input);
+
+    }
+
+    resetPassword(input: LoginDto) {
+        return this.http.post<any>('/authenticate/resetPassword', input);
 
     }
 

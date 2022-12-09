@@ -9,5 +9,7 @@ namespace IdentityServer.Models
 
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; set; }
+
+        public string? Code { get; set; }
     }
 }

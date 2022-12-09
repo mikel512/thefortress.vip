@@ -56,7 +56,7 @@ namespace IdentityServer.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null)
+            if (String.IsNullOrEmpty(userId)|| String.IsNullOrEmpty(code))
             {
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
@@ -65,8 +65,26 @@ namespace IdentityServer.Controllers
 
         }
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (String.IsNullOrEmpty(email))
+            {
+                return Ok();
+            }
 
+            return await _identity.UserAuth.SendPasswordResetAsync(email); 
+        }
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ResetPassword([FromBody] LoginDto input)
+        {
+            if (String.IsNullOrEmpty(input.Username) || String.IsNullOrEmpty(input.Code) || String.IsNullOrEmpty(input.Password))
+            {
+                return Ok();
+            }
 
+            return await _identity.UserAuth.ResetPasswordAsync(input.Username, input.Code, input.Password);
+        }
     }
 }

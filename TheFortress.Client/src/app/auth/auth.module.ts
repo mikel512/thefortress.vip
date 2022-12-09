@@ -35,7 +35,7 @@ import { ResetPasswordComponent } from './pages/reset-password.component';
                     { path: 'register', component: RegisterComponent },
                     { path: 'confirm-email/:userId/:hash', component: ConfirmationComponent },
                     { path: 'reset-password', component: ResetPasswordComponent},
-                    { path: 'reset-password/:code', component: ResetPasswordComponent}
+                    { path: 'reset-password/:code/:email', component: ResetPasswordComponent}
                 ]
             },
         ]),

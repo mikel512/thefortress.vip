@@ -110,6 +110,20 @@ namespace IdentityServer.Services
 
         }
 
+        public async Task<IActionResult> ResetPasswordAsync(string email, string code, string password)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return new OkResult();
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, code, password);
+
+            return new OkResult();
+        }
+
         public async Task<IActionResult> SendPasswordResetAsync(string email)
         {
 
@@ -127,11 +141,11 @@ namespace IdentityServer.Services
             String callbackUrl = null;
             if (_env == "Development")
             {
-                callbackUrl = $"https://localhost:4200/auth/reset-password/{code}";
+                callbackUrl = $"https://localhost:4200/auth/reset-password/{code}/{email}";
             }
             else
             {
-                callbackUrl = $"https://thefortress.vip/auth/reset-password/{code}";
+                callbackUrl = $"https://thefortress.vip/auth/reset-password/{code}/{email}";
             }
 
             EmailVariables emailVars = new EmailVariables()
