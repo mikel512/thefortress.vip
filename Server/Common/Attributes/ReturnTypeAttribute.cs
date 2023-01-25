@@ -1,4 +1,4 @@
-﻿namespace Api.Attributes
+﻿namespace Common.Attributes
 {
     /// <summary>
     /// The expected Typescript return type

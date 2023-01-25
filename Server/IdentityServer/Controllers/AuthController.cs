@@ -1,18 +1,14 @@
 ﻿using AutoMapper;
 using IdentityServer.DAL;
 using IdentityServer.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using Common.Attributes;
 
 namespace IdentityServer.Controllers
 {
-    [Route("api/[controller]")]
+    [NTypewriterIgnore]
+    [Route("auth/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {

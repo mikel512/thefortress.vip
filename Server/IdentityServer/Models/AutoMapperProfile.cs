@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using IdentityServer.Attributes;
+using Common.Attributes;
 
 namespace IdentityServer.Models
 {
     [NTypewriterIgnore]
-    public class UserMappingProfile: Profile
+    public class AutoMapperProfile: Profile
     {
-        public UserMappingProfile()
+        public AutoMapperProfile()
         {
             CreateMap<RegistrationDto, ApplicationUser>();
+            CreateMap<AppUserDto, ApplicationUser>();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Api.Attributes;
+﻿using Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace Api.Forms

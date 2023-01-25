@@ -1,4 +1,4 @@
-﻿using IdentityServer.Attributes;
+﻿using Common.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace IdentityServer.Models

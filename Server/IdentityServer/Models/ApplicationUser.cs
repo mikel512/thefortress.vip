@@ -2,7 +2,7 @@
 // See LICENSE in the project root for license information.
 
 
-using IdentityServer.Attributes;
+using Common.Attributes;
 using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer.Models;
@@ -10,4 +10,5 @@ namespace IdentityServer.Models;
 [NTypewriterIgnore]
 public class ApplicationUser : IdentityUser
 {
+    public bool MailingListEnabled { get; set; }    
 }
