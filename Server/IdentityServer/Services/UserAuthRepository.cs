@@ -219,6 +219,7 @@ namespace IdentityServer.Services
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.Sid, _user.Id),
                 new Claim(ClaimTypes.Name, _user.UserName),
                 new Claim(ClaimTypes.Email, _user.Email),
             };
