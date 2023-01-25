@@ -1,6 +1,6 @@
 ﻿{{- config.AddGeneratedFilesToVSProject = false -}}
 ﻿{{ for class in data.Classes | Symbols.WhereNameEndsWith("Controller") | Symbols.ThatDoNotHaveAttribute("NTypewriterIgnore")
-	if class.Namespace != "Api.Controllers"
+	if !class.Namespace | String.EndsWith("Controllers")
 		continue
 	end
 	capture output -}}
@@ -20,7 +20,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { {{baseName}}, I{{baseName}} } from '@models/{{snakeCase}}'
+{{class | Custom.GetImports}}  
+
 {{-if hasFormObject == true}}
 import { {{baseName}}FormModel, I{{baseName}}FormModel } from '@models/{{snakeCase}}-form-model'
 {{-end}}
@@ -36,8 +37,9 @@ export class {{ baseName}}Service {
 		parameters = method | Action.Parameters | Parameters.ToTypeScript | Array.Join ", "; 
 		bodyParameterName = (method | Action.BodyParameter)?.Name ?? "null" 
 		paramArray = method | Action.Parameters
-		objVar = parameters | String.Remove(":") | String.Remove(baseName) | String.Remove("FormModel")
 
+		objVar = parameters | String.Remove(":") | String.Remove(baseName) | String.Remove("FormModel")
+		
 		returnType = "";
 		for attr in method.Attributes
 			if attr.Name == "ReturnType"
@@ -45,7 +47,7 @@ export class {{ baseName}}Service {
 			end
 		end
 		}}    
-
+		{{parameters}}
 	{{-if method.Attributes | String.Contains("NTypewriterIgnore")}}
 	{{-continue}}
 	{{-end}}
