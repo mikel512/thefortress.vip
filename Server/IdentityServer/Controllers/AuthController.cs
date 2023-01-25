@@ -8,7 +8,7 @@ using Common.Attributes;
 namespace IdentityServer.Controllers
 {
     [NTypewriterIgnore]
-    [Route("auth/[controller]")]
+    [Route("identity/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {

@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace IdentityServer.Controllers
 {
-    [Route("auth/[controller]")]
+    [Route("identity/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

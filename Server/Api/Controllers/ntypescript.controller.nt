@@ -47,7 +47,6 @@ export class {{ baseName}}Service {
 			end
 		end
 		}}    
-		{{parameters}}
 	{{-if method.Attributes | String.Contains("NTypewriterIgnore")}}
 	{{-continue}}
 	{{-end}}
