@@ -8,7 +8,6 @@
       "@models/*": ["src/app/models/*"],
       "@forms/*": ["src/app/component/forms/*"],
       "@directives/*": ["src/app/util/directives/*"],
-      "@styles/*": ["src/app/styles/*"],
       "@animations/*": ["src/app/util/animations/*"]
     },
     "outDir": "./dist/out-tsc",

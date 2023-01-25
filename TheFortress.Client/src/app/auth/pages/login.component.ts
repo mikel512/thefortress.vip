@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
         this.login = {
             username: '',
             password: '',
+            code: ''
         }
     }
 

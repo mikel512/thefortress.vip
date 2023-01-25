@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     login(login: LoginDto) {
-        return this.http.post<any>('/authenticate/login', login)
+        return this.http.post<any>('/identity/auth/login', login)
             .pipe(tap((x) => this.setSession(x), shareReplay));
     }
 
@@ -41,16 +41,16 @@ export class AuthService {
         {
             params: new HttpParams().set('email', email)           
         };
-        return this.http.get<any>('/authenticate/forgotPassword', options);
+        return this.http.get<any>('/identity/auth/forgotPassword', options);
     }
 
     register(input: RegistrationDto) {
-        return this.http.post<any>('/authenticate/register', input);
+        return this.http.post<any>('identity/auth/register', input);
 
     }
 
     resetPassword(input: LoginDto) {
-        return this.http.post<any>('/authenticate/resetPassword', input);
+        return this.http.post<any>('/identity/auth/resetPassword', input);
 
     }
 
@@ -88,7 +88,7 @@ export class AuthService {
             params: new HttpParams().set('userId', userId).set('code', code)
             
         };
-        return this.http.get<any>('/authenticate/ConfirmEmail', options);
+        return this.http.get<any>('/identity/auth/ConfirmEmail', options);
     }
 
     // isLoggedOut() {

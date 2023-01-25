@@ -1,11 +1,11 @@
-// NTypescript generated file
+﻿// NTypescript generated file
 
 
 
 export interface ILoginDto {
 	username: string;
 	password: string;
-	code?: string | null;
+	code: string | null;
 
 }
 
@@ -16,5 +16,5 @@ export class LoginDto implements ILoginDto {
 	
 	username: string;
 	password: string;
-	code?: string | null;
+	code: string | null;
 }

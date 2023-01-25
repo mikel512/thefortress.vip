@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Venue, IVenue } from '@models/venue'
+import { Venue, IVenue } from '@models/venue'; 
+
 
 
 @Injectable({
