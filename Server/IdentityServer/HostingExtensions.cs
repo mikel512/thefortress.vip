@@ -7,6 +7,9 @@ using IdentityServer.Models;
 using IdentityServer.DAL;
 using AutoMapper;
 using IdentityServer.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace IdentityServer;
 
@@ -30,7 +33,7 @@ internal static class HostingExtensions
 
         var mapperConfig = new MapperConfiguration(map =>
         {
-            map.AddProfile<UserMappingProfile>();
+            map.AddProfile<AutoMapperProfile>();
         });
         builder.Services.AddSingleton(mapperConfig.CreateMapper());
 
@@ -48,6 +51,43 @@ internal static class HostingExtensions
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>(o => o.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+        var jwtSection = builder.Configuration.GetSection("JwtConfig");
+        var audience = "";
+        var issuer = "";
+        var secret = jwtSection["Secret"];
+        if (builder.Environment.IsProduction())
+        {
+            issuer = jwtSection["ValidIssuerPROD"];
+            audience = jwtSection["ValidAudiencePROD"];
+        }
+        else
+        {
+            issuer = jwtSection["ValidIssuerDEV"];
+            audience = jwtSection["ValidAudienceDEV"];
+        }
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.SaveToken = true;
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidAudience = audience,
+                ValidIssuer = issuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+            };
+        });
 
         builder.Services.AddCors(options =>
         {
