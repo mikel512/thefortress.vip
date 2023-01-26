@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertModel } from '@models/alert-model';
+import { AppUserDto } from '@models/app-user-dto';
+import { AccountService } from '@services/account.service';
 
 @Component({
     selector: 'app-account-info',
@@ -6,7 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class AccountInfoComponent implements OnInit {
-    constructor() { }
+    appUser: AppUserDto = new AppUserDto();
+    alert: AlertModel = new AlertModel();
 
-    ngOnInit() { }
+    constructor(private account: AccountService) { }
+
+    ngOnInit() {
+        this.reload();
+    }
+
+    reload() {
+        this.account.getUserInfo().subscribe({
+            next: x => {
+                this.appUser = x;
+            }
+        });
+    }
+
+    submit() {
+        this.account.updateUserInfo(this.appUser).subscribe({
+            next: x => {
+                this.alert.success = 'User info updated';
+                this.appUser = x;
+            }
+        });
+    }
 }

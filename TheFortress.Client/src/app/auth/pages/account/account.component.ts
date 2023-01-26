@@ -8,6 +8,7 @@ import { NavBarItem } from '@models/nav-bar-item';
 
 export class AccountComponent implements OnInit {
     navLinks: NavBarItem[] = [];
+
     constructor() { 
         this.navLinks = [
             { name: 'Account Info', routerLink: '/auth/account/info'}

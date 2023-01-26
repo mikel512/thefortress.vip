@@ -10,6 +10,7 @@ namespace IdentityServer.Models
         {
             CreateMap<RegistrationDto, ApplicationUser>();
             CreateMap<AppUserDto, ApplicationUser>();
+            CreateMap<ApplicationUser, AppUserDto>();
         }
     }
 }
