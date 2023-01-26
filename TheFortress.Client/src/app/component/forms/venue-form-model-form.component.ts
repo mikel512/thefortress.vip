@@ -10,7 +10,6 @@ import { VenueFormModel } from '@models/venue-form-model'
 @Component({
 	selector: 'ui-venue-form-model-form',
 	templateUrl: './venue-form-model-form.component.html',
-	styleUrls: ['../../styles/app-styles.css']
 })
 export class VenueFormModelFormComponent implements OnInit {
 	public input: VenueFormModel = new VenueFormModel();

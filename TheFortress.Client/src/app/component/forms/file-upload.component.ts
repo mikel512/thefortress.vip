@@ -4,7 +4,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 @Component({
     selector: 'app-file-upload',
     templateUrl: './file-upload.component.html',
-    styleUrls: ['../../styles/app-styles.css'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
