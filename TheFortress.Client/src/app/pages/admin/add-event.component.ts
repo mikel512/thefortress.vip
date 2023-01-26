@@ -75,6 +75,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
         this._event.postEventForm(this.event).subscribe({
             next: item => {
                 console.log(item);
+                this.form.reset();
             }
         })
 

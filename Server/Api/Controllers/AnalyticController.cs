@@ -1,6 +1,6 @@
-﻿using Api.Attributes;
-using Api.Data;
+﻿using Api.Data;
 using Api.Models;
+using Common.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

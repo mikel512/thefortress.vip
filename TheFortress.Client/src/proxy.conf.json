@@ -7,11 +7,11 @@
         },
         "logLevel": "debug"
     },
-    "/authenticate": {
+    "/identity": {
         "target": "https://localhost:5003",
         "secure": false,
         "pathRewrite": {
-            "^/authenticate": "/api/auth"
+            "^/identity": "/identity"
         },
         "logLevel": "debug"
 

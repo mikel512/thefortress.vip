@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { City, ICity } from '@models/city'
+import { City, ICity } from '@models/city'; 
+
 
 
 @Injectable({
@@ -30,13 +31,13 @@ export class CityService {
 			}));
 	}
 	public post(value: City): Observable<City> {
-		return this.http.post<City>(`${environment.baseUrl}api/City`, value )
+		return this.http.post<City>(`${environment.baseUrl}api/City`, value)
 			.pipe(map(response => {
 				return new City(<ICity> response)
 			}));
 	}
-	public put(id: number, value: City): Observable<City> {
-		return this.http.put<City>(`${environment.baseUrl}api/City/${id}`, value )
+	public put(id: number, value: City): Observable<City> { 
+		return this.http.put<City>(`${environment.baseUrl}api/City/${id}`, value)
 			.pipe(map(response => {
 				return new City(<ICity> response)
 			}));
