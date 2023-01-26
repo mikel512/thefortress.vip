@@ -43,13 +43,13 @@ export class EventConcertService {
 			}));
 	}
 	public post(concert: EventConcert): Observable<EventConcert> {
-		return this.http.post<EventConcert>(`${environment.baseUrl}api/EventConcert`, concert )
+		return this.http.post<EventConcert>(`${environment.baseUrl}api/EventConcert`, concert)
 			.pipe(map(response => {
 				return new EventConcert(<IEventConcert> response)
 			}));
 	}
-	public put(id: number, concert: EventConcert): Observable<EventConcert> {
-		return this.http.put<EventConcert>(`${environment.baseUrl}api/EventConcert/${id}`, concert )
+	public put(id: number, concert: EventConcert): Observable<EventConcert> { 
+		return this.http.put<EventConcert>(`${environment.baseUrl}api/EventConcert/${id}`, concert)
 			.pipe(map(response => {
 				return new EventConcert(<IEventConcert> response)
 			}));

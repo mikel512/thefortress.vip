@@ -28,6 +28,26 @@ namespace Api.Extensions
             //return String.Join(Environment.NewLine,
             //    returnTypes.Select(x => $"import {{ {x.Name}, I{x.Name} }} from '@models/{ToSnakeCase(x.Name)}'; "));
         }
+
+        public static string GetFunctionArgs(string csvParams)
+        {
+            string[] strings = csvParams.Split(',');
+            string result = "";
+
+            for(int i = 0; i < strings.Length; i++)
+            {
+                if (strings[i].Contains("id")) continue;
+
+                int index = strings[i].IndexOf(':');
+                string r = strings[i].Substring(0, index);
+
+                result += (i == strings.Length -1) ? r : r + '\n';
+
+            }
+
+            return result;
+        }
+
         public static string ToSnakeCase(string text)
         {
             string[] str = Regex.Split(text, "(?<!^)(?=[A-Z])|[A-Z]([A-Z][a-z])");

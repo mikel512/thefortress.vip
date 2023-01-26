@@ -18,7 +18,7 @@ export class AccountService {
 	constructor(private http: HttpClient) { } 
 
 	public updateUserInfo(appUserDto: AppUserDto): Observable<AppUserDto> {
-		return this.http.post<AppUserDto>(`${environment.baseUrl}identity/Account/UpdateUserInfo`, appUserDto AppUserDto)
+		return this.http.post<AppUserDto>(`${environment.baseUrl}identity/Account/UpdateUserInfo`, appUserDto)
 			.pipe(map(response => {
 				return new AppUserDto(<IAppUserDto> response)
 			}));

@@ -58,10 +58,9 @@ export class {{ baseName}}Service {
 	public {{ method.Name | String.ToCamelCase }}({{ parameters }}): Observable<{{returnType}}> {
 	{{-end}}
 		{{- if Action.HttpMethod(method) == "post" }}
-		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(`${environment.baseUrl}{{method | Action.Url}}`, {{objVar}})
-		{{- else if Action.HttpMethod(method) == "put"
-			thisVar = objVar | String.Remove("id number,")}}
-		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(`${environment.baseUrl}{{method | Action.Url}}`, {{-thisVar}})
+		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(`${environment.baseUrl}{{method | Action.Url}}`, {{parameters | Custom.GetFunctionArgs}})
+		{{- else if Action.HttpMethod(method) == "put" }} 
+		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(`${environment.baseUrl}{{method | Action.Url}}`, {{- parameters | Custom.GetFunctionArgs}})
 		{{-else}}
 		return this.http.{{method | Action.HttpMethod}}<{{returnType}}>(`${environment.baseUrl}{{method | Action.Url}}`)
 		{{-end}}

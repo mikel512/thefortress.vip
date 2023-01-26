@@ -37,13 +37,13 @@ export class VenueService {
 			}));
 	}
 	public post(value: Venue): Observable<Venue> {
-		return this.http.post<Venue>(`${environment.baseUrl}api/Venue`, value )
+		return this.http.post<Venue>(`${environment.baseUrl}api/Venue`, value)
 			.pipe(map(response => {
 				return new Venue(<IVenue> response)
 			}));
 	}
-	public put(id: number, value: Venue): Observable<Venue> {
-		return this.http.put<Venue>(`${environment.baseUrl}api/Venue/${id}`, value )
+	public put(id: number, value: Venue): Observable<Venue> { 
+		return this.http.put<Venue>(`${environment.baseUrl}api/Venue/${id}`, value)
 			.pipe(map(response => {
 				return new Venue(<IVenue> response)
 			}));
