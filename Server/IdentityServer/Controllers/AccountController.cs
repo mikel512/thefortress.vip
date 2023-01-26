@@ -1,4 +1,5 @@
-﻿using Common.Attributes;
+﻿using AutoMapper;
+using Common.Attributes;
 using IdentityServer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +15,12 @@ namespace IdentityServer.Controllers
     public class AccountController : ControllerBase
     {
         private UserManager<ApplicationUser> _userManager;
+        private IMapper _mapper;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         [HttpPost("[action]")]
@@ -46,6 +49,34 @@ namespace IdentityServer.Controllers
                 // TODO send email to new email if it changed
 
                 return new ObjectResult(user);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+        }
+
+        [HttpGet("[action]")]
+        [Authorize]
+        [ReturnType("AppUserDto")]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            try
+            {
+                var req = Request.Headers.Authorization[0].Replace("Bearer ", "");
+                JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(req);
+                string userId = token.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
+
+                if(userId == null)
+                {
+                    return new StatusCodeResult(StatusCodes.Status403Forbidden);
+                }
+
+                ApplicationUser user = await _userManager.FindByIdAsync(userId);
+
+                AppUserDto result = _mapper.Map<AppUserDto>(user);
+
+                return new ObjectResult(result);
             }
             catch (Exception e)
             {

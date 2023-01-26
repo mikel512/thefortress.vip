@@ -16,7 +16,7 @@ import { SpinnerOverlayComponent } from './component/spinner-overlay/spinner-ove
 import { SpinnerOverlayService } from './services/spinner-overlay.service';
 import { LoaderInterceptor } from './util/interceptors/loader.interceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { AuthButtonComponent } from './auth/btn/auth-button.component';
+import { AuthButtonComponent } from './component/nav-menu/auth-button.component';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './util/interceptors/auth.interceptor';
 import { AdminGuard } from './auth/guards/admin.guard';

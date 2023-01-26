@@ -23,4 +23,11 @@ export class AccountService {
 				return new AppUserDto(<IAppUserDto> response)
 			}));
 	}
+
+	public getUserInfo(): Observable<AppUserDto> {
+		return this.http.get<AppUserDto>(`${environment.baseUrl}identity/Account/GetUserInfo`)
+			.pipe(map(response => {
+				return new AppUserDto(<IAppUserDto> response)
+			}));
+	}
 }
