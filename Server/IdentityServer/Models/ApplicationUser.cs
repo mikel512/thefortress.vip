@@ -10,5 +10,6 @@ namespace IdentityServer.Models;
 [NTypewriterIgnore]
 public class ApplicationUser : IdentityUser
 {
-    public bool MailingListEnabled { get; set; }    
+    public bool MailingListEnabled { get; set; }
+    public bool IsFirstLogin { get; set; }
 }
