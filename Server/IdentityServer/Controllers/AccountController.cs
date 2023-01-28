@@ -94,6 +94,7 @@ namespace IdentityServer.Controllers
         }
 
         [HttpPut("[action]")]
+        [ReturnType("any")]
         [Authorize]
         public async Task<IActionResult> ChangePassword([FromBody] AppUserDto appUser)
         {

@@ -30,4 +30,10 @@ export class AccountService {
 				return new AppUserDto(<IAppUserDto> response)
 			}));
 	}
+	public changePassword(appUser: AppUserDto): Observable<any> { 
+		return this.http.put<any>(`${environment.baseUrl}identity/Account/ChangePassword`,appUser)
+			.pipe(map(response => {
+				return response
+			}));
+	}
 }

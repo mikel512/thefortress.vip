@@ -5,6 +5,8 @@
 export interface IAppUserDto {
 	userName: string;
 	email: string;
+	oldPassword: string;
+	password: string;
 	mailingListEnabled: boolean;
 
 }
@@ -16,5 +18,7 @@ export class AppUserDto implements IAppUserDto {
 	
 	userName: string;
 	email: string;
+	oldPassword: string;
+	password: string;
 	mailingListEnabled: boolean;
 }
