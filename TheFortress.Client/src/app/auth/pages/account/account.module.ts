@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/pages/shared/shared.module';
 import { AccountInfoComponent } from './account-info.component';
 import { AccountComponent } from './account.component';
+import { ChangePasswordComponent } from './change-password.component';
 
 
 @NgModule({
@@ -17,13 +18,15 @@ import { AccountComponent } from './account.component';
                 path: '',
                 component: AccountComponent,
                 children:[
-                    { path: 'info', component: AccountInfoComponent}
+                    { path: 'info', component: AccountInfoComponent},
+                    { path: 'change-password', component: ChangePasswordComponent}
                 ]
             }
         ])
     ],
     exports: [],
     declarations: [
+        ChangePasswordComponent,
         AccountComponent,
         AccountInfoComponent,
     ],

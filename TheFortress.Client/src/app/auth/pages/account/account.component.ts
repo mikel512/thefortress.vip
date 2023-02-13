@@ -11,7 +11,8 @@ export class AccountComponent implements OnInit {
 
     constructor() { 
         this.navLinks = [
-            { name: 'Account Info', routerLink: '/auth/account/info'}
+            { name: 'Account Info', routerLink: '/auth/account/info'},
+            { name: 'Change Password', routerLink: '/auth/account/change-password'}
         ]
     }
 

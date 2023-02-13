@@ -37,9 +37,9 @@ export class AuthService {
     forgotPassword(email: string) {
         email = email.trim();
 
-        const options = 
+        const options =
         {
-            params: new HttpParams().set('email', email)           
+            params: new HttpParams().set('email', email)
         };
         return this.http.get<any>('/identity/auth/forgotPassword', options);
     }
@@ -65,11 +65,16 @@ export class AuthService {
         this.router.navigate(['/'])
     }
 
-    logout() {
+    logout(reroute?: any[]) {
         localStorage.removeItem("id_token");
         localStorage.removeItem("expires_at");
         this._isAuthenticated.next(false);
-        window.location.reload();
+
+        if (reroute) {
+            this.router.navigate(reroute);
+        } else {
+            this.router.navigate(['/']);
+        }
     }
 
     public isLoggedIn() {
@@ -84,10 +89,10 @@ export class AuthService {
         userId = userId.trim();
         code = code.trim();
 
-        const options = 
+        const options =
         {
             params: new HttpParams().set('userId', userId).set('code', code)
-            
+
         };
         return this.http.get<any>('/identity/auth/ConfirmEmail', options);
     }
