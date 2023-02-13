@@ -49,7 +49,7 @@ namespace IdentityServer.Controllers
                 user.Email = appUserDto.Email;
                 user.MailingListEnabled = appUserDto.MailingListEnabled;
 
-                await _userManager.UpdateAsync(user);
+                await _userManager.UpdateAsync(user); 
 
                 // TODO send email to new email if it changed
 
@@ -119,7 +119,7 @@ namespace IdentityServer.Controllers
                 if(!changePasswordResult.Succeeded)
                 {
                     return new StatusCodeResult(StatusCodes.Status400BadRequest); 
-                }
+        }
 
                 return Ok();
             }
