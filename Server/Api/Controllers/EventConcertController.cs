@@ -36,7 +36,7 @@ namespace Api.Controllers
             try
             {
                 var items = await unitOfWork.EventConcertRepository
-                .Get(e => e.EventDate >= DateTime.Today.AddDays(-1),
+                .Get(e => e.EventDate.Date >= DateTime.Today.Date,
                 orderBy: e => e.OrderBy(x => x.EventDate),
                 includeProperties: "VenueFkNavigation");
 
