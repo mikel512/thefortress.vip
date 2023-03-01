@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Common.Attributes;
+using Common.Helpers;
 using IdentityServer.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,11 +30,9 @@ namespace IdentityServer.Controllers
         {
             try
             {
-                var req = Request.Headers.Authorization[0].Replace("Bearer ", "");
-                JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(req);
-                string userId = token.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
+                string userId = JwtHelpers.GetClaimFromRequest(Request, ClaimTypes.Sid).Value;
 
-                if (userId == null)
+                if (String.IsNullOrWhiteSpace(userId))
                 {
                     return new StatusCodeResult(StatusCodes.Status403Forbidden);
                 }
@@ -49,7 +47,7 @@ namespace IdentityServer.Controllers
                 user.Email = appUserDto.Email;
                 user.MailingListEnabled = appUserDto.MailingListEnabled;
 
-                await _userManager.UpdateAsync(user); 
+                await _userManager.UpdateAsync(user);
 
                 // TODO send email to new email if it changed
 
@@ -68,11 +66,9 @@ namespace IdentityServer.Controllers
         {
             try
             {
-                var req = Request.Headers.Authorization[0].Replace("Bearer ", "");
-                JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(req);
-                string userId = token.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
+                string userId = JwtHelpers.GetClaimFromRequest(Request, ClaimTypes.Sid).Value;
 
-                if (userId == null)
+                if (String.IsNullOrWhiteSpace(userId))
                 {
                     return new StatusCodeResult(StatusCodes.Status403Forbidden);
                 }
@@ -100,26 +96,24 @@ namespace IdentityServer.Controllers
         {
             try
             {
-                var req = Request.Headers.Authorization[0].Replace("Bearer ", "");
-                JwtSecurityToken token = new JwtSecurityTokenHandler().ReadJwtToken(req);
+                string userId = JwtHelpers.GetClaimFromRequest(Request, ClaimTypes.Sid).Value;
 
-                string userId = token.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
-                if (userId == null)
+                if (String.IsNullOrWhiteSpace(userId))
                 {
                     return new StatusCodeResult(StatusCodes.Status403Forbidden);
                 }
 
-                ApplicationUser user = await _userManager.FindByIdAsync(userId); 
+                ApplicationUser user = await _userManager.FindByIdAsync(userId);
                 if (user == null)
                 {
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
                 }
 
                 var changePasswordResult = await _userManager.ChangePasswordAsync(user, appUser.OldPassword, appUser.Password);
-                if(!changePasswordResult.Succeeded)
+                if (!changePasswordResult.Succeeded)
                 {
-                    return new StatusCodeResult(StatusCodes.Status400BadRequest); 
-        }
+                    return new StatusCodeResult(StatusCodes.Status400BadRequest);
+                }
 
                 return Ok();
             }
