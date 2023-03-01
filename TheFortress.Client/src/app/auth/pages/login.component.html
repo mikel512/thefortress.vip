@@ -10,7 +10,8 @@
                         <ui-alert [input]="alert"></ui-alert>
                         <div class="mb-3">
                             <label class="form-label">Username or email</label>
-                            <input class="form-control" autocomplete="on" [(ngModel)]="login.username"
+                            <input class="form-control" autocomplete="on" [(ngModel)]="login.username" type="email"
+                                name="email"
                                 [inputIsInvalid]="submitted && login.username === ''"
                                 placeholder="your-email@mailbox.com">
                             <span *ngIf="submitted && login.username === ''" class="text-danger">Username is
