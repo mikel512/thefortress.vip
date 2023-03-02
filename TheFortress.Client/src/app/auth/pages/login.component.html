@@ -1,6 +1,6 @@
 <div class="container py-5">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 col-lg-6">
             <div class="card text-bg-dark">
                 <div class="idp-title mt-4">
                     <h2 class="mx-4">Log In</h2>
@@ -10,7 +10,8 @@
                         <ui-alert [input]="alert"></ui-alert>
                         <div class="mb-3">
                             <label class="form-label">Username or email</label>
-                            <input class="form-control" autocomplete="on" [(ngModel)]="login.username"
+                            <input class="form-control" autocomplete="on" [(ngModel)]="login.username" type="email"
+                                name="email"
                                 [inputIsInvalid]="submitted && login.username === ''"
                                 placeholder="your-email@mailbox.com">
                             <span *ngIf="submitted && login.username === ''" class="text-danger">Username is

@@ -34,6 +34,7 @@ import { AdminLayoutComponent } from './admin-layout.component';
         AppFormsModule,
         NgSelectModule,
         SharedModule,
+        FontAwesomeModule,
         RouterModule.forChild([
             {
                 path: '', component: AdminLayoutComponent,

@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark home-bar">
+    <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark home-bar">
         <div class="container">
             <a class="navbar-brand" [routerLink]="['/']">TheFortress</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
@@ -7,7 +7,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"
+            <div class="navbar-collapse collapse d-md-inline-flex justify-content-between"
                 [ngClass]="{ show: isExpanded }">
                 <ul class="navbar-nav">
                     <li *ngFor="let item of navItems" class="nav-item" [routerLinkActive]="['link-active']">
