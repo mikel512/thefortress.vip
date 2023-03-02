@@ -1,17 +1,21 @@
-<div class="d-flex">
-    <div class="col-md-10 flex-sm-fill">
-        <div class="card text-bg-dark">
-            <div class="card-header">Add a new event</div>
-            <div class="card-body">
-                <ui-alert [input]="alert"></ui-alert>
-                <div class="mb-3">
-                    <label class="form-label">Venue</label>
-                    <ng-select [(ngModel)]="venueFK" placeholder="Choose a venue">
-                        <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}} </ng-option>
-                    </ng-select>
-                </div>
-                <ui-event-concert-form-model-form #form (outputModel)="postNewEvent($event)"></ui-event-concert-form-model-form>
+<div class="container py-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card text-bg-dark">
+                <div class="card-header">Add a new event</div>
+                <div class="card-body">
+                    <ui-alert [input]="alert"></ui-alert>
+                    <div class="mb-3">
+                        <label class="form-label">Venue</label>
+                        <ng-select [(ngModel)]="venueFK" placeholder="Choose a venue">
+                            <ng-option *ngFor="let venue of venues" [value]="venue.venueId">{{venue.venueName}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                    <ui-event-concert-form-model-form #form (outputModel)="postNewEvent($event)">
+                    </ui-event-concert-form-model-form>
 
+                </div>
             </div>
         </div>
     </div>

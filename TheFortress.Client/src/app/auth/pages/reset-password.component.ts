@@ -42,8 +42,8 @@ export class ResetPasswordComponent implements OnInit {
     ngOnInit() {
         const action = this.activatedRoute.snapshot.url[1];
         const email = this.activatedRoute.snapshot.url[2];
-        this.login.username = email.path;
-        this.login.code = action.path;
+        this.login.username = email?.path;
+        this.login.code = action?.path;
 
         if (!action) {
             this.forgotPassword = true;

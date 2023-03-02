@@ -1,18 +1,19 @@
+<div class="container py-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card text-bg-dark">
+                <div class="card-header">Add a new venue</div>
+                <div class="card-body">
+                    <ui-alert [input]="alert"></ui-alert>
+                    <div class="mb-3">
+                        <label class="form-label">City</label>
+                        <ng-select [(ngModel)]="cityFk" placeholder="Choose a city">
+                            <ng-option *ngFor="let city of cities" [value]="city.cityId">{{city.cityName}} </ng-option>
+                        </ng-select>
+                    </div>
+                    <ui-venue-form-model-form (outputModel)="post($event)"></ui-venue-form-model-form>
 
-<div class="d-flex justify-content-center">
-    <div class="col-8">
-        <div class="card text-bg-dark">
-            <div class="card-header">Add a new event</div>
-            <div class="card-body">
-                <ui-alert [input]="alert"></ui-alert>
-                <div class="mb-3">
-                    <label class="form-label">City</label>
-                    <ng-select [(ngModel)]="cityFk" placeholder="Choose a city">
-                        <ng-option *ngFor="let city of cities" [value]="city.cityId">{{city.cityName}} </ng-option>
-                    </ng-select>
                 </div>
-                <ui-venue-form-model-form (outputModel)="post($event)"></ui-venue-form-model-form>
-
             </div>
         </div>
     </div>
