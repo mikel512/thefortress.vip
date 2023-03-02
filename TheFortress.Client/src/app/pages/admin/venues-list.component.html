@@ -1,22 +1,21 @@
-<div class="card text-bg-dark">
-
-    <div class="card-header">Venue List</div>
-    <div class="card-body">
-        <table class="table table-striped table-dark" id="localConcertsTable">
+<div class="container py-5">
+    <h1 class="text-light">Venues</h1>
+    <div class="table-responsive">
+        <table class="table text-light" id="localConcertsTable">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>City</th>
-                    <th>Location</th>
-                    <th>Address</th>
-                    <th>Hours</th>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Hours</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let venue of venues">
                     <td>
-                        <button class="btn btn-primary" (click)="edit(venue)">Edit</button>
+                        <button class="btn btn-primary btn-sm" (click)="edit(venue)">Edit</button>
                     </td>
                     <td>{{venue.venueName}}</td>
                     <td>{{venue.cityFkNavigation.cityName}}</td>
