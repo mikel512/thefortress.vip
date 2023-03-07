@@ -1,11 +1,13 @@
-<div class="d-flex justify-content-lg-between justify-content-sm-center flex-row p-3">
-    <a href="/" class="d-flex align-items-center p-2 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
-    </a>
-    <div *ngFor="let item of manageItems" class="p-3">
-        <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="[item.routerLink]">
-            <fa-icon [icon]="item.icon"></fa-icon>
-            <div class="ms-1 d-none d-md-inline"> {{item.name}}</div>
+<div class="container">
+    <div class="d-flex justify-content-lg-between justify-content-sm-center justify-content-center flex-row p-3">
+        <a href="/" class="d-flex align-items-center p-2 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
         </a>
+        <div *ngFor="let item of manageItems" class="p-3">
+            <a class="nav-link text-white" [routerLinkActive]="['active']" [routerLink]="[item.routerLink]">
+                <fa-icon [icon]="item.icon"></fa-icon>
+                <div class="ms-1 d-none d-md-inline"> {{item.name}}</div>
+            </a>
+        </div>
     </div>
 </div>
