@@ -10,9 +10,7 @@ import { City, ICity } from '@models/city';
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CityService {
 
 	constructor(private http: HttpClient) { } 

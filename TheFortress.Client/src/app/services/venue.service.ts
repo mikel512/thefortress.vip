@@ -10,9 +10,7 @@ import { Venue, IVenue } from '@models/venue';
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class VenueService {
 
 	constructor(private http: HttpClient) { } 

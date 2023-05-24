@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class SearchBarService {
     private _search = new Subject<boolean>();
     public search$ = this._search.asObservable();

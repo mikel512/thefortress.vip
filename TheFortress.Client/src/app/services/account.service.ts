@@ -10,9 +10,7 @@ import { AppUserDto, IAppUserDto } from '@models/app-user-dto';
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AccountService {
 
 	constructor(private http: HttpClient) { } 

@@ -5,7 +5,8 @@ import { AccountService } from '@services/account.service';
 
 @Component({
     selector: 'app-account-info',
-    templateUrl: 'account-info.component.html'
+    templateUrl: 'account-info.component.html',
+    providers: [AccountService]
 })
 
 export class AccountInfoComponent implements OnInit {

@@ -4,7 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-auth-button',
-    templateUrl: 'auth-button.component.html'
+    templateUrl: 'auth-button.component.html',
+    providers: [AuthService]
 })
 
 export class AuthButtonComponent implements OnInit, AfterViewInit {

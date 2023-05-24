@@ -6,11 +6,11 @@ import { City } from '@models/city';
 import { VenueFormModel } from '@models/venue-form-model';
 import { CityService } from '@services/city.service';
 import { CustomService } from '@services/custom.service';
-import { VenueService } from '@services/venue.service';
 
 @Component({
     selector: 'app-add-venue',
-    templateUrl: 'add-venue.component.html'
+    templateUrl: 'add-venue.component.html',
+    providers: [CityService, CustomService]
 })
 
 export class AddVenueComponent implements OnInit {

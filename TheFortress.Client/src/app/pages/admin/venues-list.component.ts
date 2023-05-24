@@ -8,7 +8,8 @@ import { AppModalComponent } from '../shared/modal.component';
 
 @Component({
     selector: 'app-venues-list',
-    templateUrl: 'venues-list.component.html'
+    templateUrl: 'venues-list.component.html',
+    providers: [VenueService, CustomService]
 })
 
 export class VenuesListComponent implements OnInit {

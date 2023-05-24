@@ -6,7 +6,8 @@ import { AppModalComponent } from '../shared/modal.component';
 
 @Component({
     selector: 'app-cities-list',
-    templateUrl: 'cities-list.component.html'
+    templateUrl: 'cities-list.component.html',
+    providers: [CityService]
 })
 
 export class CitiesListComponent implements OnInit {

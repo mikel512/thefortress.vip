@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/login.component';
 import { RegisterComponent } from './pages/register.component';
 import { ResetPasswordComponent } from './pages/reset-password.component';
 import { UserGuard } from './guards/user.guard';
+import { AuthService } from '@services/auth.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { UserGuard } from './guards/user.guard';
 
     ],
     exports: [],
-    providers: [],
+    providers: [AuthService],
 
 })
 export class AuthModule { }

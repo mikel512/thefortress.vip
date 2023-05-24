@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnimationsModule } from '@animations/animations.module';
+import { VenueService } from '@services/venue.service';
 import { SharedModule } from '../shared/shared.module';
 import { VenueDetailComponent } from './venue-detail.component';
 import { VenueItemComponent } from './venue-item.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
         VenueItemComponent,
         VenueDetailComponent,
     ],
-    providers: [],
+    providers: [VenueService],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

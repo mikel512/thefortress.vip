@@ -10,9 +10,7 @@ import { EventConcert, IEventConcert } from '@models/event-concert';
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EventConcertService {
 
 	constructor(private http: HttpClient) { } 

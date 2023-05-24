@@ -5,7 +5,7 @@
         "pathRewrite": {
             "^/api": "/api"
         },
-        "logLevel": "debug"
+        "logLevel": "info"
     },
     "/identity": {
         "target": "https://localhost:5003",
