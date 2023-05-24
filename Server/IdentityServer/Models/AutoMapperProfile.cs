@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Common.Attributes;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace IdentityServer.Models
 {
@@ -11,6 +13,7 @@ namespace IdentityServer.Models
             CreateMap<RegistrationDto, ApplicationUser>();
             CreateMap<AppUserDto, ApplicationUser>();
             CreateMap<ApplicationUser, AppUserDto>();
+            CreateMap<Claim, UserClaimDto>();
         }
     }
 }
