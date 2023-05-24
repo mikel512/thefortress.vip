@@ -5,7 +5,8 @@ import { getBaseUrl } from 'src/main';
 
 @Component({
     selector: 'ui-admin-events',
-    templateUrl: './events.component.html'
+    templateUrl: './events.component.html',
+    providers: [EventConcertService]
 })
 
 export class AdminEventsComponent implements OnInit {

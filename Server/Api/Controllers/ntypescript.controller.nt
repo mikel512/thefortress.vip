@@ -27,9 +27,7 @@ import { {{baseName}}FormModel, I{{baseName}}FormModel } from '@models/{{snakeCa
 {{-end}}
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class {{ baseName}}Service {
 
 	constructor(private http: HttpClient) { } 

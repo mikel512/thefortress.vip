@@ -188,7 +188,7 @@ namespace IdentityServer.Services
             issuer: iss,
             audience: aud,
             claims: claims,
-            expires: DateTime.Now.AddHours(Convert.ToDouble(jwtSettings["TimeTilExp"])),
+            expires: DateTime.UtcNow.AddHours(Convert.ToDouble(jwtSettings["TimeTilExp"])),
             signingCredentials: signingCredentials
             );
             return tokenOptions;

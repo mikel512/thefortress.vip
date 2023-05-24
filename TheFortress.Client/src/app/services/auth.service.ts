@@ -13,7 +13,7 @@ export enum ClaimKey {
     expiration = "exp"
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
     private _isAuthenticated = new Subject<boolean>();
     public isAuthenticated$ = this._isAuthenticated.asObservable();

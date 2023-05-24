@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AccountService } from '@services/account.service';
 import { SharedModule } from 'src/app/pages/shared/shared.module';
 import { AccountInfoComponent } from './account-info.component';
 import { AccountComponent } from './account.component';
@@ -30,6 +31,6 @@ import { ChangePasswordComponent } from './change-password.component';
         AccountComponent,
         AccountInfoComponent,
     ],
-    providers: [],
+    providers: [AccountService],
 })
 export class AccountModule { }

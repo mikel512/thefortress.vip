@@ -12,7 +12,7 @@ export class AdminSidebarComponent implements OnInit {
     manageItems: NavBarItem[] = [];
 
 
-    constructor(public auth: AuthService) {
+    constructor() {
         this.manageItems = [
             { routerLink: '/admin/events', name: 'Event List', icon: faCalendarDays },
             { routerLink: '/admin/add-event', name: 'Add Event', icon: faCalendarPlus },

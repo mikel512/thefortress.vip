@@ -1,4 +1,6 @@
-﻿namespace Common.Attributes
+﻿using System;
+
+namespace Common.Attributes
 {
     /// <summary>
     /// The expected Typescript return type

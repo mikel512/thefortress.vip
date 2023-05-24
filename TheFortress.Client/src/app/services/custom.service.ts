@@ -7,7 +7,7 @@ import { VenueFormModel } from '@models/venue-form-model';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CustomService {
     constructor(private http: HttpClient) { }
 

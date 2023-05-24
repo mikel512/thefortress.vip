@@ -13,6 +13,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-venue-detail',
   templateUrl: './venue-detail.component.html',
   styleUrls: ['./venue-detail.component.css'],
+  providers: [VenueService, EventConcertService],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [

@@ -13,7 +13,7 @@ import { AppModalComponent } from '../shared/modal.component';
 @Component({
     selector: 'app-add-event',
     templateUrl: 'add-event.component.html',
-    providers: [Base64Service]
+    providers: [Base64Service, VenueService, CustomService]
 })
 
 export class AddEventComponent implements OnInit, AfterViewInit {

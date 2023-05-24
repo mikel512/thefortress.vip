@@ -9,6 +9,7 @@ import { EventConcert } from '@models/event-concert';
   selector: 'app-event-page',
   templateUrl: './event-page.component.html',
   styleUrls: ['./event-page.component.css'],
+  providers: [EventConcertService],
   animations: [
     trigger('flyInOut', [
       state('in', style({ transform: 'translateX(0)' })),
