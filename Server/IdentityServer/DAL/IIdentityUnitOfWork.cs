@@ -1,4 +1,4 @@
-﻿using IdentityServer.Services;
+﻿using vApplication.Interface;
 
 namespace IdentityServer.DAL
 {

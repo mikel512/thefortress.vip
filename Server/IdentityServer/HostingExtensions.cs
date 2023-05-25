@@ -10,6 +10,8 @@ using IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using vApplication.Interface;
+using vInfra.Services;
 
 namespace IdentityServer;
 

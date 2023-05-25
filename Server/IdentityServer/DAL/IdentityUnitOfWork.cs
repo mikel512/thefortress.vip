@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IdentityServer.Models;
-using IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
+using vApplication.Interface;
 
 namespace IdentityServer.DAL
 {
