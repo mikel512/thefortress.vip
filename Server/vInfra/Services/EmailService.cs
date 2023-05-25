@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 using vApplication.Interface;
+using vDomain.Constants;
 using vDomain.Dto;
 using vDomain.Enum;
 
@@ -24,6 +25,7 @@ namespace IdentityServer.Services
 
         public async Task<RestResponse> SendMailAsync(EmailVariablesDto variables, string templateName, object templateVars)
         {
+            // fix this
             //String apiKey = _configuration.GetValue<string>("MailgunKey");
 
             RestClient client = new RestClient(_apiEndpoint);
@@ -53,7 +55,7 @@ namespace IdentityServer.Services
 
             if (type == EmailTypeEnum.VerificationEmail)
             {
-                emailVars.Subject = EmailSubject.ConfirmEmail;
+                emailVars.Subject = EmailSubjectConstants.ConfirmEmail;
 
                 object templateVars =
                     new
@@ -64,21 +66,10 @@ namespace IdentityServer.Services
                         link_text = "Verify Email"
                     };
 
-                return await SendMailAsync(emailVars, EmailTemplate.EmailWithLink, templateVars);
+                return await SendMailAsync(emailVars, EmailTemplateConstants.EmailWithLink, templateVars);
             }
 
             return new RestResponse();
         }
-    }
-
-    public static class EmailTemplate
-    {
-        public static readonly string EmailWithLink = "basic_link";
-        public static readonly string InfoEmail = "info_email";
-    }
-
-    public static class EmailSubject
-    {
-        public static readonly string ConfirmEmail = "Confirm your email";
     } 
 }
