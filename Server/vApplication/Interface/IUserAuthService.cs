@@ -3,7 +3,7 @@ using vDomain.Dto;
 
 namespace vApplication.Interface;
 
-public interface IUserAuthRepository
+public interface IUserAuthService
 {
     Task<IdentityResult> RegisterUserAsync(RegistrationDto user);
     Task<bool> ValidateUserAsync(LoginDto loginDto);

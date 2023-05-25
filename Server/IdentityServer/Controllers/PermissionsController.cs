@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using IdentityServer.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using vDomain.Dto;
+using vInfra.Identity;
 
 namespace IdentityServer.Controllers
 {
@@ -17,15 +17,12 @@ namespace IdentityServer.Controllers
     {
         private RoleManager<IdentityRole> _roleManager;
         private UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
 
         public PermissionsController(RoleManager<IdentityRole> roleManager,
-            UserManager<ApplicationUser> userManager,
-            IMapper mapper)
+            UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager  = userManager;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -40,9 +37,9 @@ namespace IdentityServer.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SetUserClaim([FromBody] UserClaimDto userClaim)
         {
-            var user = await _userManager.FindByIdAsync(userClaim.UserId);
-            Claim claim = _mapper.Map<Claim>(userClaim);    
-            await _userManager.AddClaimAsync(user, claim);
+            //var user = await _userManager.FindByIdAsync(userClaim.UserId);
+            //Claim claim = _mapper.Map<Claim>(userClaim);    
+            //await _userManager.AddClaimAsync(user, claim);
 
             return Ok(); 
         }

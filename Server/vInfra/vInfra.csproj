@@ -20,13 +20,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\vApplication\vApplication.csproj" />
-    <ProjectReference Include="..\vDomain\vDomain.csproj" />
   </ItemGroup>
 
 </Project>

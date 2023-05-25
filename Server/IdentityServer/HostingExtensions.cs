@@ -3,15 +3,14 @@ using Serilog;
 using System.Runtime.InteropServices;
 using IdentityServer.Data;
 using Microsoft.AspNetCore.Identity;
-using IdentityServer.Models;
-using IdentityServer.DAL;
-using AutoMapper;
 using IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using vApplication.Interface;
 using vInfra.Services;
+using vInfra.Mappings;
+using vInfra.Identity;
 
 namespace IdentityServer;
 
@@ -33,11 +32,8 @@ internal static class HostingExtensions
                 .AddEnvironmentVariables();
         }
 
-        var mapperConfig = new MapperConfiguration(map =>
-        {
-            map.AddProfile<AutoMapperProfile>();
-        });
-        builder.Services.AddSingleton(mapperConfig.CreateMapper());
+        //var mapperConfig = AutoMapperConf.GetConfiguration();
+        //builder.Services.AddSingleton(mapperConfig.CreateMapper());
 
 
         var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
@@ -47,7 +43,7 @@ internal static class HostingExtensions
             options.UseSqlServer(dbString));
 
         //builder.Services.AddScoped<IUserAuthRepository, UserAuthRepository>();
-        builder.Services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
+        builder.Services.AddScoped<IUserAuthService, UserAuthService>();
         builder.Services.AddSingleton<IEmailService, EmailService>();
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>(o => o.SignIn.RequireConfirmedAccount = true)

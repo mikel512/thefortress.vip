@@ -15,7 +15,7 @@ using vInfra.Identity;
 
 namespace vInfra.Services;
 
-internal sealed class UserAuthRepository : IUserAuthRepository
+public class UserAuthService : IUserAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
@@ -27,7 +27,7 @@ internal sealed class UserAuthRepository : IUserAuthRepository
     private static string _defaultSender = "The Fortress";
     private static string _defaultFrom = "thefortress-verification@thefortress.vip";
 
-    public UserAuthRepository(UserManager<ApplicationUser> userManager,
+    public UserAuthService(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
         IEmailService mailService,
         IConfiguration config,

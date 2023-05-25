@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using vApplication.Attributes;
+﻿using vApplication.Attributes;
 using vApplication.Helpers;
-using IdentityServer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using vInfra.Identity;
+using vDomain.Dto;
 
 namespace IdentityServer.Controllers
 {
@@ -15,12 +14,10 @@ namespace IdentityServer.Controllers
     public class AccountController : ControllerBase
     {
         private UserManager<ApplicationUser> _userManager;
-        private IMapper _mapper;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public AccountController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _mapper = mapper;
         }
 
         [HttpPost("[action]")]
@@ -79,9 +76,9 @@ namespace IdentityServer.Controllers
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
                 }
 
-                AppUserDto result = _mapper.Map<AppUserDto>(user);
+                //AppUserDto result = _mapper.Map<AppUserDto>(user);
 
-                return new ObjectResult(result);
+                return new ObjectResult(user);
             }
             catch (Exception e)
             {

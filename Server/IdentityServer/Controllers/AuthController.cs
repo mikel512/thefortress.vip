@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using IdentityServer.DAL;
-using IdentityServer.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using vApplication.Attributes;
+using vApplication.Interface;
+using vDomain.Dto;
 
 namespace IdentityServer.Controllers
 {
@@ -12,16 +11,13 @@ namespace IdentityServer.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IIdentityUnitOfWork _identity;
-        private IMapper _mapper;
+        private IUserAuthService _auth;
         private IConfiguration _configuration;
 
-        public AuthController(IIdentityUnitOfWork unitOfWork, 
-            IMapper mapper, 
+        public AuthController(IUserAuthService auth, 
             IConfiguration configuration)
         {
-            _identity = unitOfWork;
-            _mapper = mapper;
+            _auth = auth;
             _configuration = configuration;
         } 
 
@@ -32,7 +28,7 @@ namespace IdentityServer.Controllers
             {
                 model.Username = model.Email;
             }
-            IdentityResult result = await _identity.UserAuth.RegisterUserAsync(model);
+            IdentityResult result = await _auth.RegisterUserAsync(model);
             return !result.Succeeded ? new BadRequestObjectResult(result) : StatusCode(201);
         }
 
@@ -40,11 +36,11 @@ namespace IdentityServer.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto user)
         {
             var jwtConf = _configuration.GetSection("JwtConfig");
-            return !await _identity.UserAuth.ValidateUserAsync(user)
+            return !await _auth.ValidateUserAsync(user)
                 ? Unauthorized(new { errorMessage = "Wrong username or password" } )
                 : Ok(new
                 {
-                    Token = await _identity.UserAuth.CreateTokenAsync(),
+                    Token = await _auth.CreateTokenAsync(),
                     ExpiresIn = Convert.ToDouble(jwtConf["TimeTilExp"]) * 60
                 });
         }
@@ -57,7 +53,7 @@ namespace IdentityServer.Controllers
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
 
-            return await _identity.UserAuth.ConfirmEmailAsync(userId, code);
+            return Ok(await _auth.ConfirmEmailAsync(userId, code));
 
         }
 
@@ -69,7 +65,7 @@ namespace IdentityServer.Controllers
                 return Ok();
             }
 
-            return await _identity.UserAuth.SendPasswordResetAsync(email); 
+            return Ok(await _auth.SendPasswordResetAsync(email)); 
         }
 
         [HttpPost("[action]")]
@@ -80,7 +76,7 @@ namespace IdentityServer.Controllers
                 return Ok();
             }
 
-            return await _identity.UserAuth.ResetPasswordAsync(input.Username, input.Code, input.Password);
+            return Ok(await _auth.ResetPasswordAsync(input.Username, input.Code, input.Password));
         }
     }
 }
