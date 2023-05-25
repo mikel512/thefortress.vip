@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Runtime.InteropServices;
-using IdentityServer.Data;
 using Microsoft.AspNetCore.Identity;
-using IdentityServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -11,6 +9,7 @@ using vApplication.Interface;
 using vInfra.Services;
 using vInfra.Mappings;
 using vInfra.Identity;
+using vInfra.Context;
 
 namespace IdentityServer;
 
@@ -39,7 +38,7 @@ internal static class HostingExtensions
         var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
         var dbString = builder.Configuration.GetValue<string>("DbConnection");
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        builder.Services.AddDbContext<TheFortressContext>(options =>
             options.UseSqlServer(dbString));
 
         //builder.Services.AddScoped<IUserAuthRepository, UserAuthRepository>();
@@ -47,7 +46,7 @@ internal static class HostingExtensions
         builder.Services.AddSingleton<IEmailService, EmailService>();
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>(o => o.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddEntityFrameworkStores<TheFortressContext>()
             .AddDefaultTokenProviders();
 
         var jwtSection = builder.Configuration.GetSection("JwtConfig");

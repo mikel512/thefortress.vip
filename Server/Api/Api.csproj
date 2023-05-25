@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\vApplication\vApplication.csproj" />
     <ProjectReference Include="..\vInfra\vInfra.csproj" />
   </ItemGroup>
 

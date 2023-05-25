@@ -1,11 +1,12 @@
-﻿using Api.Data;
-using Api.Extensions;
-using Api.Models;
+﻿using Api.Extensions;
 using vApplication.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
+using vInfra;
+using vInfra.Context;
+using System.Linq;
 
 namespace Api.Controllers
 {

@@ -1,5 +1,5 @@
-﻿using Api.Models;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using vInfra;
 
 namespace Api.Extensions
 {

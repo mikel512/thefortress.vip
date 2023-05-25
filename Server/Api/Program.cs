@@ -1,4 +1,3 @@
-using Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
@@ -6,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Runtime.InteropServices;
 using System.Text;
 using vApplication.Interface;
+using vInfra.Context;
 using vInfra.Services;
 
 var builder = WebApplication.CreateBuilder(args);

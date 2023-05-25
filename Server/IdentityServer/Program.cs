@@ -2,7 +2,6 @@ using IdentityServer;
 using Serilog;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using IdentityServer.Data;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
