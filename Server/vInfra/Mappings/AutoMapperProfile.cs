@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using vDomain.Dto;
 using vInfra.Identity;
+using vApplication.Dto;
 
 namespace vApplication.Mappings;
 
