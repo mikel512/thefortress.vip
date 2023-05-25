@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Common.Attributes;
+using vApplication.Attributes;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Attributes
+namespace vApplication.Attributes
 {
     /// <summary>
     /// The expected Typescript return type

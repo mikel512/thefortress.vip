@@ -1,9 +1,9 @@
 ﻿using Api.Data;
 using Api.Extensions;
-using Common.Attributes;
-using DataAccessLibrary.Services;
+using vApplication.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using vApplication.Interface;
 
 namespace Api.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Common.Attributes;
-using Common.Helpers;
+using vApplication.Attributes;
+using vApplication.Helpers;
 using IdentityServer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

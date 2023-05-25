@@ -2,7 +2,7 @@
 // See LICENSE in the project root for license information.
 
 
-using Common.Attributes;
+using vApplication.Attributes;
 using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer.Models;

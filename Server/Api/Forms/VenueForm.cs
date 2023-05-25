@@ -1,4 +1,4 @@
-﻿using Common.Attributes;
+﻿using vApplication.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace Api.Forms

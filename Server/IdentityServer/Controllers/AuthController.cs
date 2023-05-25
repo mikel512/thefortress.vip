@@ -3,7 +3,7 @@ using IdentityServer.DAL;
 using IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Common.Attributes;
+using vApplication.Attributes;
 
 namespace IdentityServer.Controllers
 {

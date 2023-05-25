@@ -1,4 +1,4 @@
-﻿namespace Common.Attributes
+﻿namespace vApplication.Attributes
 {
     public class FormGenerateAttribute : Attribute
     {

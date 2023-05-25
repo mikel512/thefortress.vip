@@ -1,7 +1,7 @@
 ﻿using Api.Data;
 using Api.Extensions;
 using Api.Models;
-using Common.Attributes;
+using vApplication.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
