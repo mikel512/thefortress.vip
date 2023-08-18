@@ -7,6 +7,7 @@ using vApplication.Context;
 using vApplication.Extensions;
 using vDomain.Attributes;
 using vDomain.Entity;
+using vDomain.Interface;
 
 namespace Api.Controllers;
 
@@ -15,12 +16,14 @@ namespace Api.Controllers;
 [ApiController]
 public class ScrapeController : ControllerBase
 {
-    private TheFortressContext _context;
-    private IConfiguration _configuration;
-    public ScrapeController(TheFortressContext context, IConfiguration configuration)
+    private readonly AppSettings _configuration;
+    private readonly IScraperService _scraperService;
+    private readonly string _apiKeyHeaderName = "x-fortress-scraper-assertion";
+
+    public ScrapeController(AppSettings configuration, IScraperService scraperService)
     {
-        _context = context;
         _configuration = configuration;
+        _scraperService = scraperService;
     }
 
 
@@ -33,31 +36,14 @@ public class ScrapeController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Post([FromBody] List<EventConcert> concerts)
     {
-        Console.WriteLine("Scraper Post");
-        var headerName = "x-fortress-scraper-assertion";
-        var keyRef = _configuration.GetValue<string>("ScraperApiKey");
-        StringValues headerValue;
-        var headerExists = Request.Headers.TryGetValue(headerName, out headerValue);
+        var keyRef = _configuration.ScraperApiKey;
+        var headerExists = Request.Headers.TryGetValue(_apiKeyHeaderName, out StringValues headerValue);
         if (headerExists == false || headerValue.First() != keyRef)
         {
             return new StatusCodeResult(StatusCodes.Status401Unauthorized);
         }
 
-        List<EventConcert> existing = _context.EventConcerts.AsNoTracking()
-            .Where(x => x.EventDate >= DateTime.Today)
-            .ToList();
-        EventConcertEqualityComparer eq = new EventConcertEqualityComparer();
-
-        // Events to update are the intersection of the two lists
-        List<EventConcert> toUpdate = concerts.Intersect(existing, eq).ToList();
-
-        // New events are the incoming events minute the intersection
-        List<EventConcert> newEvents = concerts.Except(toUpdate, eq).ToList();
-
-
-        _context.EventConcerts.UpdateRange(toUpdate);
-        _context.EventConcerts.AddRange(newEvents);
-        await _context.SaveChangesAsync();
+        await _scraperService.SaveScraperResults(concerts);
 
         return new OkResult();
     }

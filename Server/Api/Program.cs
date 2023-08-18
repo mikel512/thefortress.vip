@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.InteropServices;
@@ -27,7 +28,7 @@ IdentityModelEventSource.ShowPII = true;
 
 // Configure DI
 builder.Services.AddSingleton<IStorageService, StorageService>(); 
-
+builder.Services.AddSingleton<IScraperService, ScraperService>(); 
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
@@ -75,6 +76,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Make IConfiguration values available as injectable to class libraries
+builder.Services.Configure<AppSettings>(builder.Configuration)
+    .AddSingleton(x => x.GetRequiredService<IOptions<AppSettings>>().Value);
 
 //builder.Services.AddAuthentication("Bearer")
 //    .AddJwtBearer(options =>
