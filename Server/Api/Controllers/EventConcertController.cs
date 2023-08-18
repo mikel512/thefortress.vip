@@ -1,12 +1,13 @@
-﻿using Api.Forms;
-using Api.Extensions;
+﻿using Api.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using vApplication.Attributes;
-using vApplication.Interface;
-using vInfra.Context;
-using vInfra;
+using vApplication.Context;
+using vDomain.Interface;
+using vDomain.Attributes;
+using vDomain.Entity;
+using vDomain.Forms;
+using vApplication.Extensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

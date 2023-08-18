@@ -4,9 +4,9 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.InteropServices;
 using System.Text;
-using vApplication.Interface;
-using vInfra.Context;
-using vInfra.Services;
+using vApplication.Context;
+using vApplication.Services;
+using vDomain.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 

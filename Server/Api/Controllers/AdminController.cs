@@ -1,9 +1,10 @@
 ﻿using Api.Extensions;
-using vApplication.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using vApplication.Interface;
-using vInfra.Context;
+using vApplication.Context;
+using vApplication.Extensions;
+using vDomain.Attributes;
+using vDomain.Interface;
 
 namespace Api.Controllers;
 

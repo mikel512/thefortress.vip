@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace vInfra
+namespace vDomain.Entity;
+
+public partial class ApprovalQueue
 {
-    public partial class ApprovalQueue
-    {
-        public int QueueId { get; set; }
-    }
+    public int QueueId { get; set; }
 }

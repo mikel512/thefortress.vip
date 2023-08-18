@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using vDomain.Dto;
-using vInfra.Identity;
+using vDomain.Identity;
 
 namespace IdentityServer.Controllers
 {

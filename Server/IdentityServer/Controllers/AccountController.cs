@@ -1,11 +1,11 @@
-﻿using vApplication.Attributes;
-using vApplication.Helpers;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using vInfra.Identity;
 using vApplication.Dto;
+using vApplication.Extensions;
+using vDomain.Attributes;
+using vDomain.Identity;
 
 namespace IdentityServer.Controllers
 {
@@ -27,7 +27,7 @@ namespace IdentityServer.Controllers
         {
             try
             {
-                string userId = JwtHelpers.GetClaimFromRequest(Request, ClaimTypes.Sid).Value;
+                string userId = Request.GetClaimFromRequest(ClaimTypes.Sid).Value;
 
                 if (String.IsNullOrWhiteSpace(userId))
                 {
@@ -63,7 +63,7 @@ namespace IdentityServer.Controllers
         {
             try
             {
-                string userId = JwtHelpers.GetClaimFromRequest(Request, ClaimTypes.Sid).Value;
+                string userId = Request.GetClaimFromRequest(ClaimTypes.Sid).Value;
 
                 if (String.IsNullOrWhiteSpace(userId))
                 {
@@ -93,7 +93,7 @@ namespace IdentityServer.Controllers
         {
             try
             {
-                string userId = JwtHelpers.GetClaimFromRequest(Request, ClaimTypes.Sid).Value;
+                string userId = Request.GetClaimFromRequest(ClaimTypes.Sid).Value;
 
                 if (String.IsNullOrWhiteSpace(userId))
                 {

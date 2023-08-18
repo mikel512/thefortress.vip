@@ -10,14 +10,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.24.1" />
-    <PackageReference Include="NTypewriter.CodeModel" Version="0.3.6" />
     <PackageReference Include="Scrutor" Version="4.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\vInfra\vInfra.csproj" />
+    <ProjectReference Include="..\vApplication\vApplication.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using vApplication.Attributes;
-using vInfra.Context;
-using vInfra;
+using vApplication.Context;
+using vDomain.Attributes;
+using vDomain.Entity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

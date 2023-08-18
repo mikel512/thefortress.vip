@@ -1,8 +1,8 @@
-﻿using vApplication.Attributes;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using vInfra.Context;
-using vInfra;
+using vApplication.Context;
+using vDomain.Attributes;
+using vDomain.Entity;
 
 namespace Api.Controllers;
 

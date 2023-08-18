@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace vInfra
+namespace vDomain.Entity;
+
+public partial class CodeUser
 {
-    public partial class CodeUser
-    {
-        public int CodeId { get; set; }
-        public string UserId { get; set; } = null!;
-    }
+    public int CodeId { get; set; }
+    public string UserId { get; set; } = null!;
 }

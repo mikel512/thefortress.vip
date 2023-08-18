@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using vApplication.Interface;
-using vInfra.Services;
-using vInfra.Mappings;
-using vInfra.Identity;
-using vInfra.Context;
+using vDomain.Interface;
+using vApplication.Services;
+using vApplication.Context;
+using vDomain.Identity;
 
 namespace IdentityServer;
 

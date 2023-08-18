@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using vApplication.Attributes;
-using vApplication.Interface;
+using vDomain.Attributes;
 using vDomain.Dto;
+using vDomain.Interface;
 
 namespace IdentityServer.Controllers
 {

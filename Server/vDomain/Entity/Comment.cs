@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace vInfra
+namespace vDomain.Entity;
+
+public partial class Comment
 {
-    public partial class Comment
-    {
-        public int CommentId { get; set; }
-        public string Content { get; set; } = null!;
-        public DateTime DateStamp { get; set; }
-        public int Upvotes { get; set; }
-        public string UserName { get; set; } = null!;
-    }
+    public int CommentId { get; set; }
+    public string Content { get; set; } = null!;
+    public DateTime DateStamp { get; set; }
+    public int Upvotes { get; set; }
+    public string UserName { get; set; } = null!;
 }
