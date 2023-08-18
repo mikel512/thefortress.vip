@@ -16,15 +16,11 @@ namespace Api.Controllers;
 [ApiController]
 public class EventConcertController : ControllerBase
 {
-    private UnitOfWork unitOfWork;
-    private IConfiguration _configuration;
-    private IStorageService _storageService;
+    private readonly IEventConcertService _eventConcertService;
 
-    public EventConcertController(TheFortressContext context, IConfiguration configuration, IStorageService storageService)
+    public EventConcertController(IEventConcertService eventConcertService)
     {
-        unitOfWork = new UnitOfWork(context);
-        _configuration = configuration;
-        _storageService = storageService;
+        _eventConcertService = eventConcertService;
     }
 
 
@@ -35,12 +31,7 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            var items = await unitOfWork.EventConcertRepository
-            .Get(e => e.EventDate.Date >= DateTime.Today.Date,
-            orderBy: e => e.OrderBy(x => x.EventDate),
-            includeProperties: "VenueFkNavigation");
-
-            return new ObjectResult(items);
+            return new ObjectResult(await _eventConcertService.ListPublic());
         }
         catch (Exception)
         {
@@ -76,12 +67,7 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            var items = await unitOfWork.EventConcertRepository
-                .Get(e => e.VenueFkNavigation!.CityFkNavigation.CityName == name && e.EventDate >= DateTime.Today.AddDays(-1),
-                    orderBy: e => e.OrderBy(x => x.EventDate),
-                    includeProperties: "VenueFkNavigation");
-
-            return new ObjectResult(items);
+            return new ObjectResult(await _eventConcertService.ListByCityPublic(name));
         }
         catch (Exception)
         {
@@ -96,12 +82,7 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            var items = await unitOfWork.EventConcertRepository
-                .Get(e => e.VenueFk == id && e.EventDate >= DateTime.Today.AddDays(-1),
-                    orderBy: e => e.OrderBy(x => x.EventDate),
-                    includeProperties: "VenueFkNavigation");
-
-            return new ObjectResult(items);
+            return new ObjectResult(await _eventConcertService.ListByVenuePublic(id));
 
         }
         catch (Exception)
@@ -117,20 +98,7 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            EventConcert item = new EventConcert();
-            item.EventName = concert.EventName;
-            item.EventDate = concert.EventDate;
-            item.EventTime = concert.EventTime;
-            item.Details = concert.Details;
-            item.Tickets = concert.Tickets;
-            item.Flyer = concert.Flyer;
-            item.Status = concert.Status;
-            item.VenueFk = concert.VenueFk;
-
-            unitOfWork.EventConcertRepository.Insert(item);
-            unitOfWork.Save();
-            return new ObjectResult(item);
-
+            return new ObjectResult(_eventConcertService.Save(concert));
         }
         catch (Exception e)
         {
@@ -148,28 +116,8 @@ public class EventConcertController : ControllerBase
         try
         {
             var formRequest = Request.Form;
-            IFormFile file = formRequest.Files.First();
-            // validate file extension
-            if (!file.ValidateFileExtension("jpg", "png", "jpeg"))
-            {
-                return StatusCode(StatusCodes.Status415UnsupportedMediaType);
-            }
-
-            EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(formRequest.First().Value);
-            string flyerUrl = await _storageService.StoreImageFile(file);
-
-            EventConcert item = new EventConcert();
-            item.EventName = concert.EventName;
-            item.EventDate = concert.EventDate;
-            item.EventTime = concert.EventTime;
-            item.Details = concert.Details;
-            item.Tickets = concert.TicketsUrl;
-            item.Flyer = flyerUrl;
-            item.VenueFk = concert.VenueFk;
-
-            unitOfWork.EventConcertRepository.Insert(item);
-            unitOfWork.Save();
-            return new ObjectResult(item);
+            var result = await _eventConcertService.SaveWithFlyer(formRequest.FirstOrDefault().Value, formRequest.Files.FirstOrDefault());
+            return new ObjectResult(result);
 
         }
         catch (Exception e)
