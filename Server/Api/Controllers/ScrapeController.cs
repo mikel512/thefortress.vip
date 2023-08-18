@@ -25,13 +25,13 @@ public class ScrapeController : ControllerBase
 
 
     /// <summary>
-    /// Endpoint for the scraper to POST new results
+    /// Endpoint for the scraper to POST new results. Public endpoint protected by private key.
     /// </summary>
     /// <param name="concerts"></param>
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    public IActionResult Post([FromBody] List<EventConcert> concerts)
+    public async Task<IActionResult> Post([FromBody] List<EventConcert> concerts)
     {
         Console.WriteLine("Scraper Post");
         var headerName = "x-fortress-scraper-assertion";
@@ -57,7 +57,7 @@ public class ScrapeController : ControllerBase
 
         _context.EventConcerts.UpdateRange(toUpdate);
         _context.EventConcerts.AddRange(newEvents);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return new OkResult();
     }

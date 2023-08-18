@@ -1,5 +1,4 @@
-﻿using Api.Extensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using vApplication.Context;
 using vApplication.Extensions;
