@@ -8,7 +8,8 @@ using System.Text;
 using vDomain.Interface;
 using vApplication.Services;
 using vApplication.Context;
-using vDomain.Identity;
+using vDomain.Entity;
+using vApplication.Mappings;
 
 namespace IdentityServer;
 
@@ -30,8 +31,8 @@ internal static class HostingExtensions
                 .AddEnvironmentVariables();
         }
 
-        //var mapperConfig = AutoMapperConf.GetConfiguration();
-        //builder.Services.AddSingleton(mapperConfig.CreateMapper());
+        var mapperConfig = AutoMapperConf.GetConfiguration();
+        builder.Services.AddSingleton(mapperConfig.CreateMapper());
 
 
         var migrationsAssembly = typeof(Program).Assembly.GetName().Name;

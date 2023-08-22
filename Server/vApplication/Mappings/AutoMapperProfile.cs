@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using vDomain.Dto;
 using vApplication.Dto;
-using vDomain.Identity;
 using vDomain.Attributes;
+using vDomain.Entity;
 
 namespace vApplication.Mappings;
 

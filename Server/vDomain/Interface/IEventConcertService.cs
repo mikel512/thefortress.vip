@@ -11,6 +11,7 @@ namespace vDomain.Interface;
 
 public interface IEventConcertService
 {
+    EventConcert GetById(int id);
     Task<List<EventConcert>> ListPublic();
     Task<List<EventConcert>> ListByCityPublic(string cityName);
     Task<List<EventConcert>> ListByVenuePublic(int venueId);

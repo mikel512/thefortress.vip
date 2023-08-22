@@ -27,8 +27,8 @@ builder.Services.AddDbContext<TheFortressContext>(x => x.UseSqlServer(dbString))
 IdentityModelEventSource.ShowPII = true;
 
 // Configure DI
-builder.Services.AddSingleton<IStorageService, StorageService>(); 
-builder.Services.AddSingleton<IScraperService, ScraperService>(); 
+builder.Services.AddScoped<IStorageService, StorageService>(); 
+builder.Services.AddScoped<IScraperService, ScraperService>(); 
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using vDomain.Attributes;
 
-namespace vDomain.Identity;
+namespace vDomain.Entity;
 
 [NTypewriterIgnore]
 public class ApplicationUser : IdentityUser

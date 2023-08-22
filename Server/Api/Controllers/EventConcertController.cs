@@ -47,12 +47,7 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            var item = unitOfWork.EventConcertRepository
-                .Get(e => e.EventConcertId == id,
-                    includeProperties: "VenueFkNavigation").Result.FirstOrDefault() ?? new EventConcert();
-
-            return new ObjectResult(item);
-
+            return new ObjectResult(_eventConcertService.GetById(id)); 
         }
         catch (Exception)
         {
@@ -135,19 +130,20 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            EventConcert item = new EventConcert();
-            item.EventConcertId = id;
-            item.EventName = concert.EventName;
-            item.EventDate = concert.EventDate;
-            item.EventTime = concert.EventTime;
-            item.Details = concert.Details;
-            item.Tickets = concert.Tickets;
-            item.Flyer = concert.Flyer;
-            item.Status = concert.Status;
+            //EventConcert item = new EventConcert();
+            //item.EventConcertId = id;
+            //item.EventName = concert.EventName;
+            //item.EventDate = concert.EventDate;
+            //item.EventTime = concert.EventTime;
+            //item.Details = concert.Details;
+            //item.Tickets = concert.Tickets;
+            //item.Flyer = concert.Flyer;
+            //item.Status = concert.Status;
 
-            unitOfWork.EventConcertRepository.Update(item);
-            unitOfWork.Save();
-            return new ObjectResult(item);
+            //unitOfWork.EventConcertRepository.Update(item);
+            //unitOfWork.Save();
+            return Ok();
+            //return new ObjectResult(item);
 
         }
         catch (Exception e)
@@ -164,8 +160,8 @@ public class EventConcertController : ControllerBase
     {
         try
         {
-            unitOfWork.EventConcertRepository.Delete(id);
-            unitOfWork.Save();
+            //unitOfWork.EventConcertRepository.Delete(id);
+            //unitOfWork.Save();
 
             return Ok();
         }

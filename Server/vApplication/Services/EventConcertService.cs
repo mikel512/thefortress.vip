@@ -101,4 +101,12 @@ public class EventConcertService : IEventConcertService
         unitOfWork.Save();
         return item;
     }
+
+    public EventConcert GetById(int id)
+    {
+        var item = unitOfWork.EventConcertRepository
+            .Get(e => e.EventConcertId == id,
+                includeProperties: "VenueFkNavigation").Result.FirstOrDefault() ?? new EventConcert();
+        return item; 
+    }
 }

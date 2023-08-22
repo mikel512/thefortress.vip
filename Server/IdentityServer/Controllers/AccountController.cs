@@ -5,7 +5,7 @@ using System.Security.Claims;
 using vApplication.Dto;
 using vApplication.Extensions;
 using vDomain.Attributes;
-using vDomain.Identity;
+using vDomain.Entity;
 
 namespace IdentityServer.Controllers;
 
