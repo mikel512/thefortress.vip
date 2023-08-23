@@ -20,6 +20,7 @@ public partial class TheFortressContext : DbContext
     public virtual DbSet<AdminMessage> AdminMessages { get; set; } = null!;
     public virtual DbSet<Analytic> Analytics { get; set; } = null!;
     public virtual DbSet<ApprovalQueue> ApprovalQueues { get; set; } = null!;
+    public virtual DbSet<ApplicationUserVenue> AppUserVenue { get; set; } = null!;
     public virtual DbSet<Artist> Artists { get; set; } = null!;
     public virtual DbSet<City> Cities { get; set; } = null!;
     public virtual DbSet<CodeUser> CodeUsers { get; set; } = null!;
@@ -33,7 +34,6 @@ public partial class TheFortressContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
             optionsBuilder.UseSqlServer("Name=DbConnection");
         }
     }
@@ -160,6 +160,8 @@ public partial class TheFortressContext : DbContext
                 .HasForeignKey(d => d.CityFk)
                 .HasConstraintName("FK_Venue_City");
         });
+
+        CreateManyToMany(modelBuilder);
 
         OnModelCreatingPartial(modelBuilder);
     }

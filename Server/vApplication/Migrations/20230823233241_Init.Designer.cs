@@ -12,8 +12,8 @@ using vApplication.Context;
 namespace vApplication.Migrations
 {
     [DbContext(typeof(TheFortressContext))]
-    [Migration("20230823212759_AppUserVenue")]
-    partial class AppUserVenue
+    [Migration("20230823233241_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
