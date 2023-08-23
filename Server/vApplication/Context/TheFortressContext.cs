@@ -43,47 +43,33 @@ public partial class TheFortressContext : DbContext
         modelBuilder.Entity<AdminMessage>(entity =>
         {
             entity.HasNoKey();
-
             entity.ToTable("AdminMessage");
-
             entity.Property(e => e.AdminMessageId).ValueGeneratedOnAdd();
-
             entity.Property(e => e.Date).HasColumnType("datetime");
-
             entity.Property(e => e.Sender).HasMaxLength(50);
-
             entity.Property(e => e.Subject).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Analytic>(entity =>
         {
-            entity.HasKey(e => e.AnalyticsId)
-                .HasName("PK__analytic__506974E39436EBE6");
-
+            entity.HasKey(e => e.AnalyticsId).HasName("PK__analytic__506974E39436EBE6");
             entity.ToTable("analytics");
-
             entity.Property(e => e.IpAddress).HasMaxLength(50);
-
             entity.Property(e => e.Location).HasMaxLength(50);
         });
 
         modelBuilder.Entity<ApprovalQueue>(entity =>
         {
             entity.HasNoKey();
-
             entity.ToTable("ApprovalQueue");
-
             entity.Property(e => e.QueueId).ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<Artist>(entity =>
         {
             entity.ToTable("Artist");
-
             entity.Property(e => e.Id).HasColumnName("id");
-
             entity.Property(e => e.Name).HasMaxLength(128);
-
             entity.Property(e => e.Tour).HasMaxLength(256);
         });
 
@@ -114,11 +100,8 @@ public partial class TheFortressContext : DbContext
                 .IsClustered(false);
 
             entity.ToTable("Comment");
-
             entity.Property(e => e.Content).HasMaxLength(2048);
-
             entity.Property(e => e.DateStamp).HasColumnType("datetime");
-
             entity.Property(e => e.Upvotes).HasDefaultValueSql("((1))");
         });
 
@@ -129,27 +112,18 @@ public partial class TheFortressContext : DbContext
                 .IsClustered(false);
 
             entity.ToTable("EventConcert");
-
             entity.HasIndex(e => new { e.EventConcertId, e.VenueFk }, "IX_EventConcert");
-
             entity.Property(e => e.Details).HasColumnName("details");
-
             entity.Property(e => e.EventDate).HasColumnType("datetime");
-
             entity.Property(e => e.EventTime).HasMaxLength(50);
-
             entity.Property(e => e.IsApproved).HasDefaultValueSql("((0))");
-
             entity.Property(e => e.Price)
                 .HasMaxLength(100)
                 .HasColumnName("price");
 
             entity.Property(e => e.Status).HasMaxLength(75);
-
             entity.Property(e => e.Tickets).HasMaxLength(256);
-
             entity.Property(e => e.VenueFk).HasColumnName("Venue_FK");
-
             entity.HasOne(d => d.VenueFkNavigation)
                 .WithMany(p => p.EventConcerts)
                 .HasForeignKey(d => d.VenueFk)
@@ -159,7 +133,6 @@ public partial class TheFortressContext : DbContext
         modelBuilder.Entity<LinkType>(entity =>
         {
             entity.ToTable("LinkType");
-
             entity.Property(e => e.LinkType1)
                 .HasMaxLength(50)
                 .HasColumnName("LinkType");
@@ -175,21 +148,13 @@ public partial class TheFortressContext : DbContext
             entity.ToTable("Venue");
 
             entity.HasIndex(e => e.VenueId, "IX_Venue");
-
             entity.Property(e => e.Address).HasMaxLength(128);
-
             entity.Property(e => e.CityFk).HasColumnName("City_FK");
-
             entity.Property(e => e.Hours).HasMaxLength(50);
-
             entity.Property(e => e.Location).HasMaxLength(50);
-
             entity.Property(e => e.MenuLink).HasMaxLength(256);
-
             entity.Property(e => e.TicketsLink).HasMaxLength(256);
-
             entity.Property(e => e.VenueName).HasMaxLength(50);
-
             entity.HasOne(d => d.CityFkNavigation)
                 .WithMany(p => p.Venues)
                 .HasForeignKey(d => d.CityFk)
@@ -197,6 +162,11 @@ public partial class TheFortressContext : DbContext
         });
 
         OnModelCreatingPartial(modelBuilder);
+    }
+
+    private static void CreateManyToMany(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ApplicationUserVenue>().HasKey(x => new { x.ApplicationUserId, x.VenueId });
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
