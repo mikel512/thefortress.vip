@@ -27,6 +27,7 @@ builder.Services.AddDbContext<TheFortressContext>(x => x.UseSqlServer(dbString))
 IdentityModelEventSource.ShowPII = true;
 
 // Configure DI
+builder.Services.AddScoped<IEventConcertService, EventConcertService>(); 
 builder.Services.AddScoped<IStorageService, StorageService>(); 
 builder.Services.AddScoped<IScraperService, ScraperService>(); 
 
