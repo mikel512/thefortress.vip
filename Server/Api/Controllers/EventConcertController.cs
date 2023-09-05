@@ -5,7 +5,6 @@ using vApplication.Context;
 using vDomain.Interface;
 using vDomain.Attributes;
 using vDomain.Entity;
-using vDomain.Forms;
 using vApplication.Extensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,99 +26,52 @@ public class EventConcertController : ControllerBase
     [HttpGet]
     [AllowAnonymous]
     [ReturnType("EventConcert[]")]
-    public async Task<IActionResult> Get()
+    public async Task<List<EventConcert>> Get()
     {
-        try
-        {
-            return new ObjectResult(await _eventConcertService.ListPublic());
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+        return await _eventConcertService.ListPublic();
     }
 
     // GET /<ConcertController>/5
     [HttpGet("{id}")]
     [AllowAnonymous]
     [ReturnType("EventConcert")]
-    public IActionResult GetById(int id)
+    public EventConcert GetById(int id)
     {
-        try
-        {
-            return new ObjectResult(_eventConcertService.GetById(id)); 
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+        return _eventConcertService.GetById(id);
     }
 
     [HttpGet("[action]/{name}")]
     [AllowAnonymous]
     [ReturnType("EventConcert[]")]
-    public async Task<IActionResult> GetByCity(string name)
+    public async Task<List<EventConcert>> GetByCity(string name)
     {
-        try
-        {
-            return new ObjectResult(await _eventConcertService.ListByCityPublic(name));
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+        return await _eventConcertService.ListByCityPublic(name);
     }
 
     [HttpGet("[action]/{id}")]
     [AllowAnonymous]
     [ReturnType("EventConcert[]")]
-    public async Task<IActionResult> GetByVenue(int id)
+    public async Task<List<EventConcert>> GetByVenue(int id)
     {
-        try
-        {
-            return new ObjectResult(await _eventConcertService.ListByVenuePublic(id));
-
-        }
-        catch (Exception)
-        {
-            return StatusCode(500);
-        }
+        return await _eventConcertService.ListByVenuePublic(id);
     }
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
     [ReturnType("EventConcert")]
-    public IActionResult Post([FromBody] EventConcert concert)
+    public EventConcert Post([FromBody] EventConcert concert)
     {
-        try
-        {
-            return new ObjectResult(_eventConcertService.Save(concert));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        return _eventConcertService.Save(concert);
     }
 
 
     [NTypewriterIgnore]
     [HttpPost("[action]")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> PostWithFlyerFile()
+    public async Task<EventConcert> PostWithFlyerFile()
     {
-        try
-        {
-            var formRequest = Request.Form;
-            var result = await _eventConcertService.SaveWithFlyer(formRequest.FirstOrDefault().Value, formRequest.Files.FirstOrDefault());
-            return new ObjectResult(result);
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        var formRequest = Request.Form;
+        return await _eventConcertService.SaveWithFlyer(formRequest.FirstOrDefault().Value, formRequest.Files.FirstOrDefault()); 
     }
 
 

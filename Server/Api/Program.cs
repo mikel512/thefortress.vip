@@ -1,3 +1,4 @@
+using Api.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -31,7 +32,11 @@ builder.Services.AddScoped<IEventConcertService, EventConcertService>();
 builder.Services.AddScoped<IStorageService, StorageService>(); 
 builder.Services.AddScoped<IScraperService, ScraperService>(); 
 
-builder.Services.AddControllers().AddNewtonsoftJson(options =>
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ApiSuccessFilter());   
+})
+.AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });

@@ -21,16 +21,8 @@ public class AdminController : ControllerBase
 
     [HttpPost("[action]")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> UploadImage()
+    public async Task<string> UploadImage()
     {
-        try
-        {
-            return new ObjectResult(await _adminService.UploadImage(Request.Form.Files.First()));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        return await _adminService.UploadImage(Request.Form.Files.First());
     }
 }
