@@ -12,13 +12,11 @@ namespace Api.Controllers;
 [NTypewriterIgnore]
 public class AdminController : ControllerBase
 {
-    UnitOfWork unitOfWork;
-    IStorageService _storageService;
+    private readonly IAdminService _adminService;
 
-    public AdminController(TheFortressContext context, IStorageService storageService)
+    public AdminController(IAdminService adminService)
     {
-        unitOfWork = new UnitOfWork(context);
-        _storageService = storageService;
+        _adminService = adminService;
     }
 
     [HttpPost("[action]")]
@@ -27,17 +25,7 @@ public class AdminController : ControllerBase
     {
         try
         {
-            var formRequest = Request.Form;
-            IFormFile file = formRequest.Files.First();
-
-            if (!file.ValidateFileExtension("jpg", "png", "jpeg"))
-            {
-                return StatusCode(StatusCodes.Status415UnsupportedMediaType);
-            }
-
-            string imageUrl = await _storageService.StoreImageFile(file);
-
-            return new ObjectResult(imageUrl);
+            return new ObjectResult(await _adminService.UploadImage(Request.Form.Files.First()));
         }
         catch (Exception e)
         {

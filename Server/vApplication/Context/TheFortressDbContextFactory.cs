@@ -23,6 +23,5 @@ public class TheFortressDbContextFactory : IDesignTimeDbContextFactory<TheFortre
             .UseSqlServer(connectionString);
 
         return new TheFortressContext(dbContextOptionsBuilder.Options);
-        throw new NotImplementedException();
     }
 }
