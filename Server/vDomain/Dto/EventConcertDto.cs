@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using vDomain.Attributes;
 
-namespace vDomain.Forms;
+namespace vDomain.Dto;
 
 [FormGenerate]
-public class EventConcertFormModel
+public class EventConcertDto
 {
     [Required]
     [MaxLength(100)]

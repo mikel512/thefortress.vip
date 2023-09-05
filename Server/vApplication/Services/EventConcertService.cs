@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using vApplication.Context;
 using vApplication.Extensions;
+using vDomain.Dto;
 using vDomain.Entity;
-using vDomain.Forms;
 using vDomain.Interface;
 
 namespace vApplication.Services;
@@ -85,7 +85,7 @@ public class EventConcertService : IEventConcertService
             throw new Exception();
         }
 
-        EventConcertFormModel? concert = JsonConvert.DeserializeObject<EventConcertFormModel>(request);
+        EventConcertDto? concert = JsonConvert.DeserializeObject<EventConcertDto>(request);
         string flyerUrl = await _storageService.StoreImageFile(file);
 
         EventConcert item = new EventConcert();

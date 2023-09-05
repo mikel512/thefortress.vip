@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace vDomain.Forms;
+namespace vDomain.Dto;
 
 public class CityFormModel
 {

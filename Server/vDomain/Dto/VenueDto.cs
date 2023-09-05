@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using vDomain.Attributes;
 
-namespace vDomain.Forms;
+namespace vDomain.Dto;
 
 [FormGenerate]
-public class VenueFormModel
+public class VenueDto
 {
     [Required]
     [MaxLength(100)]
