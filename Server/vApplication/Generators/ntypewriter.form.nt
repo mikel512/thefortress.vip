@@ -1,8 +1,5 @@
 ﻿{{- config.AddGeneratedFilesToVSProject = false -}}
-{{- for class in data.Classes
-	if class.Namespace != "Api.Forms"  
-		continue
-	end
+{{- for class in data.Classes | Symbols.ThatHaveAttribute("FormGenerate")
 	capture output
 
 	modelName = class.BareName 

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using vDomain.Attributes;
 
 namespace vDomain.Dto;
 
+[FormGenerate]
 public class CityFormModel
 {
     [Required]

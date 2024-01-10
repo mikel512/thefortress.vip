@@ -1,9 +1,5 @@
 {{- config.AddGeneratedFilesToVSProject = false -}}
-{{- for class in data.Classes
-	validNamespace = class.Namespace == "Api.Models" || class.Namespace == "Api.Forms"
-	if !validNamespace  || String.EndsWith(class.Name ,"Context")
-		continue
-	end
+{{- for class in data.Classes | Symbols.WhereNamespaceEndsWith("Dto")
 	capture output
 
 	func convertSnakeCase (baseName)
@@ -18,11 +14,10 @@
 		snakeCase += s | String.Downcase() | String.Append("-") 
 		end
 		ret snakeCase
-	end -}}
-
+end -}}
 // NTypescript generated file
 
-{{for property in class.Properties
+{{-for property in class.Properties
 	if property.IsVirtual 
 		stringProp = property.Type | Type.Unwrap | String.Remove("?") -}}
 import { {{stringProp}} } from './{{convertSnakeCase stringProp }}'

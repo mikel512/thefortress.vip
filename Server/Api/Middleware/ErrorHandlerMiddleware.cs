@@ -3,6 +3,10 @@ using System.Text.Json;
 
 namespace Api.Middleware;
 
+/// <summary>
+/// Handles the exceptions for the app globally.
+/// Taken from: https://jasonwatmore.com/post/2022/01/17/net-6-global-error-handler-tutorial-with-example
+/// </summary>
 public class ErrorHandlerMiddleware
 {
     private readonly RequestDelegate _next;
