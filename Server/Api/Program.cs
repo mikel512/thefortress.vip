@@ -1,3 +1,4 @@
+using Api.Middleware;
 using Api.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -128,6 +129,8 @@ else
 }
 
 app.UseCors("default");
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
