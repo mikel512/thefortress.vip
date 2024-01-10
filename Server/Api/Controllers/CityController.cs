@@ -43,16 +43,8 @@ public class CityController : ControllerBase
     [ReturnType("City")]
     public async Task<IActionResult> GetById(int id)
     {
-        try
-        {
-            var item = await unitOfWork.CityRepository.GetByID(id);
-
-            return new ObjectResult(item);
-        }
-        catch (Exception)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        var item = await unitOfWork.CityRepository.GetByID(id);
+        return new ObjectResult(item);
     }
 
     [HttpPost]
@@ -60,21 +52,13 @@ public class CityController : ControllerBase
     [ReturnType("City")]
     public IActionResult Post([FromBody] City value)
     {
-        try
-        {
-            City item = new City();
-            item.CityName = value.CityName;
-            item.Image = value.Image;
+        City item = new City();
+        item.CityName = value.CityName;
+        item.Image = value.Image;
 
-            unitOfWork.CityRepository.Insert(item);
-            unitOfWork.Save();
-            return new ObjectResult(item);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        unitOfWork.CityRepository.Insert(item);
+        unitOfWork.Save();
+        return new ObjectResult(item);
     }
 
     [HttpPut("{id}")]
@@ -82,22 +66,14 @@ public class CityController : ControllerBase
     [ReturnType("City")]
     public IActionResult Put(int id, [FromBody] City value)
     {
-        try
-        {
-            City item = new City();
-            item.CityId = id;
-            item.CityName = value.CityName;
-            item.Image = value.Image;
+        City item = new City();
+        item.CityId = id;
+        item.CityName = value.CityName;
+        item.Image = value.Image;
 
-            unitOfWork.CityRepository.Update(item);
-            unitOfWork.Save();
-            return new ObjectResult(item); 
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        unitOfWork.CityRepository.Update(item);
+        unitOfWork.Save();
+        return new ObjectResult(item);
     }
 
     [HttpDelete("{id}")]

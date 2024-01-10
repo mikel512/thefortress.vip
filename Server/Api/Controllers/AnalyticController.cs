@@ -20,20 +20,12 @@ public class AnalyticController : ControllerBase
     [HttpGet]
     public async void Get()
     {
-        try
-        {
-            Analytic a = new Analytic();
+        Analytic a = new Analytic();
 
-            a.IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString();
-            a.DateAdded = DateTime.Now;
+        a.IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString();
+        a.DateAdded = DateTime.Now;
 
-            unitOfWork.AnalyticRepository.Insert(a);
-            unitOfWork.Save();
-
-        }
-        catch(Exception ex)
-        {
-            //return StatusCode(500); 
-        }
+        unitOfWork.AnalyticRepository.Insert(a);
+        unitOfWork.Save();
     }
 }

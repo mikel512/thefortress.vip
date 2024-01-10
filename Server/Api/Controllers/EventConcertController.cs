@@ -71,7 +71,7 @@ public class EventConcertController : ControllerBase
     public async Task<EventConcert> PostWithFlyerFile()
     {
         var formRequest = Request.Form;
-        return await _eventConcertService.SaveWithFlyer(formRequest.FirstOrDefault().Value, formRequest.Files.FirstOrDefault()); 
+        return await _eventConcertService.SaveWithFlyer(formRequest.FirstOrDefault().Value, formRequest.Files.FirstOrDefault());
     }
 
 
@@ -80,29 +80,21 @@ public class EventConcertController : ControllerBase
     [ReturnType("EventConcert")]
     public IActionResult Put(int id, [FromBody] EventConcert concert)
     {
-        try
-        {
-            //EventConcert item = new EventConcert();
-            //item.EventConcertId = id;
-            //item.EventName = concert.EventName;
-            //item.EventDate = concert.EventDate;
-            //item.EventTime = concert.EventTime;
-            //item.Details = concert.Details;
-            //item.Tickets = concert.Tickets;
-            //item.Flyer = concert.Flyer;
-            //item.Status = concert.Status;
+        //EventConcert item = new EventConcert();
+        //item.EventConcertId = id;
+        //item.EventName = concert.EventName;
+        //item.EventDate = concert.EventDate;
+        //item.EventTime = concert.EventTime;
+        //item.Details = concert.Details;
+        //item.Tickets = concert.Tickets;
+        //item.Flyer = concert.Flyer;
+        //item.Status = concert.Status;
 
-            //unitOfWork.EventConcertRepository.Update(item);
-            //unitOfWork.Save();
-            return Ok();
-            //return new ObjectResult(item);
+        //unitOfWork.EventConcertRepository.Update(item);
+        //unitOfWork.Save();
+        return Ok();
+        //return new ObjectResult(item);
 
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
     }
 
     [HttpDelete("{id}")]
@@ -110,17 +102,9 @@ public class EventConcertController : ControllerBase
     [ReturnType("any")]
     public IActionResult Delete(int id)
     {
-        try
-        {
-            //unitOfWork.EventConcertRepository.Delete(id);
-            //unitOfWork.Save();
+        //unitOfWork.EventConcertRepository.Delete(id);
+        //unitOfWork.Save();
 
-            return Ok();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
+        return Ok();
     }
 }
